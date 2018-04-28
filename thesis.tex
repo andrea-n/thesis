@@ -64,8 +64,7 @@
                      span multiple paragraphs.},
     thanks        = {These are the acknowledgements for my thesis, which can
 
-                     span multiple paragraphs.},
-    bib           = bibliography.bib,
+                     span multiple paragraphs.}
 }
 \usepackage{makeidx}      %% The `makeidx` package contains
 \makeindex                %% helper commands for index typesetting.
@@ -86,6 +85,8 @@
   stringstyle     = \color{teal},%
   commentstyle    = \itshape\color{magenta}}
 \usepackage{floatrow} %% Putting captions above tables
+\usepackage[backend=bibtex,style=verbose-trad1]{biblatex}
+\bibliography{bibliography} 
 \floatsetup[table]{capposition=top}
 \begin{document}
 \chapter{Úvod}
@@ -115,5 +116,6 @@ Kybernetický polygon (KYPO) je projekt vyvíjený bezpečnostním týmem Masary
 \chapter{Závěr}
 \section{the available}
 \subsection{sectioning}
+\printbibliography
 
 \end{document}
