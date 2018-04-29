@@ -85,16 +85,27 @@
   stringstyle     = \color{teal},%
   commentstyle    = \itshape\color{magenta}}
 \usepackage{floatrow} %% Putting captions above tables
-\usepackage[backend=bibtex,style=verbose-trad1]{biblatex}
+\usepackage[backend=bibtex]{biblatex}
 \bibliography{bibliography} 
 \floatsetup[table]{capposition=top}
 \begin{document}
 \chapter{Úvod}
 
 \chapter{Kybernetický polygon}
-Kybernetický polygon (KYPO) je projekt vyvíjený bezpečnostním týmem Masarykovy univerzity CSIRT-MU. Tento projekt se zabývá výzkumem a vývojem unikátního prostředí pro analýzu hrozeb ohrožujících bezpečnost kritických informačních infrastruktur.\cite{kypocz}
-\section{Capture the flag}
-\subsection{Semináře}
+Kybernetický polygon (KYPO) je projekt bezpečnostního týmu Masarykovy univerzity CSIRT-MU. Zabývá se výzkumem a vývojem unikátního prostředí pro analýzu hrozeb ohrožujících bezpečnost kritických informačních infrastruktur. Prostředí KYPO je virtualizační platforma postavená na cloudu umožňující simulace různých kybernetických útoků proti libovolným infrastrukturám. Lze vytvářet různorodé scénáře, které mohou obsahovat rozsáhlé počítačovové sítě, v nich běžící služby a aplikace. \cite{kypocz}
+
+\section{Capture the Flag}
+Platforma KYPO se využívá k výuce v oblasti bezpečnosti a k bezpečnostním školením. Do této oblasti patří bezpečnostní hry s názvem Capture the Flag (CtF). Jedná se o metodu aktivního učení, kde studenti přímo využívají své znalosti. CtF hry jsou zaměřeny na získávání a prohlubování znalostí v oblasti penetračního testování. \footnote{Penetrační testování je proces, při kterém se pomocí současných útočných technik odhalují a využívají zranitelnosti systému, které by jinak mohli použít skuteční útočníci.} \cite{lessons2015}\par
+Základní myšlenka vychází z klasické venkovní hry s tímto názvem, kde spolu soupeří dva týmy, jejichž úkolem je zajmout nepřátelskou vlajku a zároveň ubránit svou vlastní. V bezpečnostních CtF hrách jde o využití zranitelností systému a vlajka (flag) je ve formě unikátního textového řetězce. \cite{Masarik2017thesis}\par
+Z hlediska útoku a obrany lze tyto hry úpravou pravidel rozdělit na tři typy:
+\begin{itemize}
+  \item Attack-only – založený na ofenzivních úlohách, kde tým je v pozici útočníka na danou infrastrukturu,
+  \item Attack-defense – klasické schéma, týmy útočí na sítě protivníků a zároveň brání svou vlastní,
+  \item Defense-only – s daným scénářem, kde účastníci svou infrastrukturu brání.
+\end{itemize}
+
+\subsection{Návrh CtF her v KYPO}
+
 
 \chapter{Návrh vizualizace}
 
