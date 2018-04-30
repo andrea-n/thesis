@@ -57,8 +57,8 @@
     advisor       = {RNDr. Radek Ošlejšek, Ph.D.},
     title         = {Vizualizace pro dohled a analýzu bezpečnostních her},
     TeXtitle      = {Vizualizace pro dohled a~analýzu bezpečnostních her},
-    keywords      = {KYPO, Capture the flag...},
-    TeXkeywords   = {KYPO, Capture the flag, \ldots},
+    keywords      = {KYPO, Capture the flag, CtF, bezpečnostní hry, vizualizace, D3.js, Angular, ...},
+    TeXkeywords   = {KYPO, Capture the flag, CtF, bezpečnostní hry, vizualizace, D3.js, Angular, \ldots},
     abstract      = {This is the abstract of my thesis, which can
 
                      span multiple paragraphs.},
@@ -99,15 +99,19 @@ Prostředí KYPO je virtualizační platforma postavená na cloudu umožňujíc�
 \section{Capture the Flag}
 Platforma KYPO se mimo jiné využívá k výuce v oblasti bezpečnosti a k bezpečnostním školením. Vedle čistě obranných cvičení Cyber Defence eXercises (CDX) do této oblasti patří bezpečnostní hry s názvem Capture the Flag (CtF). \cite{ctfDesign} Jedná se o metodu aktivního učení, kde studenti přímo využívají své znalosti. CtF hry jsou zaměřeny na získávání a prohlubování znalostí v oblasti penetračního testování. \footnote{Penetrační testování je proces, při kterém se pomocí současných útočných technik odhalují a využívají zranitelnosti systému, které by jinak mohli použít skuteční útočníci.} Účastníci jsou postaveni do role útočníka, což by jim také mělo pomoci při předvídání případných útoků. \cite{lessons2015, ctfDesign}\par
 Základní myšlenka vychází z klasické venkovní hry s tímto názvem, kde spolu soupeří dva týmy, jejichž úkolem je zajmout nepřátelskou vlajku a zároveň ubránit svou vlastní. V bezpečnostních CtF hrách jde o využití zranitelností systému a vlajka (flag) je ve formě unikátního textového řetězce.\par
-Z hlediska zaměření se na útok nebo obranu lze tyto hry úpravou pravidel rozdělit na tři typy: \cite{Masarik2017thesis, ctfDesign}:
+Z hlediska zaměření se na útok nebo obranu mohou mít tyto hry různé modifikace: \cite{Dankovcikova2015thesis, ctfDesign}
 \begin{itemize}
-  \item Attack-only – založený na ofenzivních úlohách, kde tým je v pozici útočníka na danou infrastrukturu,
-  \item Attack-defense – klasické schéma, týmy útočí na sítě protivníků a zároveň brání svou vlastní,
-  \item Defense-only – s daným scénářem, kde účastníci svou infrastrukturu brání.
+  \item pouze útok – založené na ofenzivních úlohách, kde tým je v pozici útočníka na danou infrastrukturu,
+  \item kombinace útoku a obrany – klasické schéma, týmy útočí na sítě protivníků a zároveň brání svou vlastní,
+  \item obrana nebo útok – kde jeden tým pouze brání a druhý útočí.
 \end{itemize}
 Útočná varianta je snadno škálovatelná a může se jí zúčastnit libovolný počet týmů. Účastníci následují daný scénář a hra bývá rozdělena do několika částí. Ty mohou být v závislosti na zvoleném formátu procházeny postupně, nebo volně podle výběru.\par
-Oproti tomu druhá varianta Attack-defence je vhodná pro menší počet týmů. Týmy dostanou své vlastní podsítě a čas na navrhutí obrany a útoků. Body pak získávají za nalezené flagy i obranu své sítě.\cite{Masarik2017thesis}
-\subsection{Návrh CtF her v KYPO}
+Oproti tomu varinta s obranou i útokem je vhodná pro menší počet týmů. Každý tým dostane svou vlastní síť a čas na navrhutí obrany a útoků. Body pak získávají za nalezené vlajky i obranu své sítě.\cite{Masarik2017thesis}
+
+\section{Capture the Flag hry v KYPO}
+Pro výukové účely byl do KYPO implementován modul pro Ctf hry. Pomocí portletů v Liferay portálu mohou vyučující hry spravovat a studenti získají přístup k rozhraní, které je celým procesem hry provede bez potřebných zásahů vyučujících.
+\subsection{Návrh her}
+
 liferay portlety - pohledy
 cíl hry,  attack only
 
