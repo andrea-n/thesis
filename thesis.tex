@@ -98,7 +98,7 @@ Prostředí KYPO je virtualizační platforma postavená na cloudu umožňujíc�
 %% sandboxy nejsou dynamicky vytvářené sítě
 
 \section{Capture the Flag}
-Platforma KYPO se mimo jiné využívá k výuce v oblasti bezpečnosti a k bezpečnostním školením. Vedle čistě obranných cvičení Cyber Defence eXercises (CDX) do této oblasti patří bezpečnostní hry s názvem Capture the Flag (CtF). \cite{ctfDesign} Jedná se o metodu aktivního učení, kde studenti přímo využívají své znalosti. CtF hry jsou zaměřeny na získávání a prohlubování znalostí v oblasti penetračního testování. \footnote{Penetrační testování je proces, při kterém se pomocí současných útočných technik odhalují a využívají zranitelnosti systému, které by jinak mohli použít skuteční útočníci.} Účastníci jsou postaveni do role útočníka, což by jim také mělo pomoci při předvídání případných útoků. \cite{lessons2015, ctfDesign}\par
+Platforma KYPO se mimo jiné využívá k výuce v oblasti bezpečnosti a k bezpečnostním školením. Vedle čistě obranných cvičení Cyber Defence eXercises (CDX) do této oblasti patří bezpečnostní hry s názvem Capture the Flag (CtF). \cite{ctfDesign} Jedná se o metodu aktivního učení, kde studenti přímo využívají své znalosti. CtF hry jsou zaměřeny na získávání a prohlubování znalostí v oblasti penetračního testování\footnote{Penetrační testování je proces, při kterém se pomocí současných útočných technik odhalují a využívají zranitelnosti systému, které by jinak mohli použít skuteční útočníci.}. Účastníci jsou postaveni do role útočníka, což by jim také mělo pomoci při předvídání případných útoků. \cite{lessons2015, ctfDesign}\par
 Základní myšlenka vychází z klasické venkovní hry s tímto názvem, kde spolu soupeří dva týmy, jejichž úkolem je zajmout nepřátelskou vlajku a zároveň ubránit svou vlastní. V bezpečnostních CtF hrách jde o využití zranitelností systému a vlajka (flag) je ve formě unikátního textového řetězce.\par
 Z hlediska zaměření se na útok nebo obranu mohou mít tyto hry různé modifikace: \cite{Dankovcikova2015thesis, ctfDesign}
 \begin{itemize}
@@ -112,12 +112,20 @@ Oproti tomu varinta s obranou i útokem je vhodná pro menší počet týmů. Ka
 \section{Capture the Flag hry v KYPO}
 Pro výukové účely byl do KYPO implementován modul pro vytváření a běh Ctf her. Pomocí portletů v Liferay portálu mohou vyučující hry spravovat a studenti získají přístup k rozhraní, které zajistí jejich průchod skrze hru. Také byl vytvořen prototyp hry zaměřený na výuku penetračního testování.\par
 Při návrhu je třeba brát v úvahu nevyváženost ve znalostech a schopnostech jednotlivých hráčů či týmů. Ta může způsobit, že pro některé účastníky bude hra příliš obtížná nebo příliš snadná. Z tohoto důvodu je vhodné hru rozdělit na menší úseky a také zpřístupnit různé nápovědy, kterých budou moci hráči využít. Dále bývá žádoucí, aby hra proběhla s minimem potřebných zásahů vyučujících a úlohy jako vysvětlení pravidel, zadání úkolu či vyhodnocení byly v režii platformy.\cite{ctfDesign} 
-\subsection{Návrh}
+\subsection{Návrh} \label{gameDesign}
 Capture the Flag jsou v Kybernetickém polygonu navrženy jako útočné (attack-only) a může je hrát jak jeden samotný hráč, tak několik lidí v týmu, pro začátečníky může být hra v týmu vhodnější. Spuštěním více instancí paralelně lze hru koncipovat jako soutěž. Hry jsou rozděleny do několika po sobě jdoucích úrovní s relativně zvyšující se obtížností, zpravidla je jich menší počet (3–5). Každá tato úroveň má definovaný cíl, např. krádež dat ze vzdáleného serveru. Pro dokončení úrovně musí hráč nalézt správný flag, který je ve formě krátkého textového řetězce, typicky je to kontrolní součet nalezených dat. Za nalezení tohoto řešení hráči obdrží odpovídající počet bodů.\par
 %% lze hru koncipovat jako soutěž - je to správně?
 Na začátku hry se týmy seznámí s pravidly a poté vstoupí do první úrovně. Se vstupem do úrovně se zpřístupní její aktuální zadání společně s polem pro nalezené řešení. Na vyřešení úrovně má tým časový limit, který může s bodovou penalizací překročit. Tento po sekundách odpočítávaný limit má přiblížit simulaci reálným situacím, kde čas může hrát roli. Zároveň poskytuje hráčům určitý časový odhad a srovnání náročnosti s ostatními úrovněmi.\par
 Pro případ, že tým již nemá dostatek času nebo má potíže s vyřešením úkolu, je v každé úrovni k dispozici určitý počet nápověd za cenu bodové penalizace. Nápovědy jsou volitelné a jejich výběr je možný na základě zobrazené informace o jejich povaze, např. jaký nástroj nebo příkaz má být zvolen či jak má být nástroj použit. V případě, že ani s využitím nápověd tým nedokáže úroveň dokončit, má ještě možnost zobrazit si její řešení. Dále je týmu umožněno přeskočit úroveň a přejít do další nebo ukončit hru. Co se týká externích zdrojů nebo poznámek, jejich použití je v reálných situacích běžné, a proto může být jejich využití během hry povoleno. \cite{ctfDesign}\par
 \subsection{Implementace}
+Ctf hry jsou ve webovém portálu KYPO implementovány jako nový modul a skrze jeho portlety jsou poskytnuty pohledy pro tyto uživatelské role:
+\begin{itemize}
+  \item vyučující, který potřebuje hry vytvářet a spravovat,
+  \item student, který potřebuje hrou projít.
+\end{itemize}
+Vyučující používá pro správu administrátorský portlet. Ten umožňuje přidávání, modifikaci a odstraňování jak her, tak i úrovní v rámci dané hry. Také lze upravovat úvod nebo pravidla hry a u jednotlivých úrovní je možné měnit jejich zadání, časový limit, bodové hodnocení a nápovědy s jejich penalizací. Mimo něj však musí vyučující poskytnout topologii sítě a připravit zařízení ve hře včetně operačního systému, aplikací a služeb. \cite{ctfDesign, Dankovcikova2015thesis}\par
+Student používá pro přístup do hry odlišný portlet reprezentující herní rozhraní, který poskytuje funkcionalitu popsanou v předchozí podkapitole \ref{gameDesign}.\par
+Přístupy k zařízením v průběhu hry zajišťuje VNC portlet, který je jedním ze základních modulů portálu. VNC portlet dovoluje sdílení obrazovky virtuálních zařízení skrze VNC\footnote{Virtual Network Computing (VNC) je systém umožňující vzdálené připojení ke grafickému uživatelskému rozhraní.} spojení. Pomocí něj může vyučující přistupovat k sandboxům ve hře, což je užitečné zvláště v případech, kdy vyučující a studenti nejsou společně v jedné místnosti.\cite{ctfDesign}
 \subsection{Uživatelské testování}
 
 
@@ -132,6 +140,7 @@ Pro případ, že tým již nemá dostatek času nebo má potíže s vyřešení
 \chapter{Implementace}
 výběr grafu a jeho datová struktura
 
+%% dát načítání na začátek nebo později?
 \section{Načítání dat z CSV souboru}
 \subsection{Struktura dat}
 \subsection{Zpracování dat}
