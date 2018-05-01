@@ -95,6 +95,7 @@
 Kybernetický polygon (KYPO) je projekt bezpečnostního týmu Masarykovy univerzity CSIRT-MU. Zabývá se výzkumem a vývojem unikátního prostředí pro analýzu hrozeb ohrožujících bezpečnost kritických informačních infrastruktur.\cite{kypocz}\par
 Prostředí KYPO je virtualizační platforma postavená na cloudu umožňující simulace různých kybernetických útoků na libovolné infrastruktury. Lze vytvářet různorodé scénáře, které mohou obsahovat rozsáhlé počítačovové sítě virtuálních zařízení. Tyto dynamicky vytvářené sítě, tzv. sandboxy, mohou být libovolného rozsahu, na jejich zařízeních mohou běžet různé operační systémy a aplikace a jsou izolovány mezi sebou i od okolního světa. \cite{ctfDesign}
 %% izolovány nebo izolovatelné?
+%% sandboxy nejsou dynamicky vytvářené sítě
 
 \section{Capture the Flag}
 Platforma KYPO se mimo jiné využívá k výuce v oblasti bezpečnosti a k bezpečnostním školením. Vedle čistě obranných cvičení Cyber Defence eXercises (CDX) do této oblasti patří bezpečnostní hry s názvem Capture the Flag (CtF). \cite{ctfDesign} Jedná se o metodu aktivního učení, kde studenti přímo využívají své znalosti. CtF hry jsou zaměřeny na získávání a prohlubování znalostí v oblasti penetračního testování. \footnote{Penetrační testování je proces, při kterém se pomocí současných útočných technik odhalují a využívají zranitelnosti systému, které by jinak mohli použít skuteční útočníci.} Účastníci jsou postaveni do role útočníka, což by jim také mělo pomoci při předvídání případných útoků. \cite{lessons2015, ctfDesign}\par
@@ -112,34 +113,54 @@ Oproti tomu varinta s obranou i útokem je vhodná pro menší počet týmů. Ka
 Pro výukové účely byl do KYPO implementován modul pro vytváření a běh Ctf her. Pomocí portletů v Liferay portálu mohou vyučující hry spravovat a studenti získají přístup k rozhraní, které zajistí jejich průchod skrze hru. Také byl vytvořen prototyp hry zaměřený na výuku penetračního testování.\par
 Při návrhu je třeba brát v úvahu nevyváženost ve znalostech a schopnostech jednotlivých hráčů či týmů. Ta může způsobit, že pro některé účastníky bude hra příliš obtížná nebo příliš snadná. Z tohoto důvodu je vhodné hru rozdělit na menší úseky a také zpřístupnit různé nápovědy, kterých budou moci hráči využít. Dále bývá žádoucí, aby hra proběhla s minimem potřebných zásahů vyučujících a úlohy jako vysvětlení pravidel, zadání úkolu či vyhodnocení byly v režii platformy.\cite{ctfDesign} 
 \subsection{Návrh}
-Capture the Flag jsou v Kybernetickém polygonu navrženy jako útočné (attack-only) a může je hrát jak jeden samotný hráč, tak několik lidí v týmu, pro začátečníky může být hra v týmu vhodnější. Spuštěním více instancí paralelně lze hru koncipovat jako soutěž. Hry jsou rozděleny do několika po sobě jdoucích úrovní s relativně zvyšující se obtížností, zpravidla je jich menší počet (3–5). Každá tato úroveň má definovaný cíl, např. krádež dat ze vzdáleného serveru. Pro dokončení úrovně musí hráč nalézt správný flag, který je ve formě krátkého textového řetězce, typicky je to kontrolní součet nalezených dat. Za nalezení tohoto řešení hráči obdrží odpovídající počet bodů. \cite{ctfDesign}\par
+Capture the Flag jsou v Kybernetickém polygonu navrženy jako útočné (attack-only) a může je hrát jak jeden samotný hráč, tak několik lidí v týmu, pro začátečníky může být hra v týmu vhodnější. Spuštěním více instancí paralelně lze hru koncipovat jako soutěž. Hry jsou rozděleny do několika po sobě jdoucích úrovní s relativně zvyšující se obtížností, zpravidla je jich menší počet (3–5). Každá tato úroveň má definovaný cíl, např. krádež dat ze vzdáleného serveru. Pro dokončení úrovně musí hráč nalézt správný flag, který je ve formě krátkého textového řetězce, typicky je to kontrolní součet nalezených dat. Za nalezení tohoto řešení hráči obdrží odpovídající počet bodů.\par
 %% lze hru koncipovat jako soutěž - je to správně?
 Na začátku hry se týmy seznámí s pravidly a poté vstoupí do první úrovně. Se vstupem do úrovně se zpřístupní její aktuální zadání společně s polem pro nalezené řešení. Na vyřešení úrovně má tým časový limit, který může s bodovou penalizací překročit. Tento po sekundách odpočítávaný limit má přiblížit simulaci reálným situacím, kde čas může hrát roli. Zároveň poskytuje hráčům určitý časový odhad a srovnání náročnosti s ostatními úrovněmi.\par
-Pro případ, že tým již nemá dostatek času nebo má potíže s vyřešením úkolu, je v každé úrovni k dispozici určitý počet nápověd za cenu bodové penalizace. Nápovědy jsou volitelné a jejich výběr je možný na základě zobrazené informace o jejich povaze, např. jaký nástroj nebo příkaz má být zvolen či jak má být nástroj použit. V případě, že ani s využitím nápověd tým nedokáže úroveň dokončit, má ještě možnost zobrazit si její řešení. Dále je týmu umožněno přeskočit úroveň a přejít do další nebo ukončit hru. Co se týká externích zdrojů nebo poznámek, jejich použití je v reálných situacích běžné, a proto může být jejich využití během hry povoleno. \par
+Pro případ, že tým již nemá dostatek času nebo má potíže s vyřešením úkolu, je v každé úrovni k dispozici určitý počet nápověd za cenu bodové penalizace. Nápovědy jsou volitelné a jejich výběr je možný na základě zobrazené informace o jejich povaze, např. jaký nástroj nebo příkaz má být zvolen či jak má být nástroj použit. V případě, že ani s využitím nápověd tým nedokáže úroveň dokončit, má ještě možnost zobrazit si její řešení. Dále je týmu umožněno přeskočit úroveň a přejít do další nebo ukončit hru. Co se týká externích zdrojů nebo poznámek, jejich použití je v reálných situacích běžné, a proto může být jejich využití během hry povoleno. \cite{ctfDesign}\par
 \subsection{Implementace}
 \subsection{Uživatelské testování}
 
 
 \chapter{Návrh vizualizace}
 
-
 \chapter{Použité technologie}
 \section{D3.js}
-\subsection{sectioning}
 \section{Bootstrap}
-\subsection{sectioning}
 \section{Angular}
-\subsection{sectioning}
 \section{Liferay}
-\subsection{sectioning}
 
 \chapter{Implementace}
-\section{the available}
-\subsection{sectioning}
+výběr grafu a jeho datová struktura
+
+\section{Načítání dat z CSV souboru}
+\subsection{Struktura dat}
+\subsection{Zpracování dat}
+\subsection{Služba LoadCsvDataService}
+
+\section{Načítání dat přes/skrze/pomocí REST API}
+\subsection{Struktura dat}
+\subsection{Zpracování dat}
+\subsection{Služba LoadDataService}
+
+\section{Struktura vizualizace}
+\subsection{Vizualizace časového plánu}
+odhad, timeline
+\subsection{Vizualizace herních úrovní}
+\subsection{Události}
+\subsection{Sloupce s údaji}
+
+\section{Ovládací prvky}
+\subsection{Pohledy}
+\subsection{Řazení}
+\subsection{Filtrování}
+\subsection{Zoom}
+
+\section{Konfigurace}
+
+\section{Testy}
 
 \chapter{Závěr}
-\section{the available}
-\subsection{sectioning}
+
 \printbibliography
 
 \end{document}
