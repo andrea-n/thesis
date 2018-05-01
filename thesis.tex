@@ -109,17 +109,14 @@ Z hlediska zaměření se na útok nebo obranu mohou mít tyto hry různé modif
 Oproti tomu varinta s obranou i útokem je vhodná pro menší počet týmů. Každý tým dostane svou vlastní síť a čas na navrhutí obrany a útoků. Body pak získávají za nalezené vlajky i obranu své sítě.\cite{Masarik2017thesis}
 
 \section{Capture the Flag hry v KYPO}
-Pro výukové účely byl do KYPO implementován modul pro Ctf hry. Pomocí portletů v Liferay portálu mohou vyučující hry spravovat a studenti získají přístup k rozhraní, které je celým procesem hry provede bez potřebných zásahů vyučujících.
+Pro výukové účely byl do KYPO implementován modul pro vytváření a běh Ctf her. Pomocí portletů v Liferay portálu mohou vyučující hry spravovat a studenti získají přístup k rozhraní, které je celým procesem provede bez potřebných zásahů vyučujících. Také byl vytvořen prototyp hry zaměřený na výuku penetračního testování.
 \subsection{Návrh her}
+Capture the Flag jsou v Kybernetickém polygonu navrženy jako útočné (attack-only) a může je hrát jak jeden samotný hráč, tak několik lidí v týmu. Jsou rozděleny do několika po sobě jdoucích úrovní s relativně zvyšující se obtížností, zpravidla je jich menší počet (3–5). Každá tato úroveň má definovaný cíl, např. krádež dat ze vzdáleného serveru. Pro dokončení úrovně musí hráč nalézt správný flag, který je ve formě krátkého textového řetězce, typicky je to kontrolní součet nalezených dat. Za nalezení tohoto řešení hráči obdrží odpovídající počet bodů. \cite{ctfDesign}\par
+Na začátku hry se týmy seznámí s pravidly a poté vstoupí do první úrovně. Se vstupem do úrovně se zpřístupní její aktuální zadání společně s polem pro nalezené řešení. Na vyřešení úrovně má tým časový limit, který může s bodovou penalizací překročit. Tento po sekundách odpočítávaný limit má přiblížit simulaci reálným situacím, kde čas může hrát roli. Zároveň poskytuje hráčům určitý časový odhad a srovnání náročnosti s ostatními úrovněmi.\par
+Pro případ, že tým již nemá dostatek času nebo má potíže s vyřešením úkolu, je v každé úrovni k dispozici určitý počet nápověd za cenu bodové penalizace. Nápovědy jsou volitelné a výběr je možný na základě zobrazené informace o jejich povaze, např. jaký nástroj nebo příkaz má být zvolen či jak má být použit. V případě, že ani s využitím nápověd tým nedokáže úroveň dokončit, má ještě možnost zobrazit si její řešení. Dále je týmu umožněno přeskočit úroveň a přejít do další nebo ukončit hru.\par
 
-liferay portlety - pohledy
-cíl hry,  attack only
 
-struktura hry - levely, obrázek
-události
-logování událostí
-byly přidány vylepšení, otázky jak to pomohlo
-dotazníky
+
 
 
 \chapter{Návrh vizualizace}
