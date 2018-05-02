@@ -116,7 +116,7 @@ Při návrhu je třeba brát v úvahu nevyváženost ve znalostech a schopnostec
 Capture the Flag jsou v Kybernetickém polygonu navrženy jako útočné (attack-only) a může je hrát jak jeden samotný hráč, tak několik lidí v týmu, pro začátečníky může být hra v týmu vhodnější. Spuštěním více instancí paralelně lze hru koncipovat jako soutěž. Hry jsou rozděleny do několika po sobě jdoucích úrovní s relativně zvyšující se obtížností, zpravidla je jich menší počet (3–5). Každá tato úroveň má definovaný cíl, např. krádež dat ze vzdáleného serveru. Pro dokončení úrovně musí hráč nalézt správný flag, který je ve formě krátkého textového řetězce, typicky je to kontrolní součet nalezených dat. Za nalezení tohoto řešení hráči obdrží odpovídající počet bodů.\par
 %% lze hru koncipovat jako soutěž - je to správně?
 Na začátku hry se týmy seznámí s pravidly a poté vstoupí do první úrovně. Se vstupem do úrovně se zpřístupní její aktuální zadání společně s polem pro nalezené řešení. Na vyřešení úrovně má tým časový limit, který může s bodovou penalizací překročit. Tento po sekundách odpočítávaný limit má přiblížit simulaci reálným situacím, kde čas může hrát roli. Zároveň poskytuje hráčům určitý časový odhad a srovnání náročnosti s ostatními úrovněmi.\par
-Pro případ, že tým již nemá dostatek času nebo má potíže s vyřešením úkolu, je v každé úrovni k dispozici určitý počet nápověd za cenu bodové penalizace. Nápovědy jsou volitelné a jejich výběr je možný na základě zobrazené informace o jejich povaze, např. jaký nástroj nebo příkaz má být zvolen či jak má být nástroj použit. V případě, že ani s využitím nápověd tým nedokáže úroveň dokončit, má ještě možnost zobrazit si její řešení. Dále je týmu umožněno přeskočit úroveň a přejít do další nebo ukončit hru. Co se týká externích zdrojů nebo poznámek, jejich použití je v reálných situacích běžné, a proto může být jejich využití během hry povoleno. \cite{ctfDesign}\par
+Pro případ, že tým již nemá dostatek času nebo má potíže s vyřešením úkolu, je v každé úrovni k dispozici určitý počet nápověd za cenu bodové penalizace. Nápovědy jsou volitelné a jejich výběr je možný na základě zobrazené informace o jejich povaze, např. jaký nástroj nebo příkaz má být zvolen či jak má být nástroj použit. Bodová penalizace se může pro různé nápovědy lišit. V případě, že ani s využitím nápověd tým nedokáže úroveň dokončit, má ještě možnost zobrazit si její řešení. Dále je týmu umožněno přeskočit úroveň a přejít do další nebo ukončit hru. Co se týká externích zdrojů nebo poznámek, jejich použití je v reálných situacích běžné, a proto může být jejich využití během hry povoleno. \cite{ctfDesign}\par
 \subsection{Implementace}
 Ctf hry jsou ve webovém portálu KYPO implementovány jako nový modul a skrze jeho portlety jsou poskytnuty pohledy pro tyto uživatelské role:
 \begin{itemize}
@@ -124,10 +124,13 @@ Ctf hry jsou ve webovém portálu KYPO implementovány jako nový modul a skrze 
   \item student, který potřebuje hrou projít.
 \end{itemize}
 Vyučující používá pro správu administrátorský portlet. Ten umožňuje přidávání, modifikaci a odstraňování jak her, tak i úrovní v rámci dané hry. Také lze upravovat úvod nebo pravidla hry a u jednotlivých úrovní je možné měnit jejich zadání, časový limit, bodové hodnocení a nápovědy s jejich penalizací. Mimo něj však musí vyučující poskytnout topologii sítě a připravit zařízení ve hře včetně operačního systému, aplikací a služeb. \cite{ctfDesign, Dankovcikova2015thesis}\par
+%% vytváří typologii opravdu mimo portlet?
 Student používá pro přístup do hry odlišný portlet reprezentující herní rozhraní, který poskytuje funkcionalitu popsanou v předchozí podkapitole \ref{gameDesign}.\par
 Přístupy k zařízením v průběhu hry zajišťuje VNC portlet, který je jedním ze základních modulů portálu. VNC portlet dovoluje sdílení obrazovky virtuálních zařízení skrze VNC\footnote{Virtual Network Computing (VNC) je systém umožňující vzdálené připojení ke grafickému uživatelskému rozhraní.} spojení. Pomocí něj může vyučující přistupovat k sandboxům ve hře, což je užitečné zvláště v případech, kdy vyučující a studenti nejsou společně v jedné místnosti.\cite{ctfDesign}
+%% je info o VNC portletu správně?
+\subsection{Prototyp}
+Za účelem testování nového modulu byl vytvořen prototyp hry pro výuku penetračního testování. Prototyp zahrnuje čtyři úrovně s konečným cílem NTP DoS amplification\footnote{NTP amplification je DDoS útok, při kterém útočník využije Network Time Protocol (NTP) server k zahlcení cíle útoku. Princip „zesílení“ spočívá v tom, že požadavky zaslané na NTP server s podvrženou zdrojovou IP adresou, která je současně IP adresou cíle, jsou menší než vrácené odpovědi.} útoku.
 \subsection{Uživatelské testování}
-
 
 \chapter{Návrh vizualizace}
 
