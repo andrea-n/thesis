@@ -124,12 +124,28 @@ Ctf hry jsou ve webovém portálu KYPO implementovány jako nový modul a skrze 
   \item student, který potřebuje hrou projít.
 \end{itemize}
 Vyučující používá pro správu administrátorský portlet. Ten umožňuje přidávání, modifikaci a odstraňování jak her, tak i úrovní v rámci dané hry. Také lze upravovat úvod nebo pravidla hry a u jednotlivých úrovní je možné měnit jejich zadání, časový limit, bodové hodnocení a nápovědy s jejich penalizací. Mimo něj však musí vyučující poskytnout topologii sítě a připravit zařízení ve hře včetně operačního systému, aplikací a služeb. \cite{ctfDesign, Dankovcikova2015thesis}\par
-%% vytváří typologii opravdu mimo portlet?
+%% vytváří typologii opravdu mimo portlet? ano
 Student používá pro přístup do hry odlišný portlet reprezentující herní rozhraní, který poskytuje funkcionalitu popsanou v předchozí podkapitole \ref{gameDesign}.\par
 Přístupy k zařízením v průběhu hry zajišťuje VNC portlet, který je jedním ze základních modulů portálu. VNC portlet dovoluje sdílení obrazovky virtuálních zařízení skrze VNC\footnote{Virtual Network Computing (VNC) je systém umožňující vzdálené připojení ke grafickému uživatelskému rozhraní.} spojení. Pomocí něj může vyučující přistupovat k sandboxům ve hře, což je užitečné zvláště v případech, kdy vyučující a studenti nejsou společně v jedné místnosti.\cite{ctfDesign}
 %% je info o VNC portletu správně?
 \subsection{Prototyp}
-Za účelem testování nového modulu byl vytvořen prototyp hry pro výuku penetračního testování. Prototyp zahrnuje čtyři úrovně s konečným cílem NTP DoS amplification\footnote{NTP amplification je DDoS útok, při kterém útočník využije Network Time Protocol (NTP) server k zahlcení cíle útoku. Princip „zesílení“ spočívá v tom, že požadavky zaslané na NTP server s podvrženou zdrojovou IP adresou, která je současně IP adresou cíle, jsou menší než vrácené odpovědi.} útoku.
+Za účelem testování nového modulu byl vytvořen prototyp hry pro výuku penetračního testování. Prototyp zahrnuje čtyři úrovně s konečným cílem přípravy NTP DDoS amplification\footnote{NTP amplification je DDoS útok, při kterém útočník využije Network Time Protocol (NTP) server k zahlcení cíle útoku. Princip „zesílení“ spočívá v tom, že požadavky zaslané na NTP server s podvrženou zdrojovou IP adresou, která je současně IP adresou cíle, jsou menší než vrácené odpovědi.} útoku.\par
+Na začátku hry vidí účastníci jen topologii sítě bez podrobnějších informací a mají přístup k jedinému zařízení. Hra poté pokračuje čtyřmi úrovněmi zaměřenými na:
+\begin{itemize}
+  \item průzkum síťových služeb,
+  \item vyhledání neveřejných informací,
+  \item využití zranitelnosti serveru,
+  \item přípravu DDoS amplification útoku.
+\end{itemize}
+Úkolem v první úrovni je prozkoumat síťové porty a zadat správný flag, což je seznam otevřených síťových portů. Hráčům je doporučen nástroj, který by měli použít, a dále jsou k dispozici dvě volitelné nápovědy. Jedna naznačí cíl skenování a užitečné vlastnosti nástroje, druhá zobrazí potřebný příkaz.\par
+V druhé úrovni je flag jako VCE\footnote{Common Vulnerabilities and Exposures (VCE) je systém, ve kterém je každé známé zranitelnosti přiřazen jednoznačný identifikátor.} identifikátor, který má být získán z obsahu databáze použitím SQL injection. I zde jsou doporučeny nástroje k použití a připraveny dvě nápovědy, jako upřesnění zranitelného skriptu serveru nebo hlavní část příkazu.\par
+V třetí úrovni má být tato nalezená zranitelnost využita k získání přístupu na server, kde se v lokálním souboru nachází aktuální flag. Připraveny jsou čtyři nápovědy. První nápověda pomáhá se spuštěním konzole nástroje, další s vyhledáním návodu na využití zranitelnosti, třetí ukáže potřebný modul nástroje Metasploit a poslední specifikuje název hledaného souboru.\par
+V poslední čtvrté úrovni není cílem nalézt její flag, ale konfigurací NTP služby umožnit daný útok. Kontrola, zda je server správně nakonfigurován, se provede stisknutím tlačítka a v případě pozitivního vyhodnocení je hra úspěšně dokončena. Jedna z nápověd nasměruje hráče ke konfiguračnímu souboru a druhá poukáže na následnou potřebu restartování služby.
+
+%%Úkolem v první úrovni je prozkoumat síťové porty a zadat správný flag, což je seznam otevřených síťových portů. V druhé úrovni je flag jako VCE\footnote{Common Vulnerabilities and Exposures (VCE) je systém, ve kterém je každé známé zranitelnosti přiřazen jednoznačný identifikátor.} identifikátor, který má být získán z obsahu databáze použitím SQL injection. V obou úrovních jsou doporučeny nástroje, které by měli být použity a jsou k dispozici dvě volitelné nápovědy. V třetí úrovni má být tato nalezená zranitelnost využita k získání přístupu na server, kde se v lokálním souboru nachází aktuální flag. Připraveny jsou čtyři nápovědy. V poslední čtvrté úrovni není cílem nalézt její flag, ale konfigurací NTP služby umožnit daný útok. Kontrola, zda je server správně nakonfigurován, se provede stisknutím tlačítka a v případě pozitivního vyhodnocení je hra úspěšně dokončena. Jedna z nápověd nasměruje hráče ke konfiguračnímu souboru a druhá poukáže na následnou potřebu restartování služby.
+
+
+
 \subsection{Uživatelské testování}
 
 \chapter{Návrh vizualizace}
