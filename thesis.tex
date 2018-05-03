@@ -109,7 +109,7 @@ Z hlediska zaměření se na útok nebo obranu mohou mít tyto hry různé modif
 Útočná varianta je snadno škálovatelná a může se jí zúčastnit libovolný počet týmů. Účastníci následují daný scénář a hra bývá rozdělena do několika částí. Ty mohou být v závislosti na zvoleném formátu procházeny postupně, nebo volně podle výběru.\par
 Oproti tomu varinta s obranou i útokem je vhodná pro menší počet týmů. Každý tým dostane svou vlastní síť a čas na navrhutí obrany a útoků. Body pak získávají za nalezené vlajky i obranu své sítě.\cite{Masarik2017thesis}
 
-\section{Capture the Flag hry v KYPO}
+\section{Capture the Flag hry v KYPO} \label{ctfGamesKYPO}
 Pro výukové účely byl do KYPO implementován modul pro vytváření a běh Ctf her. Pomocí portletů v Liferay portálu mohou vyučující hry spravovat a studenti získají přístup k rozhraní, které zajistí jejich průchod skrze hru. Také byl vytvořen prototyp hry zaměřený na výuku penetračního testování.\par
 Při návrhu je třeba brát v úvahu nevyváženost ve znalostech a schopnostech jednotlivých hráčů či týmů. Ta může způsobit, že pro některé účastníky bude hra příliš obtížná nebo příliš snadná. Z tohoto důvodu je vhodné hru rozdělit na menší úseky a také zpřístupnit různé nápovědy, kterých budou moci hráči využít. Aby účastníci nebyli zbytečně vyrušováni, bývá také žádoucí, aby hra proběhla s minimem zásahů do hry vyučujícími a úlohy jako vysvětlení pravidel, zadání úkolu či vyhodnocení byly v režii platformy.\cite{ctfDesign} 
 \subsection{Návrh} \label{gameDesign}
@@ -180,6 +180,8 @@ Také jsou nyní sledovány akce hráčů během hry, následující události j
 Tyto události zachycují pouze interakce mezi hráčem a modulem hry. Samotné poskytují jen omezené informace o krocích jednotlivých hráčů, mohou však být dále zpracovávány v různých statistikách či vizualizacích.
 
 \chapter{Návrh vizualizace}
+Vizualizace, která je výsledkem praktické části této práce, pracuje s daty získávanými v průběhu CtF her v prostředí KYPO popsaných v předchozí kapitole \ref{ctfGamesKYPO}.
+%%Vizualizace, která je výsledkem praktické části této práce, pracuje s daty získávanými v průběhu CtF her, které se odehrávají v prostředí KYPO a jsou popsány v předchozí kapitole \ref{ctfGamesKYPO}.
 
 \chapter{Použité technologie}
 \section{D3.js}
