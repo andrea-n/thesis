@@ -145,13 +145,16 @@ V poslední čtvrté úrovni není cílem nalézt její flag, ale konfigurací N
 
 \subsection{Testování}
 Popsaný prototyp byl již otestován při mnoha různých příležitostech, jak národních i mezinárodních, a taktéž byla zapojena škála uchazečů lišících se věkem, znalostmi i zkušenostmi (dle zdroje \cite{ctfDesign} to bylo již v roce 2016 celkem 18 příležitostí a přibližně 260 účastníků).
-Díky těmto událostem bylo získáno několik poznatků, které vedly k následným vylepšením herního modulu. Jedná se o následující poznatky:
+Díky těmto událostem bylo získáno několik poznatků, které vedly k následným vylepšením herního modulu a úpravám prototypu hry. Jedná se o následující poznatky:
 \begin{itemize}
-  \item náročnost úrovní není vyvážená a některé úrovně často vyžadují více času, než se předpokládalo,
+  \item náročnost úrovní není vyvážená a některé úrovně často vyžadují více času,
+  \item není vhodné poskytovat hráčům informace mimo herní platformu,
   \item pokud nejsou u jednotlivých nápověd poskytnuty informace o jejich povaze, účastníci netuší, zda jim nápověda pomůže a zda ji mají použít,
-  \item není vhodné, pokud jsou informace poskytovány mimo herní platformu,
   \item bez zaznamenávání událostí nemají vyučující během hry žádný přehled o aktuálním postupu účastníků.
 \end{itemize}
+Ze zkušeností vyplynulo, že náročnost jednotlivých úrovní není stejná a na některých úrovních strávilo mnoho účastníků více času, než se očekávalo. Také často měli místo problému s nalezením řešení potíže spíše s jeho realizací, jako např. nezkušenost s příkazovým řádkem nebo opomenutí restartu služby po změně konfigurace.\par
+%% Také často nemívali problém s nalezením řešení, ale měli potíže s jeho realizací, jako např. nezkušenost s příkazovým řádkem nebo opomenutí restartu služby po změně konfigurace.
+Informace poskytované mimo herní platformu bývají rušivé a nevyhovují ani hráčům, ani vyučujícím. To bylo vypozorováno při několika příležitostech, kdy vyučující hráčům představovali doporučené řešení pro každou úroveň. Nejedná se však jen o skutečnost, že doplňující informace ze strany vyučujících mohou studentům hru přerušit a změnit střed jejich pozornosti, ale také o fakt, že hráči nepostupují stejně rychle a potřebují tyto informace v rozdílnou dobu. Zejména, pokud se hra koná na dálku a účastníci, kteří v tomto případě dostávají instrukce prostřednictvím e-mailu, by mohli správné řešení obržet příliš brzy, nebo by o něj museli žádat. Je tedy výhodné, když tuto možnost poskytne přímo herní platforma a hráči si mohou sami zobrazit správné řešení v rozhraní hry.
 
 
 \chapter{Návrh vizualizace}
@@ -172,6 +175,7 @@ výběr grafu a jeho datová struktura
 \subsection{Služba LoadCsvDataService}
 
 \section{Načítání dat přes/skrze/pomocí REST API}
+\subsection{Popis API}
 \subsection{Struktura dat}
 \subsection{Zpracování dat}
 \subsection{Služba LoadDataService}
