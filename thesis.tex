@@ -92,10 +92,23 @@
 \chapter{Úvod}
 
 \chapter{Kybernetický polygon}
-Kybernetický polygon (KYPO) je projekt bezpečnostního týmu Masarykovy univerzity CSIRT-MU. Zabývá se výzkumem a vývojem unikátního prostředí pro analýzu hrozeb ohrožujících bezpečnost kritických informačních infrastruktur.\cite{kypocz}\par
-Prostředí KYPO je virtualizační platforma postavená na cloudu umožňující simulace různých kybernetických útoků na libovolné infrastruktury. Lze vytvářet různorodé scénáře, které mohou obsahovat rozsáhlé počítačovové sítě virtuálních zařízení. Tyto dynamicky vytvářené sítě, tzv. sandboxy, mohou být libovolného rozsahu, na jejich zařízeních mohou běžet různé operační systémy a aplikace a jsou izolovány mezi sebou i od okolního světa. \cite{ctfDesign}
+%%Kybernetický polygon (KYPO) je projekt bezpečnostního týmu Masarykovy univerzity CSIRT-MU. Zabývá se výzkumem a vývojem unikátního prostředí pro analýzu hrozeb ohrožujících bezpečnost kritických informačních infrastruktur.\cite{kypocz}\par
+%%Prostředí KYPO je virtualizační platforma postavená na cloudu umožňující simulace různých kybernetických útoků na libovolné infrastruktury. Lze vytvářet různorodé scénáře, které mohou obsahovat rozsáhlé počítačovové sítě virtuálních zařízení. Tyto dynamicky vytvářené sítě, tzv. sandboxy, mohou být libovolného rozsahu, na jejich zařízeních mohou běžet různé operační systémy a aplikace a jsou izolovány mezi sebou i od okolního světa. \cite{ctfDesign}
 %% izolovány nebo izolovatelné?
 %% sandboxy nejsou dynamicky vytvářené sítě
+Kybernetický polygon (KYPO) je projekt bezpečnostního týmu Masarykovy univerzity CSIRT-MU. Zabývá se výzkumem a vývojem unikátního prostředí pro analýzu hrozeb ohrožujících bezpečnost kritických informačních infrastruktur \cite{kypocz}. KYPO umožňuje ve virtuálním prostředí (označovaném jako sandbox) vytvářet infrastruktury různé velikosti od samostatných uzlů s různými operačními systémy, službami a aplikacemi až po rozsáhlé počítačové sítě. Díky virtualizaci je každé takové prostředí izolováno od ostatních i od okolního světa. Na tom jsou založena mnohá praktická využití této platformy.
+
+\section{Využití platformy}
+Popsaný koncept umožňuje vytváření různých prostředí s různými nástroji i předdefinovaným obsahem, a platforma KYPO tak nachází více uplatnění. Při návrhu a vývoji se zaměřuje na tato tři hlavní využití:
+\begin{itemize}
+\item výzkum a vývoj v oblasti kybernetické bezpečnosti,
+\item forenzní analýza a síťové simulace,
+\item bezpečnostní školení a cvičení.
+\end{itemize}\cite{kypocz}
+
+Prvním z nich je využití ve výzkumu, vývoji a testování nových metod nebo systémů pro detekci a potlačení kybernetických útoků, což vyžaduje pokročilou úroveň znalostí. KYPO v tomto případě poskytuje sandbox a volitelnou monitorovací infrastrukturu. Uživatel může použít svůj vlastní obraz nebo využít již dostupná virtuální zařízení a doinstalovat potřebné aplikace. \cite{kypo2017}\par
+Dále je možné prostředí KYPO použít při forenzní analýze neznámých nebo již napadených strojů. Díky izolaci od okolí se škodlivý software nemůže dále rozšířit. Lze také využít připravených nástrojů pro automatickou analýzu. \cite{lessons2015, kypo2017}\par
+Třetí oblastí, které se týká i tato práce, je návrh, realizace a vyhodnocování bezpečnostních her, školení a cvičení. KYPO pro tyto účely dovoluje vytvářet různé scénáře sloužící k procvičování různých dovedností. Mezi výhody patří opět možnost použití různých operačních systémů, ale také vysoká interaktivita, monitoring aktivity během výuky a možnost vzdáleného přístupu ke všem zařízením pro vyučujícího. \cite{lessons2015, kypocz}
 
 \section{Capture the Flag}
 Platforma KYPO se mimo jiné využívá k výuce v oblasti bezpečnosti a k bezpečnostním školením. Vedle čistě obranných cvičení Cyber Defence eXercises (CDX) do této oblasti patří bezpečnostní hry s názvem Capture the Flag (CtF). \cite{ctfDesign} Jedná se o metodu aktivního učení, kde studenti přímo využívají své znalosti. CtF hry jsou zaměřeny na získávání a prohlubování znalostí v oblasti penetračního testování\footnote{Penetrační testování je proces, při kterém se pomocí současných útočných technik odhalují a využívají zranitelnosti systému, které by jinak mohli použít skuteční útočníci.}. Účastníci jsou postaveni do role útočníka, což by jim také mělo pomoci při předvídání případných útoků. \cite{lessons2015, ctfDesign}\par
@@ -161,11 +174,11 @@ Vyučující nemají v administrátorském portletu přehled o postupu jednotliv
 \subsection{Rozšíření}
 Na základě poznatků popsaných v předchozí podkapitole \ref{gameTesting} byla do herního modulu přidána následující vylepšení:
 \begin{itemize}
-  \item vylepšená nabídka nápověd,
+  \item zdokonalený systém nápověd,
   \item možnost zobrazení správného řešení,
   \item zaznamenávání jednotlivých akcí účastníků.
 \end{itemize}
-Nápovědy jsou nyní koncipovány tak, aby se hráč mohl rozhodnout zda a jakou nápovědu použít. Za prvé je u každé nápovědy poskytnuta informace, čeho se daná nápověda týká, například „který nástroj zvolit“, „jak použít daný nástroj“ nebo „jaký použít příkaz“. Dále není nutné využít nápovědy postupně, ale hráč si může zvolit, kterou nápovědu si na základě popisu zobrazí. Pokud ani přes použití nápověd nedokáže pokračovat, může využít dalšího rozšíření a zobrazit si správné řešení přímo v prostředí hry. \cite{ctfDesign}\par
+Nápovědy jsou nyní koncipovány tak, aby se hráč mohl rozhodnout zda a jakou nápovědu použít. Zaprvé je ke každé nápovědě přidána informace, čeho se daná nápověda týká, například „který nástroj zvolit“, „jak použít daný nástroj“ nebo „jaký použít příkaz“. Dále není nutné využít nápovědy postupně, ale hráč si může zvolit, kterou nápovědu si na základě popisu zobrazí. Pokud ani přes použití nápověd nedokáže pokračovat, může využít dalšího rozšíření a zobrazit si správné řešení přímo v prostředí hry. \cite{ctfDesign}\par
 Také jsou nyní sledovány akce hráčů během hry, následující události jsou společně s jejich časovými razítky zaznamenávány do CSV souboru:
 \begin{itemize}
   \item začátek a dokončení hry,
@@ -182,6 +195,8 @@ Tyto události zachycují pouze interakce mezi hráčem a modulem hry. Samotné 
 \chapter{Návrh vizualizace}
 Vizualizace, která je výsledkem praktické části této práce, pracuje s daty získávanými v průběhu CtF her v prostředí KYPO popsaných v předchozí kapitole \ref{ctfGamesKYPO}.
 %%Vizualizace, která je výsledkem praktické části této práce, pracuje s daty získávanými v průběhu CtF her, které se odehrávají v prostředí KYPO a jsou popsány v předchozí kapitole \ref{ctfGamesKYPO}.
+\section{Požadavky na vizualizaci}
+\section{Systémové požadavky}
 
 \chapter{Použité technologie}
 \section{D3.js}
