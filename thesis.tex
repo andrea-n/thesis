@@ -193,25 +193,32 @@ Také jsou nyní sledovány akce hráčů během hry, následující události j
 Tyto události zachycují pouze interakce mezi hráčem a modulem hry. Samotné poskytují jen omezené informace o krocích jednotlivých hráčů \cite{ctfDesign}, mohou však být dále zpracovávány v různých statistikách či vizualizacích.
 Kromě popsaných rozšíření byl také upraven původní prototyp a ten nyní zahrnuje 6 úrovní s cílem krádeže informací. Hráč opět začíná s přístupem jen k jednomu zařízení v síti, ale sandbox nové hry obsahuje více cílových zařízení než původní.
 
+Jako doplněk k zaznamenaným datům byly navíc přidány dotazníky, a to před začátkem hry, po skončení každé úrovně a na konci celé hry. Před začátkem hry byly zjišťovány údaje týkající se daného účastníka, jako jeho věk, vzdělání a zkušenosti relevantní pro hru. Dotazník na konci každé úrovně zjišťuje odhadovanou složitost úrovně a názor na časový limit a užitečnost nápověd. Poslední dotazník na konci hry úrovně se ptá na odhadovanou složitost a délku celé hry a také na pocity z ní.
+na základě dat zaznamenaných ze hry a získaných z dotazníků se zatím podařilo dojít k těmto závěrům:
+\begin{itemize}
+  \item Hráči využívají zdokonalený systém nápověd a možnost zobrazení řešení.
+  \item Nepodařilo se zjistit, zda nápovědy účastníkům pomáhají, protože odpovědi z dotazníků neodpovídaly záznamům ze hry. Někteří v dotazníku uvedli, že jim nápověda pomohla, přestože žádnou nevyužili, nebo naopak uvedli, že nápovědu nepotřebovali, i když ji ve skutečnosti použili.
+  \item Mnozí hráči, kteří využili zobrazení řešení, dokázali úroveň dokončit, jejich počet je ale menší, než se předpokládalo.
+  \item Úrovně 4 a 6 byly hodnoceny jako nejtěžší, čemuž odpovídal i průměrný čas na jejich dokončení, který byl u obou znatelně větší než předpokládaný.
+\end{itemize}
 
 \chapter{Návrh vizualizace}
 Vizualizace, která je výsledkem praktické části této práce, pracuje s daty získávanými v průběhu CtF her v prostředí KYPO, popsaných v předchozí kapitole \ref{ctfGamesKYPO}.
 %%Vizualizace, která je výsledkem praktické části této práce, pracuje s daty získávanými v průběhu CtF her, které se odehrávají v prostředí KYPO a jsou popsány v předchozí kapitole \ref{ctfGamesKYPO}.
-Díky implementovanému vylepšení se zaznamenávají data užitečná pro analýzu těchto her
+Díky implementovanému vylepšení se zaznamenávají data, která se mohou dále zpracovávat a jsou užitečná pro analýzu těchto her
 analýza dat pomáhá při odhalování nedostatků a při budoucím návrhu a zlepšování her, aby byly pro účastníky co nejvíce zajímavé
-lze sledovat např. jestli délka urovni odpovida predpokladu , jestli využívají nového systému nápoved a zda jsou napovedy uzitecne.
-Jako doplněk k zaznamenaným datům byly navíc přidány dotazníky, a to před začátkem hry, po skončení každé úrovně a na konci celé hry. Před začátkem hry byly zjišťovány údaje týkající se daného účastníka, jako jeho věk, vzdělání a zkušenosti relevantní pro hru. Dotazník na konci každé úrovně zjišťuje odhadovanou složitost úrovně a názor na časový limit a užitečnost nápověd. Poslední dotazník na konci hry úrovně se ptá na odhadovanou složitost a délku celé hry a také na pocity z ní.
-na základě dat zaznamenaných ze hry a získaných z dotazníků se zatím podařilo dojít k těmto závěrům:
-- Hráči využívají zdokonalený systém nápověd a možnost zobrazení řešení
-- Nepodařilo se zjistit, zda nápovědy účastníkům pomáhají, protože odpovědi z dotazníků neodpovídaly záznamům ze hry. Někteří v dotazníku uvedli, že jim nápověda pomohla, přestože žádnou nevyužili, nebo naopak uvedli, že nápovědu nepotřebovali, i když ji ve skutečnosti použili.
-- Mnozí hráči, kteří využili zobrazení řešení, dokázali úroveň dokončit, jejich počet je ale menší, než se předpokládalo.
-- Úrovně 4 a 6 byly hodnoceny jako nejtěžší, čemuž odpovídal i průměrný čas na jejich dokončení, který byl u obou znatelně větší než předpokládaný.
-
-ale také aby vyučujícím daly přehled o tom, jak jednotlivé týmy postupují a které by mohly potřebovat jejich pomoc
-důležité otázky
+lze sledovat např. jestli čas potřebný pro zvládnutí úrovně odpovídá stanovenému limitu, jestli využívají nového systému nápoved a zda jsou napovedy uzitecne.
+ale také aby vyučujícím daly během hry přehled o tom, jak jednotlivé týmy postupují, v jaké úrovni se nacházejí, jak jsou úspěšní a které týmy by mohly potřebovat jejich pomoc
 
 \section{Požadavky na vizualizaci}
-\section{Systémové požadavky}
+\section{Požadavky na technologie}
+Z hlediska použitých technologií a implementace do projektu KYPO byly specifikovány následující požadavky:
+\begin{itemize}
+  \item vizualizace bude ve formě Liferay portletu,
+  \item základ bude v podobě samostatného Angular 2 modulu,
+  \item bude využita knihovna D3.js.
+\end{itemize}
+KYPO využívá vlastní webový portál postavený na platformě Liferay a je tedy samozřejmým požadavkem, aby byla vizualizace součástí tohoto portálu jako samostatný portlet. Aplikace vizualizace má být postavena na Angular2, protože byl vybrán jako jednotný framework pro vývoj dalších portletů do KYPO portálu a později byla připravena kostra portletu využívající tento framework jako základ pro nové projekty. Samotná vizualizace pak má být vykreslována pomocí knihovny D3.js určenou právě pro vizualizaci dat.
 
 \chapter{Použité technologie}
 \section{D3.js}
