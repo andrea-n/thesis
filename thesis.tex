@@ -171,7 +171,7 @@ Náročnost jednotlivých úrovní není stejná a na některých úrovních str
 Informace poskytované mimo herní platformu bývají rušivé a nevyhovují ani hráčům, ani vyučujícím. To bylo vypozorováno při několika příležitostech, kdy vyučující hráčům představovali doporučené řešení pro každou úroveň. Nejedná se však jen o skutečnost, že doplňující informace ze strany vyučujících mohou studentům hru přerušit a změnit střed jejich pozornosti, ale také o fakt, že hráči nepostupují stejně rychle a potřebují tyto informace v rozdílnou dobu. Zejména, pokud se hra koná na dálku a účastníci, kteří v tomto případě dostávají instrukce prostřednictvím e-mailu, by mohli správné řešení obržet příliš brzy, nebo by o něj museli žádat. Je tedy výhodné, když tuto možnost poskytne přímo herní platforma a hráči si mohou sami zobrazit řešení v rozhraní hry. Možnost zobrazení správného řešení bylo jedním z přidaných vylepšení oproti původní verzi.\par
 Nápovědy byly v rámci původního řešení herního modulu hráčům nabízeny postupně v lineárním pořadí, od základních po ty, co poskytují informací více. Navíc nebyl k dispozici žádný popis, čeho se daná nápověda týká. V takovém případě si hráči nejsou jistí, zda jim nápověda pomůže. Nastávaly situace, kdy si vzali nápovědu s informací, kterou již znali, nebo si nápovědu raději nevzali. Jelikož jsou za nápovědy bodové penalizace, někteří tak ztratili body zbytečně a jiní si nápovědu nevzali, protože již v úrovni pokročili dále a museli by ztratit body i za nápovědy, které nepotřebovali. Pro vylepšení systému nápověd bylo implementováno další rozšíření.\par
 Vyučující nemají v administrátorském portletu přehled o postupu jednotlivých týmů a nemohou tak například pomoci těm, kteří potřebují jejich asistenci. Znalosti jednotlivých hráčů či týmů se často liší a někteří z nich jsou začátečníci s nedostatečnými předchozími znalostmi. Aby mohli takové hráče včas rozpoznat, bylo nutné se účastníků zeptat nebo sledovat jejich konzole přímo na místě nebo přes KYPO portál. Další vylepšení v podobě zaznamenávání interakcí s herním modulem umožnilo alespoň omezené sledování jednotlivých kroků hráčů. \cite{ctfDesign}
-\subsection{Rozšíření}
+\subsection{Rozšíření} \label{gameExtensions}
 Na základě poznatků popsaných v předchozí podkapitole \ref{gameTesting} byla do herního modulu přidána následující vylepšení:
 \begin{itemize}
   \item zdokonalený systém nápověd,
@@ -211,14 +211,20 @@ lze sledovat např. jestli čas potřebný pro zvládnutí úrovně odpovídá s
 ale také aby vyučujícím daly během hry přehled o tom, jak jednotlivé týmy postupují, v jaké úrovni se nacházejí, jak jsou úspěšní a které týmy by mohly potřebovat jejich pomoc
 
 \section{Požadavky na vizualizaci}
-\section{Požadavky na technologie}
-Z hlediska použitých technologií a implementace do projektu KYPO byly specifikovány následující požadavky:
+\section{Požadavky na technologie a integraci}
+Z hlediska použitých technologií a integrace do projektu KYPO byly specifikovány následující požadavky:
 \begin{itemize}
+  \item bude se jednat o webovou aplikaci,
   \item vizualizace bude ve formě Liferay portletu,
-  \item základ bude v podobě samostatného Angular 2 modulu,
-  \item bude využita knihovna D3.js.
+  \item základ aplikace bude v podobě samostatného Angular 2 modulu,
+  \item k vizualizaci dat bude využita knihovna D3.js,
+  \item aplikace bude schopná načítat data z CSV souboru,
+  \item dále bude schopná získávat data skrze REST API, až bude připraveno, a také tato data zobrazovat v reálném čase.
 \end{itemize}
-KYPO využívá vlastní webový portál postavený na platformě Liferay a je tedy samozřejmým požadavkem, aby byla vizualizace součástí tohoto portálu jako samostatný portlet. Aplikace vizualizace má být postavena na Angular2, protože byl vybrán jako jednotný framework pro vývoj dalších portletů do KYPO portálu a později byla připravena kostra portletu využívající tento framework jako základ pro nové projekty. Samotná vizualizace pak má být vykreslována pomocí knihovny D3.js určenou právě pro vizualizaci dat.
+KYPO využívá vlastní webový portál postavený na platformě Liferay a je tedy samozřejmým požadavkem, aby byla vizualizace součástí tohoto portálu jako samostatný portlet. Aplikace vizualizace má být postavena na Angular2, protože byl vybrán jako jednotný framework pro vývoj dalších portletů do KYPO portálu a také byla připravena kostra portletu využívající tento framework jako základ pro nové projekty. Samotná vizualizace pak má být vykreslována pomocí knihovny D3.js určenou právě pro vizualizaci dat.\par
+Jako zdroj dat mají sloužit záznamy v CSV souborech, popsané v podkapitole o rozšířeních CtF her \ref{gameExtensions}. Později, až bude k dispozici API poskytující podobné záznamy událostí ze hry, má být aplikace schopná získávat data i skrze toto rozhraní a vizualizovat data v reálném čase.
+%%je to v reálném čase, když se jen každou sekundu překresluje?
+
 
 \chapter{Použité technologie}
 \section{D3.js}
@@ -241,7 +247,7 @@ výběr grafu a jeho datová struktura
 \subsection{Zpracování dat}
 \subsection{Služba LoadDataService}
 
-\section{Struktura vizualizace}
+\section{Součásti vizualizace}
 \subsection{Vizualizace časového plánu}
 odhad, timeline
 \subsection{Vizualizace herních úrovní}
