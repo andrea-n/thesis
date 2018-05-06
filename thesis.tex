@@ -215,22 +215,52 @@ Tato vizualizace je určena právě vyučujícím a její cíle jsou:
 \end{itemize}
 
 \section{Požadavky na vizualizaci}
-\begin{figure}
+co potřebujeme sledovat, vzhledem k cílům vizualizace jsou relevantní které události
+\begin{itemize}
+  \item časový odhad úrovní,
+  \item skutečně strávený čas v úrovni,
+  \item porovnání časového odhadu a skutečného času,
+  \item využité nápovědy, zobrazená řešení a přeskočení úrovně
+  \item čas od začátku hry
+\end{itemize}
+dále vizualizace by měla být
+interaktivní, 
+responzivní
+%%přidat věci, na které se přišlo později - dva pohledy, labely nahoře na sortování?
+\subsection{Grafický návrh}
+Grafický návrh, jehož autorem je Bc. Kristína Zákopčanová, zahrnuje zmíněné požadavky a na jeho základě byla vizualizace vypracována.\par
+%%Pro tuto vizualizaci byl vypracován grafický návrh zahrnující zmíněné požadavky, jeho autorem je Bc. Kristína Zákopčanová a 
+\begin{figure}[h]
   \begin{center}
     \includegraphics[width=12.7cm]{images/navrh-vizualizace-1-3.png}
   \end{center}
-  \caption{Průběh hry}
+  \caption{Grafický návrh vizualizace od Bc. Kristíny Zákopčanové, kde je znázorněn průběh hry po devíti minutách od jejího začátku.}
   \label{fig:progress1}
 \end{figure}
-\section{Požadavky na vizualizaci}
-\begin{figure}
+Na obrázku \ref{fig:progress1} je znázorněn průběh hry krátce po jejím začátku společně s časovými odhady jednotlivých úrovní. Každému týmu přísluší jeden řádek, název týmu je uveden nalevo. Sloupce pak značí jednotlivé úrovně, které se odlišují svou barvou. V pravém horním rohu se zobrazuje uplynulý čas.
+\begin{enumerate}
+  \item Svislé čáry představují odhadovanou dobu pro dokončení úrovně, jsou nezávislé na postupu týmu a tudíž se nemění.
+  \item Šrafovaná oblast vyznačuje předpokládanou dobu řešení úrovně pro daný tým. Její počátek je ovlivněn tím, kdy tým začal na této úrovni pracovat, a tedy také tím, kdy dokončil předchozí úrovně.
+  \item Časová osa, představuje aktuální moment.
+  \item Sytější barva značí úroveň, na které tým právě pracuje.
+  \item Světlejší barva značí již vyřešenou úroveň.
+\end{enumerate}
+\begin{figure}[h]
   \begin{center}
     \includegraphics[width=12.7cm]{images/navrh-vizualizace-2-3.png}
   \end{center}
-  \caption{Průběh hry}
-  \label{fig:progress1}
+  \caption{Grafický návrh vizualizace od Bc. Kristíny Zákopčanové, hra je za polovinou odhadované doby. Zobrazeny jsou i jednotlivé události.}
+  \label{fig:progress2}
 \end{figure}
-
+Návrh na obrázku \ref{fig:progress2} ukazuje další postup ve hře, kdy se týmy nachází již ve třetí nebo čtvrté úrovni. Navrženy jsou také události (6–8).
+\begin{enumerate}
+  \setcounter{enumi}{5}
+  \item Tým využil nápovědu.
+  \item Tým si zobrazil doporučené řešení úrovně.
+  \item Tým úroveň přeskočil.
+  \item V již vyřešené úrovni jsou ikony v podobném odstínu jako pozadí.
+  \item V aktuální úrovni jsou ikony tmavé a výrazné z důvodu lepší viditelnosti.
+\end{enumerate}
 \section{Požadavky na technologie a integraci}
 Z hlediska použitých technologií a integrace do projektu KYPO byly specifikovány následující požadavky:
 \begin{itemize}
@@ -242,7 +272,7 @@ Z hlediska použitých technologií a integrace do projektu KYPO byly specifikov
   \item dále bude schopná získávat data skrze REST API, až bude připraveno, a také tato data zobrazovat v reálném čase.
 \end{itemize}
 KYPO využívá vlastní webový portál postavený na platformě Liferay a je tedy samozřejmým požadavkem, aby byla vizualizace součástí tohoto portálu jako samostatný portlet. Aplikace vizualizace má být postavena na Angular2, protože byl vybrán jako jednotný framework pro vývoj dalších portletů do KYPO portálu a také byla připravena kostra portletu využívající tento framework jako základ pro nové projekty. Samotná vizualizace pak má být vykreslována pomocí knihovny D3.js určenou právě pro vizualizaci dat.\par
-Jako zdroj dat mají sloužit CSV soubory, popsané v podkapitole o rozšířeních CtF her \ref{gameExtensions}. Později, až bude k dispozici API poskytující podobné záznamy událostí ze hry, má být aplikace schopná získávat data i skrze toto rozhraní a vizualizovat data v reálném čase.
+Jako zdroj dat mají sloužit CSV soubory, popsané v podkapitole o rozšířeních CtF her \ref{gameExtensions}. Později, až bude k dispozici API poskytující podobné záznamy událostí ze hry, má být aplikace schopná získávat data i skrze toto rozhraní a zobrazovat je v reálném čase.
 %%je to v reálném čase, když se jen každou sekundu překresluje?
 
 
@@ -269,6 +299,7 @@ výběr grafu a jeho datová struktura
 
 \section{Součásti vizualizace}
 \subsection{Vizualizace časového plánu}
+na x ose čas, na y ose týmy
 odhad, timeline
 \subsection{Vizualizace herních úrovní}
 \subsection{Události}
