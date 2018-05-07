@@ -76,6 +76,7 @@
 \usepackage{url}      %% Hyperlinks
 \usepackage{markdown} %% Lightweight markup
 \usepackage{listings} %% Source code highlighting
+\usepackage{verbatim}
 \lstset{
   basicstyle      = \ttfamily,%
   identifierstyle = \color{black},%
@@ -212,7 +213,7 @@ Tato vizualizace je určena právě vyučujícím a její cíle jsou:
 \end{itemize}
 
 \section{Požadavky na vizualizaci}
-Vzhledem ke zmíněným cílům jsou pro vizualizaci podstatné záznamy s dokončením úrovně, využitou nápovědou, zobrazeným řešením a přeskočením úrovně. Také je nutné znázornit porovnání s časovým plánem. Naproti tomu nemusí být nutné, aby vyučující viděli nesprávná řešení. Je tedy potřeba vhodným způsobem zobrazovat následující hodnoty:
+Vzhledem ke zmíněným cílům jsou pro vizualizaci podstatné záznamy s dokončením úrovně, využitou nápovědou, zobrazeným řešením a přeskočením úrovně. Také je nutné znázornit porovnání s časovým plánem. Naproti tomu nemusí být nutné, aby vyučující viděli nesprávná řešení. Je tedy potřeba vhodným způsobem vizuálně reprezentovat následující hodnoty:
 \begin{itemize}
   \item časový odhad úrovní,
   \item skutečně strávený čas při řešení úrovně,
@@ -273,14 +274,52 @@ Z hlediska použitých technologií a integrace do projektu KYPO byly specifikov
   \item aplikace bude schopná načítat data z CSV souboru,
   \item dále bude schopná získávat data skrze REST API a také tato data zobrazovat v reálném čase.
 \end{itemize}
-KYPO využívá vlastní webový portál postavený na platformě Liferay a je tedy samozřejmým požadavkem, aby byla vizualizace součástí tohoto portálu jako samostatný portlet. Aplikace vizualizace má být postavena na Angular2, protože byl vybrán jako jednotný framework pro vývoj dalších portletů do KYPO portálu a také byla připravena kostra portletu využívající tento framework jako základ pro nové projekty. Samotná vizualizace pak má být vykreslována pomocí knihovny D3.js určenou právě pro vizualizaci dat.\par
+KYPO využívá vlastní webový portál postavený na platformě Liferay a je tedy samozřejmým požadavkem, aby byla vizualizace součástí tohoto portálu jako samostatný portlet. Aplikace vizualizace má být postavena na Angular 2, protože byl vybrán jako jednotný framework pro vývoj dalších portletů do KYPO portálu a také byla připravena kostra portletu využívající tento framework jako základ pro nové projekty. Samotná vizualizace pak má být vykreslována pomocí knihovny D3.js určenou právě pro vizualizaci dat.\par
 Jako zdroj dat mají sloužit CSV soubory, popsané v podkapitole o rozšířeních CtF her \ref{gameExtensions}. Později, až bude k dispozici API poskytující podobné záznamy událostí ze hry, má být aplikace schopná získávat data i skrze toto rozhraní a zobrazovat je v reálném čase.
 %%je to v reálném čase, když se jen každou sekundu překresluje?
 
-
 \chapter{Použité technologie}
-Na základě požadavků popsaných v předchozí kapitole \ref{technologyRequirements} byly při implementaci použity následující technologie. Pro vykreslování vizualizace byla použita knihovna D3.js. Samotná aplikace je pak postavena na Angular2. Načítání dat z CSV souboru je řešeno pomocí knihovny Papa Parse, pro kterou existuje integrace do Angular aplikací. S využitím již připraveného projektu v rámci KYPO je pak tato aplikace integrována do Liferay portletu.
+Na základě požadavků popsaných v předchozí kapitole \ref{technologyRequirements} byly při implementaci použity následující technologie. Pro vykreslování vizualizace byla použita knihovna D3.js, samotná aplikace je pak postavena na frameworku Angular 2. Načítání dat z CSV souboru je řešeno pomocí knihovny Papa Parse, pro kterou existuje integrace do Angular aplikací. S využitím již připraveného projektu v rámci KYPO je pak tato aplikace integrována do Liferay portletu.
+
 \section{D3.js}
+%%vizuální reprezentace dat
+D3.js (Data-Driven Document) je knihovna pro vizualizaci dat v jazyce JavaScript. Poskytuje funkcionalitu potřebnou pro tvorbu webových vizualizací, které jsou zobrazitelné v kterémkoliv moderním prohlížeči. Data-Driven značí, že jednotlivé prvky dokumentu jsou svázány s daty a jsou podle těchto dat vizuálně transformovány. Zahrnuje také funkce pro animování a různé interakce.
+
+\subsection{Základ vizualizací}
+D3.js nepřináší novou reprezentaci, ale využívá již existující standardy HTML, CSS a SVG a pouze pracuje se stávajícími prvky, které vytváří a transformuje \cite{d3jsorg}. Základem vizualizací jsou právě SVG\footnote{SVG (Scalable Vector Graphics) je značkovací jazyk definující dvojrozměrnou vektorovou grafiku v XML formátu. SVG kód lze vložit do kódu HTML stránky.} elementy. \par
+SVG obsahuje elementy mnoha kategorií, patří mezi ně zejména různé kontejnery, tvary a grafické prvky.
+\begin{itemize}
+  \item Mezi obalující a strukturální prvky patří např. \verb|<svg>| nebo \verb|<g>|. Značka \verb|<svg>| se používá pro vložení SVG grafiky do dokumentu, \verb|<g>| je kontejner používaný pro seskupení ostatních elementů. Oba dva prvky se mohou zanořovat.
+  \item Grafickými elementy jsou např. kruh \verb|<circle>|, obdélník \verb|<rect>|, úsečka \verb|<line>| nebo cesta \verb|<path>|, což je obecný element definující různé tvary.
+	%%\begin{itemize}
+	  %%\item Kruh \verb|<circle>| je definován svým středem se souřadnicemi \texttt{cx}, \texttt{cy} a poloměrem \texttt{r}.
+	  %%\item Obdélník \verb|<rect>| je určen na základě pozice levého horního rohu \texttt{x} a \texttt{y}, šířky \texttt{width} a výšky \texttt{height}.
+	  %%\item Úsečku \verb|<line>| definují dva koncové body \texttt{x1}, \texttt{y1} a \texttt{x2}, \texttt{y2}.
+	  %%\item Cesta \verb|<path>| je oproti tomu obecný element definující různé tvary. Tvar určuje atribut \texttt{d}, což je textový řetězec tvořený kombinací instrukcí.
+	%%\end{itemize}
+\end{itemize}
+%%využívá HTML, CSS a SVG, co je svg, příklady svg elementů - rectangle, circle, line, path
+%%DOM Document Object Model je rozhraní pro XML a HTML dokumenty. Jedná se o objektově orientovanou reprezentaci stránky tak, aby programy mohly měnit strukturu, styl a obsah dokumentu.
+
+\subsection{Princip práce s D3.js}
+Podobně jako například rozšířená knihovna jQuery, také pracuje a manipuluje s DOM
+Podstatou je mapování dat na vlastnosti elementů vizualizace, čímž jsou elementy transformovány, ať už je to například jejich velikost, poloha, barva atd. Jak se data budou mapovat záleží na vlastní implementaci a na podstatě vybraného grafu. Například u sloupcového grafu budou hodnoty ovlivňovat výšku sloupců, u bublinového zase poloměr či polohu kruhů.
+Vykreslování prvků vizualizace zahrnuje několik základních kroků:
+\begin{itemize}
+  \item DOM selection
+  \item Data binding - navázání dat - dynamic properties
+  \item enter and exit - vytváření a rušení elementů
+\end{itemize}
+
+\subsection{Příklady grafů a vizualizací}
+Knihovna poskytuje potřebnou funkcionalitu pro tvorbu vizualizací, žádné předdefinované vizualizace však nezahrnuje. Nicméně je k dispozici několik metod, které usnadní práci s určitými typy vizualizací a grafů. Jedná se o tzv. layouts. Metoda předaná data transformuje, přepočítá a vrátí obecně složitější datovou strukturu, která je však vhodná pro následné vykreslení určitého grafu.
+%%Následuje několik příkladů, podrobněji je rozepsán layout Stack, protože je klíčový pro tuto práci.
+bar chart, stack bar chart, bubble chart a popsat svg prvky
+
+
+měřítka - scales
+animace - transitions
+
 \section{Bootstrap}
 \section{Angular}
 \section{Papa Parse}
@@ -288,6 +327,7 @@ Na základě požadavků popsaných v předchozí kapitole \ref{technologyRequir
 
 \chapter{Implementace}
 výběr grafu a jeho datová struktura
+Typ grafu tvz. stacked bar chart, který vychází z klasického sloupcového grafu (bar chart)
 
 %% dát načítání na začátek nebo později?
 \section{Načítání dat z CSV souboru}
@@ -301,21 +341,37 @@ výběr grafu a jeho datová struktura
 \subsection{Zpracování dat}
 \subsection{Služba LoadDataService}
 
-\section{Součásti vizualizace}
+\section{Struktura vizualizace}
+\subsection{Reprezentace týmů a úrovní}
+byl vybrán stacked bar chart, který je ale otočen, jeho sloupce jsou tedy v podstatě řádky
+každý řádek jeden tým, jednotlivé sekce řádku - sloupce - reprezentují úrovně
+při implementaci stacked bar chart se postupuje opačně, nejdříve se do datové struktury přidají úrovně, do každé úrovně pak pole dat jednotlivých týmů - obrázek
 \subsection{Vizualizace časového plánu}
 na x ose čas, na y ose týmy
 odhad, timeline
 \subsection{Vizualizace herních úrovní}
 \subsection{Události}
 \subsection{Sloupce s údaji}
+momentálně dva sloupce, tým, slouží jako osa x
+\subsection{Další prvky}
+časová osa - její pozice na y ose je v místě odpovídající aktuálnímu času , čas - vpravo nahoře, převádí se do textu z timestamp, popisek události - při najetí na událost se přesune na její pozici a odkryje
+
+\section{Přizpůsobování velikosti okna}
+snaha, aby byla vizualizace v co největší možné míře responzivní
+bootstrap grid
+výpočet velikosti
 
 \section{Ovládací prvky}
+popisky nahoře - samostatná komponenta
 \subsection{Pohledy}
 \subsection{Řazení}
+datová struktura zkopírována, kopie je seřazena a podle ní graf překreslen
 \subsection{Filtrování}
+realizováno obdobným způsobem, 
 \subsection{Zoom}
 
 \section{Konfigurace}
+ukázka konfigu a potom v listu stručný popis
 
 \section{Testy}
 
