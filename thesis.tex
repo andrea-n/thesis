@@ -263,7 +263,7 @@ Návrh na obrázku \ref{fig:progress2} ukazuje další postup ve hře, kdy se t�
   \item V aktuální úrovni jsou ikony tmavé a výrazné z důvodu lepší viditelnosti.
 \end{enumerate}
 
-\section{Požadavky na technologie a integraci}
+\section{Požadavky na technologie a integraci} \label{technologyRequirements}
 Z hlediska použitých technologií a integrace do projektu KYPO byly specifikovány následující požadavky:
 \begin{itemize}
   \item bude se jednat o webovou aplikaci,
@@ -279,9 +279,11 @@ Jako zdroj dat mají sloužit CSV soubory, popsané v podkapitole o rozšířen�
 
 
 \chapter{Použité technologie}
+Na základě požadavků popsaných v předchozí kapitole \ref{technologyRequirements} byly při implementaci použity následující technologie. Pro vykreslování vizualizace byla použita knihovna D3.js. Samotná aplikace je pak postavena na Angular2. Načítání dat z CSV souboru je řešeno pomocí knihovny Papa Parse, pro kterou existuje integrace do Angular aplikací. S využitím již připraveného projektu v rámci KYPO je pak tato aplikace integrována do Liferay portletu.
 \section{D3.js}
 \section{Bootstrap}
 \section{Angular}
+\section{Papa Parse}
 \section{Liferay}
 
 \chapter{Implementace}
