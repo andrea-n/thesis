@@ -77,6 +77,9 @@
 \usepackage{markdown} %% Lightweight markup
 \usepackage{listings} %% Source code highlighting
 \usepackage{verbatim}
+\usepackage{graphicx} 
+\usepackage{caption}
+\usepackage{subcaption}
 \lstset{
   basicstyle      = \ttfamily,%
   identifierstyle = \color{black},%
@@ -127,7 +130,7 @@ Oproti tomu varinta s obranou i útokem je vhodná pro menší počet týmů. Ka
 Pro výukové účely byl do KYPO implementován modul pro vytváření a běh Ctf her. Pomocí portletů v Liferay portálu mohou vyučující hry spravovat a studenti získají přístup k rozhraní, které zajistí jejich průchod skrze hru. Také byl vytvořen prototyp hry zaměřený na výuku penetračního testování.\par
 Při návrhu je třeba brát v úvahu nevyváženost ve znalostech a schopnostech jednotlivých hráčů či týmů. Ta může způsobit, že pro některé účastníky bude hra příliš obtížná nebo příliš snadná. Z tohoto důvodu je vhodné hru rozdělit na menší úseky a také zpřístupnit různé nápovědy, kterých budou moci hráči využít. Aby účastníci nebyli zbytečně vyrušováni, bývá také žádoucí, aby hra proběhla s minimem zásahů do hry vyučujícími a úlohy jako vysvětlení pravidel, zadání úkolu či vyhodnocení byly v režii platformy.\cite{ctfDesign} 
 \subsection{Návrh} \label{gameDesign}
-Capture the Flag jsou v Kybernetickém polygonu navrženy jako útočné (attack-only) a může je hrát jak jeden samotný hráč, tak několik lidí v týmu, pro začátečníky může být hra v týmu vhodnější. Spuštěním více instancí paralelně lze hru koncipovat jako soutěž. Hry jsou rozděleny do několika po sobě jdoucích úrovní s relativně zvyšující se obtížností, zpravidla je jich menší počet (3–5). Každá tato úroveň má definovaný cíl, např. krádež dat ze vzdáleného serveru. Pro dokončení úrovně musí hráč nalézt správný flag, který je ve formě krátkého textového řetězce, typicky je to kontrolní součet nalezených dat. Za nalezení tohoto řešení hráči obdrží odpovídající počet bodů.\par
+Capture the Flag jsou v Kybernetickém polygonu navrženy jako útočné (attack-only) a může je hrát jak jeden samotný hráč, tak několik lidí v týmu. Pro začátečníky může být hra v týmu vhodnější. Spuštěním více instancí paralelně lze hru koncipovat jako soutěž. Hry jsou rozděleny do několika po sobě jdoucích úrovní s relativně zvyšující se obtížností, zpravidla je jich menší počet (3–5). Každá tato úroveň má definovaný cíl, např. krádež dat ze vzdáleného serveru. Pro dokončení úrovně musí hráč nalézt správný flag, který je ve formě krátkého textového řetězce, typicky je to kontrolní součet nalezených dat. Za nalezení tohoto řešení hráči obdrží odpovídající počet bodů.\par
 %% lze hru koncipovat jako soutěž - je to správně?
 Na začátku hry se týmy seznámí s pravidly a poté vstoupí do první úrovně. Se vstupem do úrovně se zpřístupní její aktuální zadání společně s polem pro nalezené řešení. Na vyřešení úrovně má tým časový limit, který může s bodovou penalizací překročit. Tento po sekundách odpočítávaný limit má přiblížit simulaci reálným situacím, kde čas může hrát roli. Zároveň poskytuje hráčům určitý časový odhad a srovnání náročnosti s ostatními úrovněmi.\par
 Pro případ, že tým již nemá dostatek času nebo má potíže s vyřešením úkolu, je v každé úrovni k dispozici určitý počet nápověd za cenu bodové penalizace. Nápovědy jsou volitelné a jejich výběr je možný na základě zobrazené informace o jejich povaze, např. jaký nástroj nebo příkaz má být zvolen či jak má být nástroj použit. Bodová penalizace se může pro různé nápovědy lišit. V případě, že ani s využitím nápověd tým nedokáže úroveň dokončit, má ještě možnost zobrazit si její řešení. To je užitečné zejména v případech, kdy hra probíhá vzdáleně a účastníci nejsou v jedné místosti s vyučujícím. Dále je týmu umožněno přeskočit úroveň a přejít do další nebo ukončit hru. Co se týká externích zdrojů nebo poznámek, jejich použití je v reálných situacích běžné, a proto může být jejich využití během hry povoleno. \cite{ctfDesign}\par
@@ -289,7 +292,7 @@ D3.js (Data-Driven Document) je knihovna pro vizualizaci dat v jazyce JavaScript
 D3.js nepřináší novou reprezentaci, ale využívá již existující standardy HTML, CSS a SVG a pouze pracuje se stávajícími prvky, které vytváří a transformuje \cite{d3jsorg}. Základem vizualizací jsou právě SVG\footnote{SVG (Scalable Vector Graphics) je značkovací jazyk definující dvojrozměrnou vektorovou grafiku v XML formátu. SVG kód lze vložit do kódu HTML stránky.} elementy.\par
 SVG obsahuje elementy mnoha kategorií, patří mezi ně zejména různé kontejnery a grafické prvky. \cite{svgMozillaorg}
 \begin{itemize}
-  \item Mezi obalující a strukturální prvky patří např. \verb|<svg>| nebo \verb|<g>|. Značka \verb|<svg>| se používá pro vložení SVG grafiky do dokumentu, \verb|<g>| je kontejner používaný pro seskupení ostatních elementů. Oba dva prvky se mohou zanořovat.
+  \item Mezi obalující a strukturální prvky patří např. \verb|<svg>| nebo \verb|<g>|. Značka \verb|<svg>| se používá pro vložení SVG grafiky do dokumentu, \verb|<g>| je kontejner používaný pro seskupení ostatních elementů. Oba dva prvky je možné zanořovat.
   \item Grafickými elementy jsou např. kruh \verb|<circle>|, obdélník \verb|<rect>|, úsečka \verb|<line>| nebo cesta \verb|<path>|, což je obecný element definující různé tvary.
 	%%\begin{itemize}
 	  %%\item Kruh \verb|<circle>| je definován svým středem se souřadnicemi \texttt{cx}, \texttt{cy} a poloměrem \texttt{r}.
@@ -319,13 +322,13 @@ Lze vybírat buď jeden samotný uzel pomocí metody `select`, nebo množinu vš
 ``` sh
 	d3.selectAll("rect"); 
 ```
-Data se vkládají metodou `data`. Pokud se jedná o pouhou aktualizaci již existujících elementů, další krok není potřebný a mohou být přímo aplikovány transformace. Ukázka vložení dat a změna výšky obdélníků podle jejich hodnot:
+Data se vkládají metodou `data`. Pokud se jedná o pouhou aktualizaci již existujících elementů, další krok není potřebný a mohou být přímo aplikovány transformace. Ukázka vložení dat a změna výšky obdélníků:
 ``` sh
 	d3.select("svg").selectAll("rect")
 	  .data([5, 10, 15, 20, 25])
 	  .attr("height", function(d) { return d; });
 ```
-V případě, že elementy dosud neexistují (nebo je jejich počet menší, než počet ), jsou chybějící elementy přidány pomocí metod `enter` a `append`.
+V případě, že elementy dosud neexistují (nebo je jejich počet menší, než délka datového pole), jsou chybějící elementy přidány voláním metod `enter` a `append`.
 ``` sh
 	d3.select("svg").selectAll("rect")
 	  .data([5, 10, 15, 20, 25])
@@ -334,9 +337,23 @@ V případě, že elementy dosud neexistují (nebo je jejich počet menší, ne�
 ```
 \end{markdown*}
 \subsection{Příklady grafů a vizualizací}
-Knihovna poskytuje potřebnou funkcionalitu pro tvorbu vizualizací, žádné předdefinované vizualizace však nezahrnuje. Nicméně je k dispozici několik metod, které usnadní práci s určitými typy vizualizací a grafů. Jedná se o tzv. layouts. Metoda předaná data transformuje, přepočítá a vrátí obecně složitější datovou strukturu, která je však vhodná pro následné vykreslení určitého grafu.
+Knihovna poskytuje pouze potřebnou funkcionalitu pro vizualizaci dat, žádné připravené vizualizace v D3.js nejsou. K dispozici je však několik metod, které usnadní práci s určitými typy vizualizací a grafů. Metoda předaná data transformuje, přepočítá a vrátí obecně složitější datovou strukturu, která je vhodná pro určitý druh vizualizace.
 %%Následuje několik příkladů, podrobněji je rozepsán layout Stack, protože je klíčový pro tuto práci.
-bar chart, stack bar chart, bubble chart a popsat svg prvky
+stack, pie, histogram, area, line, force, partition
+\begin{figure}[H]
+  \RawFloats
+  \centering
+  \begin{minipage}[b]{0.35\textwidth}
+  	\centering
+    \includegraphics[width=4.5cm]{images/bubble.pdf}
+    \caption{Bublinový graf vytvořený pomocí \texttt{d3.pack}.}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{images/stack.pdf}
+    \caption{Skládáný sloupcový graf (stacked bar) vytvořený s využitím \texttt{d3.stack}.}
+  \end{minipage}
+\end{figure}
 
 
 měřítka - scales
@@ -365,7 +382,7 @@ Typ grafu tvz. stacked bar chart, který vychází z klasického sloupcového gr
 
 \section{Struktura vizualizace}
 \subsection{Reprezentace týmů a úrovní}
-byl vybrán stacked bar chart, který je ale otočen, jeho sloupce jsou tedy v podstatě řádky
+byl vybrán stacked bar chart, který je ale otočen - skladany pruhovy graf?, jeho sloupce jsou tedy v podstatě řádky
 každý řádek jeden tým, jednotlivé sekce řádku - sloupce - reprezentují úrovně
 při implementaci stacked bar chart se postupuje opačně, nejdříve se do datové struktury přidají úrovně, do každé úrovně pak pole dat jednotlivých týmů - obrázek
 \subsection{Vizualizace časového plánu}
