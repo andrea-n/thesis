@@ -283,11 +283,11 @@ Na základě požadavků popsaných v předchozí kapitole \ref{technologyRequir
 
 \section{D3.js}
 %%vizuální reprezentace dat
-D3.js (Data-Driven Document) je knihovna pro vizualizaci dat v jazyce JavaScript. Poskytuje funkcionalitu potřebnou pro tvorbu webových vizualizací, které jsou zobrazitelné v kterémkoliv moderním prohlížeči. Data-Driven značí, že jednotlivé prvky dokumentu jsou svázány s daty a jsou podle těchto dat vizuálně transformovány. Zahrnuje také funkce pro animování a různé interakce.
+D3.js (Data-Driven Document) je knihovna pro vizualizaci dat v jazyce JavaScript. Poskytuje funkcionalitu potřebnou pro tvorbu webových vizualizací, které jsou zobrazitelné v kterémkoliv moderním prohlížeči. Data-Driven značí, že jednotlivé prvky dokumentu jsou svázány s daty a jsou podle těchto dat vizuálně transformovány. Obsahuje také funkce pro animování a různé interakce.
 
 \subsection{Základ vizualizací}
-D3.js nepřináší novou reprezentaci, ale využívá již existující standardy HTML, CSS a SVG a pouze pracuje se stávajícími prvky, které vytváří a transformuje \cite{d3jsorg}. Základem vizualizací jsou právě SVG\footnote{SVG (Scalable Vector Graphics) je značkovací jazyk definující dvojrozměrnou vektorovou grafiku v XML formátu. SVG kód lze vložit do kódu HTML stránky.} elementy. \par
-SVG obsahuje elementy mnoha kategorií, patří mezi ně zejména různé kontejnery, tvary a grafické prvky.
+D3.js nepřináší novou reprezentaci, ale využívá již existující standardy HTML, CSS a SVG a pouze pracuje se stávajícími prvky, které vytváří a transformuje \cite{d3jsorg}. Základem vizualizací jsou právě SVG\footnote{SVG (Scalable Vector Graphics) je značkovací jazyk definující dvojrozměrnou vektorovou grafiku v XML formátu. SVG kód lze vložit do kódu HTML stránky.} elementy.\par
+SVG obsahuje elementy mnoha kategorií, patří mezi ně zejména různé kontejnery a grafické prvky. \cite{svgMozillaorg}
 \begin{itemize}
   \item Mezi obalující a strukturální prvky patří např. \verb|<svg>| nebo \verb|<g>|. Značka \verb|<svg>| se používá pro vložení SVG grafiky do dokumentu, \verb|<g>| je kontejner používaný pro seskupení ostatních elementů. Oba dva prvky se mohou zanořovat.
   \item Grafickými elementy jsou např. kruh \verb|<circle>|, obdélník \verb|<rect>|, úsečka \verb|<line>| nebo cesta \verb|<path>|, což je obecný element definující různé tvary.
@@ -299,18 +299,40 @@ SVG obsahuje elementy mnoha kategorií, patří mezi ně zejména různé kontej
 	%%\end{itemize}
 \end{itemize}
 %%využívá HTML, CSS a SVG, co je svg, příklady svg elementů - rectangle, circle, line, path
-%%DOM Document Object Model je rozhraní pro XML a HTML dokumenty. Jedná se o objektově orientovanou reprezentaci stránky tak, aby programy mohly měnit strukturu, styl a obsah dokumentu.
 
+%%CSS selektory umožnují vybrat určité elementy DOM. Nejčastěji podle typu prvku nebo hodnoty jeho atributů (např. id nebo třídy).
 \subsection{Princip práce s D3.js}
-Podobně jako například rozšířená knihovna jQuery, také pracuje a manipuluje s DOM
-Podstatou je mapování dat na vlastnosti elementů vizualizace, čímž jsou elementy transformovány, ať už je to například jejich velikost, poloha, barva atd. Jak se data budou mapovat záleží na vlastní implementaci a na podstatě vybraného grafu. Například u sloupcového grafu budou hodnoty ovlivňovat výšku sloupců, u bublinového zase poloměr či polohu kruhů.
-Vykreslování prvků vizualizace zahrnuje několik základních kroků:
+D3.js, podobně jako např. knihovna jQuery, pracuje a manipuluje s modelem dokumentu DOM\footnote{DOM (Document Object Model) je rozhraní pro XML a HTML dokumenty, které umožňuje přistupovat k jednotlivým prvkům dokumentu a měnit tak jeho strukturu, styl a obsah. Jedná se o objektově orientovanou reprezentaci stránky.}. V D3.js však mohou být styly a atributy elementů specifikovány nejen jako konstanty, ale také jako funkce mapující data.\cite{d3jsorg}.\par
+Podstatou je mapování dat na jednotlivé vlastnosti elementů vizualizace. Tím jsou elementy transformovány, ať už je to jejich velikost, poloha, barva atd. Jakým způsobem se data budou mapovat záleží na vlastní implementaci a na typu vybraného grafu. Například u sloupcového grafu budou data ovlivňovat výšku sloupců, u bublinového zase poloměr či polohu kruhů. \cite{interactiveVisualizationBook}\par
+Vykreslování jednotlivých prvků vizualizace tak zahrnuje několik základních kroků:
 \begin{itemize}
-  \item DOM selection
-  \item Data binding - navázání dat - dynamic properties
-  \item enter and exit - vytváření a rušení elementů
+  \item výběr množiny uzlů,
+  \item navázání dat,
+  \item případné vytvoření (nebo smazání) uzlů,
+  \item transformace elementů (s využitím navázaných dat).
 \end{itemize}
-
+\begin{markdown*}{
+  fencedCode
+}
+Nejdříve je nutné vytvořit výběr, tj. vybrat prvky dokumentu, se kterými se bude manipulovat (pokud dosud neexistují, budou vytvořeny, viz poslední krok). Konkrétní výběr se určí pomocí CSS selektoru.
+Lze vybírat buď jeden samotný uzel pomocí metody `select`, nebo množinu všech uzlů odpovídajících danému selektoru pomocí `selectAll`.
+``` sh
+	d3.selectAll("p");     //vybere odstavce <p>
+```
+Data jsou vložena pomocí metody data. Pokud chceme pouze modifikovat již existující elementy, můžeme zrovna aplikovat změny na elementy.
+``` sh
+	d3.select("body").selectAll("p")
+		.data([4, 8, 15, 16, 23, 42])
+		.text(function(d) { return d; });
+```
+V případě, že elementy ještě neexistují, musíme použít kombinaci metod enter a append, aby byly chybějící elementy vytvořeny.
+``` sh
+	d3.select("body").selectAll("p")
+		.data([4, 8, 15, 16, 23, 42])
+		.enter().append("p")
+		.text(function(d) { return d; });
+```
+\end{markdown*}
 \subsection{Příklady grafů a vizualizací}
 Knihovna poskytuje potřebnou funkcionalitu pro tvorbu vizualizací, žádné předdefinované vizualizace však nezahrnuje. Nicméně je k dispozici několik metod, které usnadní práci s určitými typy vizualizací a grafů. Jedná se o tzv. layouts. Metoda předaná data transformuje, přepočítá a vrátí obecně složitější datovou strukturu, která je však vhodná pro následné vykreslení určitého grafu.
 %%Následuje několik příkladů, podrobněji je rozepsán layout Stack, protože je klíčový pro tuto práci.
