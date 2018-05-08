@@ -304,33 +304,33 @@ SVG obsahuje elementy mnoha kategorií, patří mezi ně zejména různé kontej
 \subsection{Princip práce s D3.js}
 D3.js, podobně jako např. knihovna jQuery, pracuje a manipuluje s modelem dokumentu DOM\footnote{DOM (Document Object Model) je rozhraní pro XML a HTML dokumenty, které umožňuje přistupovat k jednotlivým prvkům dokumentu a měnit tak jeho strukturu, styl a obsah. Jedná se o objektově orientovanou reprezentaci stránky.}. V D3.js však mohou být styly a atributy elementů specifikovány nejen jako konstanty, ale také jako funkce mapující data.\cite{d3jsorg}.\par
 Podstatou je mapování dat na jednotlivé vlastnosti elementů vizualizace. Tím jsou elementy transformovány, ať už je to jejich velikost, poloha, barva atd. Jakým způsobem se data budou mapovat záleží na vlastní implementaci a na typu vybraného grafu. Například u sloupcového grafu budou data ovlivňovat výšku sloupců, u bublinového zase poloměr či polohu kruhů. \cite{interactiveVisualizationBook}\par
-Vykreslování jednotlivých prvků vizualizace tak zahrnuje několik základních kroků:
+Princip vykreslování jednotlivých prvků vizualizace je následující:
 \begin{itemize}
   \item výběr množiny uzlů,
-  \item navázání dat,
-  \item případné vytvoření (nebo smazání) uzlů,
-  \item transformace elementů (s využitím navázaných dat).
+  \item navázání dat na vybranou množinu,
+  \item případné vytvoření chybějících (nebo smazání přebytečných) uzlů,
+  \item transformace elementů podle navázaných dat.
 \end{itemize}
 \begin{markdown*}{
   fencedCode
 }
-Nejdříve je nutné vytvořit výběr, tj. vybrat prvky dokumentu, se kterými se bude manipulovat (pokud dosud neexistují, budou vytvořeny, viz poslední krok). Konkrétní výběr se určí pomocí CSS selektoru.
-Lze vybírat buď jeden samotný uzel pomocí metody `select`, nebo množinu všech uzlů odpovídajících danému selektoru pomocí `selectAll`.
+Nejdříve je nutné vybrat prvky dokumentu, které se sváží s daty. Pokud dosud neexistují, budou vytvořeny, viz poslední krok. Konkrétní výběr se určí pomocí CSS selektoru.
+Lze vybírat buď jeden samotný uzel pomocí metody `select`, nebo množinu všech uzlů odpovídajících danému selektoru pomocí `selectAll`. Následující ukázka označí všechny obdélníky `<rect>`.
 ``` sh
-	d3.selectAll("p");     //vybere odstavce <p>
+	d3.selectAll("rect"); 
 ```
-Data jsou vložena pomocí metody data. Pokud chceme pouze modifikovat již existující elementy, můžeme zrovna aplikovat změny na elementy.
+Data se vkládají metodou `data`. Pokud se jedná o pouhou aktualizaci již existujících elementů, další krok není potřebný a mohou být přímo aplikovány transformace. Ukázka vložení dat a změna výšky obdélníků podle jejich hodnot:
 ``` sh
-	d3.select("body").selectAll("p")
-		.data([4, 8, 15, 16, 23, 42])
-		.text(function(d) { return d; });
+	d3.select("svg").selectAll("rect")
+	  .data([5, 10, 15, 20, 25])
+	  .attr("height", function(d) { return d; });
 ```
-V případě, že elementy ještě neexistují, musíme použít kombinaci metod enter a append, aby byly chybějící elementy vytvořeny.
+V případě, že elementy dosud neexistují (nebo je jejich počet menší, než počet ), jsou chybějící elementy přidány pomocí metod `enter` a `append`.
 ``` sh
-	d3.select("body").selectAll("p")
-		.data([4, 8, 15, 16, 23, 42])
-		.enter().append("p")
-		.text(function(d) { return d; });
+	d3.select("svg").selectAll("rect")
+	  .data([5, 10, 15, 20, 25])
+	  .enter().append("rect")
+	  .attr("height", function(d) { return d; });
 ```
 \end{markdown*}
 \subsection{Příklady grafů a vizualizací}
