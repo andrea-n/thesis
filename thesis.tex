@@ -319,7 +319,7 @@ Princip vykreslování jednotlivých prvků vizualizace je následující:
 \begin{markdown*}{
   fencedCode
 }
-Nejdříve je nutné vybrat prvky dokumentu, které se sváží s daty. Pokud dosud neexistují, budou vytvořeny, viz poslední krok. Konkrétní výběr se určí pomocí CSS selektoru.
+Nejdříve je nutné vybrat prvky dokumentu, které se sváží s daty. Pokud dosud neexistují, budou vytvořeny, viz třetí krok. Konkrétní výběr se určí pomocí CSS selektoru.
 Lze vybírat buď jeden samotný uzel pomocí metody `select`, nebo množinu všech uzlů odpovídajících danému selektoru pomocí `selectAll`. Následující ukázka označí všechny obdélníky `<rect>`.
 ``` sh
 	d3.selectAll("rect"); 
@@ -392,9 +392,21 @@ Knihovna poskytuje pouze potřebnou funkcionalitu pro vizualizaci dat, již při
 \end{figure}
 
 \section{Bootstrap}
-Bootstrap je framework určený pro front-end webových aplikací. css a js, ikony
-volitelne casti
-\subsection{Grid systém}
+Bootstrap je framework určený pro tvorbu responzivních webových stránek, který zahrnuje řadu stylů a komponent usnadňujících vývoj v HTML a CSS. Tvoří jej sada CSS stylů, některé komponenty vyžadují také JavaScript, což zahrnuje kromě vlastních pluginů také knihovnu jQuery.\par
+Framework tvoří například následující součásti.
+\begin{itemize}
+  \item Rozložení stránky (layout), zahrnuje především responzivní gridový systém.
+  \item Styly např. pro barvy, pozicování, odsazení, viditelnost apod.
+  \item Styly pro obsahové prvky, např. text (zarovnání textu, tloušťka písma), tabulky nebo responzivní obrázky. 
+  \item Komponenty, jako např. navigace, modalová okna, formuláře, stránkování, rozbalovací nabídky atd.
+\end{itemize}
+Boostrap je jednoduše dostupný ve formě zkompilovaných CSS a JS souborů, je také ale možné použít zdrojové soubory (Sass\footnote{Sass (Syntactically Awesome StyleSheets) je jedním z CSS preprocesorů, který rozšiřuje možnosti CSS stylů např. o proměnné, zanořování, funkce, cykly apod., čímž ulehčuje práci a údržbu a zmenšuje množství potřebného kódu. Kód se kompiluje do výsledného CSS souboru.} a JavaScript). V druhém případě je nutné zdroje kompilovat, je ale možné je zařadit do vlastního projektu a kompilovat zdroje jako celek. Lze pak například použít jen potřebné komponenty a přizpůsobovat framework vlastním potřebám.
+
+\subsection{Gridový systém}
+grid, breakpointy - xs, s, m
+může být nested
+container a container full
+vždy řádky a v nich sloupce, vždy do určité meze rozlišení určitý počet sloupců
 
 \section{Angular}
 \section{Papa Parse}
