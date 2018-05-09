@@ -392,8 +392,8 @@ Knihovna poskytuje pouze potřebnou funkcionalitu pro vizualizaci dat, již při
 \end{figure}
 
 \section{Bootstrap}
-Bootstrap je framework určený pro tvorbu responzivních webových stránek, který zahrnuje řadu stylů a komponent usnadňujících vývoj v HTML a CSS. Tvoří jej sada CSS stylů, některé komponenty vyžadují také JavaScript, což zahrnuje kromě vlastních pluginů také knihovnu jQuery.\par
-Framework tvoří například následující součásti.
+Bootstrap je framework určený pro tvorbu responzivních webových stránek, který zahrnuje řadu stylů a UI komponent usnadňujících vývoj v HTML a CSS. Tvoří jej sada CSS stylů, některé komponenty vyžadují také JavaScript, což zahrnuje kromě vlastních pluginů také knihovnu jQuery.\par
+Framework tvoří například následující součásti. \cite{bootstrapcom}
 \begin{itemize}
   \item Rozložení stránky (layout), zahrnuje především responzivní gridový systém.
   \item Styly např. pro barvy, pozicování, odsazení, viditelnost apod.
@@ -403,10 +403,8 @@ Framework tvoří například následující součásti.
 Boostrap je jednoduše dostupný ve formě zkompilovaných CSS a JS souborů, je také ale možné použít zdrojové soubory (Sass\footnote{Sass (Syntactically Awesome StyleSheets) je jedním z CSS preprocesorů, který rozšiřuje možnosti CSS stylů např. o proměnné, zanořování, funkce, cykly apod., čímž ulehčuje práci a údržbu a zmenšuje množství potřebného kódu. Kód se kompiluje do výsledného CSS souboru.} a JavaScript). V druhém případě je nutné zdroje kompilovat, je ale možné je zařadit do vlastního projektu a kompilovat zdroje jako celek. Lze pak například použít jen potřebné komponenty a přizpůsobovat framework vlastním potřebám.
 
 \subsection{Gridový systém}
-grid, breakpointy - xs, s, m
-může být nested
-container a container full
-vždy řádky a v nich sloupce, vždy do určité meze rozlišení určitý počet sloupců
+Gridový systém slouží k rozložení a zarovnání obsahu stránky. Používá se jako série kontejneru, řádků a sloupců. \cite{bootstrapcom} Kontejner obaluje obsah stránky a centruje ho. Do kontejneru patří řádky, které vždy obalují sadu sloupců. Sloupce mohou být v libovolných kombinacích, až 12 sloupců na řádek, pak se zalamují. Řádky se sloupci lze libovolně zanořovat do jiných sloupců.\par
+Grid je responzivní a je definováno několik mezí rozlišení v pixel\-ech, které odpovídají určitým typům zařízení (mobilní telefon na výšku a na šířku, tablet, notebook a velké obrazovky). Počet sloupců na řádku se dá specifikovat pro tyto meze zvlášť, např. čtyři sloupce, které jsou vedle sebe na velké obrazovce, se na mobilním zařízení zalomí po jednom pod sebe.
 
 \section{Angular}
 \section{Papa Parse}
