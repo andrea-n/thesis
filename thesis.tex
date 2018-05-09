@@ -286,7 +286,9 @@ Na základě požadavků popsaných v předchozí kapitole \ref{technologyRequir
 
 \section{D3.js}
 %%vizuální reprezentace dat
-D3.js (Data-Driven Document) je knihovna pro vizualizaci dat v jazyce JavaScript. Poskytuje funkcionalitu potřebnou pro tvorbu webových vizualizací, které jsou zobrazitelné v kterémkoliv moderním prohlížeči. Data-Driven značí, že jednotlivé prvky dokumentu jsou svázány s daty a jsou podle těchto dat vizuálně transformovány. Obsahuje také funkce pro animování a různé interakce.
+D3.js (Data-Driven Document) je knihovna pro vizualizaci dat v jazyce JavaScript. Poskytuje funkcionalitu potřebnou pro tvorbu webových vizualizací, které jsou zobrazitelné v kterémkoliv moderním prohlížeči. Data-Driven značí, že jednotlivé prvky dokumentu jsou svázány s daty a jsou podle těchto dat vizuálně transformovány. \par
+Knihovna je navržena jako kolekce spolupracujících modulů, které lze využívat i samostaně \cite{d3APIReference}. Jednotlivé moduly jsou určeny například pro tvorbu základních tvarů, hierarchických struktur, pro práci s barvami a měřítky, ale také pro animování a různé interakce.
+%Citace na github??????? d3APIReference
 
 \subsection{Základ vizualizací}
 D3.js nepřináší novou reprezentaci, ale využívá již existující standardy HTML, CSS a SVG a pouze pracuje se stávajícími prvky, které vytváří a transformuje \cite{d3jsorg}. Základem vizualizací jsou právě SVG\footnote{SVG (Scalable Vector Graphics) je značkovací jazyk definující dvojrozměrnou vektorovou grafiku v XML formátu. SVG kód lze vložit do kódu HTML stránky.} elementy.\par
@@ -337,27 +339,41 @@ V případě, že elementy dosud neexistují (nebo je jejich počet menší, ne�
 ```
 \end{markdown*}
 \subsection{Příklady grafů a vizualizací}
-Knihovna poskytuje pouze potřebnou funkcionalitu pro vizualizaci dat, žádné připravené vizualizace v D3.js nejsou. K dispozici je však několik metod, které usnadní práci s určitými typy vizualizací a grafů. Metoda předaná data transformuje, přepočítá a vrátí obecně složitější datovou strukturu, která je vhodná pro určitý druh vizualizace.
-%%Následuje několik příkladů, podrobněji je rozepsán layout Stack, protože je klíčový pro tuto práci.
-stack, pie, histogram, area, line, force, partition
+Knihovna poskytuje pouze potřebnou funkcionalitu pro vizualizaci dat, již připravené vizualizace v D3.js nejsou. K dispozici je však několik metod, které usnadní práci s určitými typy vizualizací a grafů. Metoda předaná data transformuje, přepočítá a vrátí obecně složitější datovou strukturu, která je vhodná pro určitý druh vizualizace. Konkrétně mezi ně patří například následující metody. \cite{d3APIReference}
+\begin{itemize}
+  \item Line generuje křivky nebo lomené čáry (spline, polyline) pro použití ve spojnicových grafech.
+  \item Pie počítá potřebné úhly pro výsečové nebo prstencové grafy. Pomocí \verb|arc| pak mohou být na základě těchto úhlů vygenerovány oblouky grafu.
+  \item Histogram je součástí modulu pro práci s poli a vypočítává histogram pro zadané pole vzorků.
+  \item Stack slouží pro práci se skládanými sloupcovými grafy (obr. \ref{fig:stackBarChart}). Data obsahují klíče, pomocí kterých se specifikují dané série:
+\begin{markdown*}{
+  fencedCode
+}
+```
+	[{ apples: 5, oranges: 10, grapes: 22 },
+	{ apples: 4, oranges: 12, grapes: 28 }]
+```
+\end{markdown*}
+  \item Area počítá plochy pro použití v plošných grafech, definované dvěma ohraničujícími čarami.
+  \item Force
+  \item Pack patří mezi hierarchické
+\end{itemize}
+
 \begin{figure}[H]
   \RawFloats
   \centering
   \begin{minipage}[b]{0.35\textwidth}
   	\centering
-    \includegraphics[width=4.5cm]{images/bubble.pdf}
+    \includegraphics[width=\textwidth]{images/bubble.pdf}
     \caption{Bublinový graf vytvořený pomocí \texttt{d3.pack}.}
+    \label{fig:bubbleChart}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.5\textwidth}
     \includegraphics[width=\textwidth]{images/stack.pdf}
     \caption{Skládáný sloupcový graf (stacked bar) vytvořený s využitím \texttt{d3.stack}.}
+    \label{fig:stackBarChart}
   \end{minipage}
 \end{figure}
-
-
-měřítka - scales
-animace - transitions
 
 \section{Bootstrap}
 \section{Angular}
