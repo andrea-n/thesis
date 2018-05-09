@@ -282,7 +282,7 @@ Jako zdroj dat mají sloužit CSV soubory, popsané v podkapitole o rozšířen�
 %%je to v reálném čase, když se jen každou sekundu překresluje?
 
 \chapter{Použité technologie}
-Na základě požadavků popsaných v předchozí kapitole \ref{technologyRequirements} byly při implementaci použity následující technologie. Pro vykreslování vizualizace byla použita knihovna D3.js, samotná aplikace je pak postavena na frameworku Angular 2. Načítání dat z CSV souboru je řešeno pomocí knihovny Papa Parse, pro kterou existuje integrace do Angular aplikací. S využitím již připraveného projektu v rámci KYPO je pak tato aplikace integrována do Liferay portletu.
+Na základě požadavků popsaných v předchozí kapitole \ref{technologyRequirements} byly při implementaci použity následující technologie. Pro samotnou vizualizaci byla použita knihovna D3.js a  responzivní grid z frameworku Bootstrap, aplikace je pak postavena na frameworku Angular 2. Načítání dat z CSV souboru je řešeno pomocí knihovny Papa Parse, pro kterou existuje integrace do Angular aplikací. S využitím již připraveného projektu v rámci KYPO je pak tato aplikace integrována do Liferay portletu.
 
 \section{D3.js}
 %%vizuální reprezentace dat
@@ -364,6 +364,13 @@ Knihovna poskytuje pouze potřebnou funkcionalitu pro vizualizaci dat, již při
 			 { source: 1, target: 0 }];
 ```
 \end{markdown*}
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=3.7cm]{images/force.pdf}
+  \end{center}
+  \caption{Graf vytvořený s využitím modulu \texttt{d3-force}.}
+  \label{fig:forceGraph}
+\end{figure}
   \item Pack patří do modulu pro práci s hierarchickými daty, kde hierarchie je reprezentována zanořením, kvantita velikostí prvků. Uzel stromu jsou reprezentován jako kruh, obsahující uvnitř své podstromy jako menší kruhy. Velikost uzlu aproximuje součet velikostí jeho podstromů.
 \end{itemize}
 
@@ -385,6 +392,10 @@ Knihovna poskytuje pouze potřebnou funkcionalitu pro vizualizaci dat, již při
 \end{figure}
 
 \section{Bootstrap}
+Bootstrap je framework určený pro front-end webových aplikací. css a js, ikony
+volitelne casti
+\subsection{Grid systém}
+
 \section{Angular}
 \section{Papa Parse}
 \section{Liferay}
