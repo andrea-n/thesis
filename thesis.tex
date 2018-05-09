@@ -339,12 +339,12 @@ V případě, že elementy dosud neexistují (nebo je jejich počet menší, ne�
 ```
 \end{markdown*}
 \subsection{Příklady grafů a vizualizací}
-Knihovna poskytuje pouze potřebnou funkcionalitu pro vizualizaci dat, již připravené vizualizace v D3.js nejsou. K dispozici je však několik metod, které usnadní práci s určitými typy vizualizací a grafů. Metoda předaná data transformuje, přepočítá a vrátí obecně složitější datovou strukturu, která je vhodná pro určitý druh vizualizace. Konkrétně mezi ně patří například následující metody. \cite{d3APIReference}
+Knihovna poskytuje pouze potřebnou funkcionalitu pro vizualizaci dat, již připravené vizualizace v D3.js nejsou. K dispozici je však několik metod, které usnadní práci s určitými typy vizualizací a grafů. Metoda předaná data transformuje, přepočítá a vrátí obecně složitější datovou strukturu, která je vhodná pro určitý druh vizualizace. Následuje několik příkladů možných využití knihovny. \cite{d3APIReference}
 \begin{itemize}
   \item Line generuje křivky nebo lomené čáry (spline, polyline) pro použití ve spojnicových grafech.
-  \item Pie počítá potřebné úhly pro výsečové nebo prstencové grafy. Pomocí \verb|arc| pak mohou být na základě těchto úhlů vygenerovány oblouky grafu.
-  \item Histogram je součástí modulu pro práci s poli a vypočítává histogram pro zadané pole vzorků.
-  \item Stack slouží pro práci se skládanými sloupcovými grafy (obr. \ref{fig:stackBarChart}). Data obsahují klíče, pomocí kterých se specifikují dané série:
+  \item Area počítá plochy pro použití v plošných grafech, definované dvěma ohraničujícími čarami.
+  \item Pie vypočítává potřebné úhly pro výsečové nebo prstencové grafy. Pomocí \verb|arc| pak mohou být na základě těchto úhlů vygenerovány oblouky grafu.
+  \item Stack slouží pro tvorbu skládaných sloupcových grafů (obr. \ref{fig:stackBarChart}). Data obsahují klíče, kterými se specifikují dané série:
 \begin{markdown*}{
   fencedCode
 }
@@ -353,9 +353,18 @@ Knihovna poskytuje pouze potřebnou funkcionalitu pro vizualizaci dat, již při
 	{ apples: 4, oranges: 12, grapes: 28 }]
 ```
 \end{markdown*}
-  \item Area počítá plochy pro použití v plošných grafech, definované dvěma ohraničujícími čarami.
-  \item Force
-  \item Pack patří mezi hierarchické
+  \item Histogram je součástí modulu pro práci s poli a počítá histogram pro zadané pole vzorků.
+  \item Force je modul určený pro zjednodušenou simulaci působení fyzikálních sil na jednotlivé prvky. Pracuje se s daty jako u orientovaných grafů, tj. s vrcholy spojenými orientovanými hranami:
+\begin{markdown*}{
+  fencedCode
+}
+```
+	nodes = [{ name: "Alice" }, { name: "Bob" }];
+	edges = [{ source: 0, target: 1 },
+			 { source: 1, target: 0 }];
+```
+\end{markdown*}
+  \item Pack patří do modulu pro práci s hierarchickými daty, kde hierarchie je reprezentována zanořením, kvantita velikostí prvků. Uzel stromu jsou reprezentován jako kruh, obsahující uvnitř své podstromy jako menší kruhy. Velikost uzlu aproximuje součet velikostí jeho podstromů.
 \end{itemize}
 
 \begin{figure}[H]
