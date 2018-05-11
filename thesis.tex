@@ -428,12 +428,12 @@ Grid je responzivní a~je definováno několik mezí rozlišení v~pixel\-ech, k
 \chapter{Implementace}
 Prvním krokem při implementaci bylo vytvoření základu vizualizace v D3.js, což zahrnuje především výběr vhodného typu grafu (některé příklady jsou uvedeny v kapitole o D3.js \ref{d3jsGraphs}) a datové struktury, vykreslení všech požadovaných prvků vizualizace a načítání dat z CSV souboru.\par
 V dalším kroku byla vizualizace integrována do Angular aplikace jako samostatný modul, byly přidány interaktivní prvky a také načítání dat skrze API. O vytvoření Lifereay portletu s Angular aplikací se již stará skript, který připravil Bc. David Beran v rámci projektu \verb|kypo2-portlet-empty-angular|.
-
+% zeptat se jestli jen David Beran
 \section{Základ vizualizace}
 Jako základní struktura pro stavbu vizualizace byl vybrán skládaný sloupcový graf, tzv. stacked bar chart (obr. \ref{fig:stackBarChart}). Ten má několik vrstev položených na sebe. V tomto případě se přesněji jedná o graf pruhový, jelikož bylo nutné jej pro vizualizaci otočit a vykreslovat jako horizontální pruhy.\par
 V knihovně D3.js existuje pro tento typ grafu soubor metod s názvem Stack, který je částí modulu pro grafická primitiva \verb|d3-shapes|. Stack lze obecně použít pro tvary, které mají být na sebe těsně naskládány, mohou být takto skládány i plošné grafy. Negeneruje graf nebo tvary přímo, ale vypočítává pozice, podle kterých lze následně tvary vykreslit. \cite{d3jsorg}\par
 
-\subsection{Základní graf pro vizualizaci}
+\subsection{Základ grafu pro vizualizaci}
 Stacked bar graf lze chápat jako několik vrstev, které jsou vertikálně naskládány na sebe, nebo jako v tomto případě vedle sebe.
 \begin{figure}[H]
   \begin{center}
@@ -442,25 +442,46 @@ Stacked bar graf lze chápat jako několik vrstev, které jsou vertikálně nask
   \caption{Využití skládaného grafu pro vizualizaci herních úrovní.}
   \label{fig:visualizationChart}
 \end{figure}
-Každá vrstva představuje určitou kategorii identifikovanou vlastním klíčem. Jako jednotlivé kategorie budou v této vizualizaci úrovně hry s odpovídajícími klíči \verb|level1|, \verb|level2|, \verb|level3| atd. Jejich hodnota bude vždy čas, který tým v dané úrovni strávil, počítaný v sekundách. Příklad struktury dat pro dva týmy a tři herní úrovně:
+Každá vrstva grafu představuje určitou kategorii identifikovanou vlastním klíčem. Jednotlivými kategoriemi budou v této vizualizaci úrovně hry s odpovídajícími klíči \verb|level1|, \verb|level2|, \verb|level3| atd. Jejich hodnota bude vždy čas, který tým v dané úrovni strávil, počítaný v sekundách. Příklad struktury dat pro dva týmy a tři herní úrovně:
+%[{"team": 1, "level1": 850, "level2": 740, "level3": 910},
+% {"team": 2, "level1": 630, "level2": 950, "level3": 980}]
 \begin{markdown*}{
   fencedCode
 }
-```
-[{ "level1": 1130, "level2": 745, "level3": 2399 },
-{ "level1": 1365, "level2": 1070, "level3": 1337 }]
+```Java
+	[{"team": 1, "level1": 850, "level2": 740},
+	 {"team": 2, "level1": 630, "level2": 950}]
 ```
 \end{markdown*}
 
+Struktura potřebná pro vykreslení svg elementů je z těchto dat vypočítána pomocí \verb|stack| z D3.js. Je třeba specifikovat klíče, podle nich se pak data seskupí a vypočítají se body jednotlivých vrstev.
+
+\begin{markdown*}{
+  fencedCode
+}
+```Java
+	stack = d3.stack()
+			  .keys(["level1", "level2"])
+	layers = stack(data);
+```
+\end{markdown*}
+Vráceno je pole, jehož prvky reprezentují jednotlivé kategorie, tedy herní úrovně. Každá úroveň je opět pole a jeho prvky odpovídají jednotlivým týmům.
+%[[[   0, 850], [   0, 630]],        // level1
+%	  [[850, 1590], [630, 1580]],       // level2
+%	  [[1590, 2500], [1580, 2560]]]     // level3
+\begin{markdown*}{
+  fencedCode
+}
+```Java
+	[[[   0, 850], [   0, 630]],     // level1
+	  [[850, 1590], [630, 1580]]]    // level2
+```
+\end{markdown*}
+Vypočítané hodnoty již určují body v grafu, v tomto případě \mbox{x-ové} souřadnice úrovně pro každý tým. Na základě těchto hodnot už mohou být vykresleny jednotlivé SVG obdélníky \verb|<rect>| do grafu.
+
 \section{Struktura vizualizace}
-výběr grafu a jeho datová struktura
-Typ grafu tvz. stacked bar chart, který vychází z klasického sloupcového grafu (bar chart)
-
-
 \subsection{Reprezentace týmů a úrovní}
-byl vybrán stacked bar chart, který je ale otočen - skladany pruhovy graf?, jeho sloupce jsou tedy v podstatě řádky
-každý řádek jeden tým, jednotlivé sekce řádku - sloupce - reprezentují úrovně
-při implementaci stacked bar chart se postupuje opačně, nejdříve se do datové struktury přidají úrovně, do každé úrovně pak pole dat jednotlivých týmů - obrázek
+
 \subsection{Vizualizace časového plánu}
 na x ose čas, na y ose týmy
 odhad, timeline
