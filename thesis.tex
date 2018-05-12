@@ -481,14 +481,20 @@ Vráceno je pole, jehož prvky reprezentují jednotlivé kategorie, tedy herní 
 Vypočítané hodnoty již vymezují jednotlivé úrovně v grafu, v tomto případě jejich \mbox{x-ové} pozice pro každý tým. Hodnota na ose y se určí dle týmu. Na základě těchto hodnot už mohou být vykresleny jednotlivé SVG obdélníky \verb|<rect>| do grafu.
 
 \subsection{Měřítka}
-Měřítka jsou v D3.js funkce, které mapují hodnoty z domény vstupních dat do výstupního rozsahu vizualizace \cite{interactiveVisualizationBook}.
-
-data mapovaná na y - týmy - diskrétní
-data mapovaná na x - úrovně - spojité a lineární
+Data mohou nabývat hodnot v různém rozsahu a je nutné je při vykreslování vhodně škálovat do výsledného obrazu. Měřítka (scales) v D3.js jsou funkce, které mapují hodnoty z domény vstupních dat do výstupního rozsahu vizualizace \cite{d3jsorg}. Měřítek je několik v závislosti na vstupní doméně a výstupním oboru hodnot. Pro tuto vizualizaci jsou podstatné následující dva typy:
+%do výstupních rozměrů vizualizace?
+%do výstupního obrazu?
+\begin{itemize}
+  \item spojitá měřítka, která mapují hodnoty ze spojité číselné domény do spojitého oboru hodnot,
+  \item ordinální měřítka pro mapování diskrétních hodnot na diskrétní.
+\end{itemize}
+Osa x vizualizace představuje čas a bylo pro ni použito spojité měřítko, konkrétně lineární \verb|d3.scaleLinear|, aby byl čas mapován rovnoměrně.\par
+Na ose y se nachází jednotlivé týmy. Týmy tvoří diskrétní množinu, stejně jako jednotlivé řádky vizualizace. Proto bylo použito měřítko ordinální, konkrétně se jedná o \verb|d3.scaleBand|, které každý tým mapuje podle jména na správný řádek vizualizace.
+%Na ose y se nachází jednotlivé týmy a proto bylo nutné použít měřítko ordinální.
 
 \section{Datová struktura}
 %Dalším důležitým krokem byl návrh datové struktury, se kterou má vizualizace pracovat. Ta musí obsahovat všechny potřebné informace tak, aby mohly být vykresleny všechny požadované prvky ze zadnání, např. aktuální čas od začátku hry, data jednotlivých hráčů nebo časový plán. Některá data pak musí být v určitém formátu, jako např. strávený čas v jednotlivých úrovních, který musí mít formát popsaný v předchozí podkapitole, aby mohl být vypočítán a vykreslen skládaný graf. Dle toho byla navržena následující datová struktura, se kterou vizualizace pracuje:
-Dalším důležitým krokem byl návrh datové struktury, se kterou má vizualizace pracovat. Některá data musí být v určitém formátu, jako např. strávený čas v jednotlivých úrovních, který musí mít formát popsaný v předchozí podkapitole, aby mohl být vypočítán a vykreslen skládaný graf. Dle toho byla navržena následující datová struktura, se kterou vizualizace pracuje:
+Dalším krokem byl návrh datové struktury, se kterou má vizualizace pracovat. Některá data musí být v určitém formátu, jako např. strávený čas v jednotlivých úrovních, který musí mít formát popsaný v předchozí podkapitole, aby mohl být vypočítán a vykreslen skládaný graf. Dle toho byla navržena následující datová struktura, se kterou vizualizace pracuje:
 
 \section{Struktura vizualizace}
 Vizualizace se skládá z několika součástí, které se vykreslují postupně. K celkovému rozložení na stránce byl použit grid z frameworku Bootstrap, který vizualizaci centruje a zarovnává některé její prvky.
@@ -496,11 +502,19 @@ svg s grafem úrovní a plánu, sloupce s údaji jsou zvlášt v gridu
 %dát to víc do gridu, např. selecty, aby se dalo napsat, že je díky gridu responzivní
 
 \subsection{Vizualizace časového plánu}
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=12.7cm]{images/ctf-plan.pdf}
+  \end{center}
+  \caption{Plán}
+  \label{fig:visualizationChart}
+\end{figure}
 na x ose čas, na y ose týmy
 odhad, timeline
 datová struktura plandataset
 \subsection{Vizualizace herních úrovní}
 datová struktura gamedataset
+aktualizace měřítka, aktualizace plánu - posunutí šrafování
 %% byly přidány další levely a je jich teď 6 -> ukázka s 6 levely
 \subsection{Události}
 \subsection{Sloupce s údaji}
