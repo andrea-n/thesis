@@ -494,13 +494,28 @@ Na ose y se nachází jednotlivé týmy. Týmy tvoří diskrétní množinu, ste
 
 \section{Datová struktura}
 %Dalším důležitým krokem byl návrh datové struktury, se kterou má vizualizace pracovat. Ta musí obsahovat všechny potřebné informace tak, aby mohly být vykresleny všechny požadované prvky ze zadnání, např. aktuální čas od začátku hry, data jednotlivých hráčů nebo časový plán. Některá data pak musí být v určitém formátu, jako např. strávený čas v jednotlivých úrovních, který musí mít formát popsaný v předchozí podkapitole, aby mohl být vypočítán a vykreslen skládaný graf. Dle toho byla navržena následující datová struktura, se kterou vizualizace pracuje:
-Dalším krokem byl návrh datové struktury, se kterou má vizualizace pracovat. Některá data musí být v určitém formátu, jako např. strávený čas v jednotlivých úrovních, který musí mít formát popsaný v předchozí podkapitole, aby mohl být vypočítán a vykreslen skládaný graf. Dle toho byla navržena následující datová struktura, se kterou vizualizace pracuje:
+Záznamy událostí ze hry, ať už ve formátu CSV nebo JSON, musí být nejdříve zpracovány do vhodné datové struktury, se kterou bude moci vizualizace pracovat. Některá data musí být v určitém formátu, jako např. čas strávený v jednotlivých úrovních, aby mohl být vypočítán a vykreslen skládaný graf. Některé údaje musí být ze záznamů vypočítány. Datová struktura, se kterou vizualizace pracuje, je objekt s těmito atributy:
+\begin{itemize}
+  \item \verb|time| – číslo udávající čas od začátku hry v sekundách,
+  \item \verb|levels| – pole klíčů jednotlivých úrovní hry,
+  \item \verb|levelsTimePlan| – pole čísel udávájí časový odhad pro každou úroveň v sekundách,
+  \item \verb|gameDataset| – pole objektů představující týmy, má popsanou strukturu potřebnou pro použití s \verb|d3.stack|, uchovává však některé informace navíc:
+  	\begin{itemize}
+		\item \verb|team| – název týmu,
+		\item \verb|startTime| – čas v sekundách, kdy tým začal hru
+		\item \verb|totalTime| – celkový čas, který již tým strávil ve hře
+		\item \verb|currentState| – aktuální úroveň, na které tým právě pracuje
+		\item \verb|events| – pole událostí, jako využité nápovědy, zobrazená řešení nebo přeskočení úrovně
+		\item \verb|level1|, \verb|level2|, \verb|level3|… čas strávený v jednotlivých úrovních, pro zpracování pomocí d3.stack do skládaného grafu,
+	\end{itemize}
+  \item \verb|planDataset| – podobné pole objektů jako gameDataset, avšak bez některých prvků, používá se pro vykreslení časového plánu hry.
+\end{itemize}
+%, jako využité nápovědy, celkově strávený čas apod.,
 
 \section{Struktura vizualizace}
-Vizualizace se skládá z několika součástí, které se vykreslují postupně. K celkovému rozložení na stránce byl použit grid z frameworku Bootstrap, který vizualizaci centruje a zarovnává některé její prvky.
-svg s grafem úrovní a plánu, sloupce s údaji jsou zvlášt v gridu
+%K celkovému rozložení na stránce byl použit grid z frameworku Bootstrap, který vizualizaci centruje a zarovnává některé její prvky.
+Vizualizace se skládá z několika částí, které se vykreslují postupně. K celkovému rozložení na stránce byl použit grid z frameworku Bootstrap.
 %dát to víc do gridu, např. selecty, aby se dalo napsat, že je díky gridu responzivní
-
 \subsection{Vizualizace časového plánu}
 \begin{figure}[H]
   \begin{center}
@@ -518,6 +533,7 @@ aktualizace měřítka, aktualizace plánu - posunutí šrafování
 %% byly přidány další levely a je jich teď 6 -> ukázka s 6 levely
 \subsection{Události}
 \subsection{Sloupce s údaji}
+jsou v gridu v samostatných sloupcích, aby byly zarovnané s ovládacími prvky nahoře
 nejsou součástí SVG grafu, je ale taky svg, musí se počítat y souřadnice
 momentálně dva sloupce, tým, slouží jako osa
 možné přidat další
@@ -546,6 +562,7 @@ výpočet velikosti
 \subsection{Struktura dat}
 \subsection{Zpracování dat}
 \subsection{Služba LoadDataService}
+%flow diagram? (cesta dat) - je tam řazení, muselo by to být za ovládacími prvky
 
 \section{Ovládací prvky}
 popisky nahoře - samostatná komponenta
