@@ -426,7 +426,7 @@ Grid je responzivní a~je definováno několik mezí rozlišení v~pixel\-ech, k
 \section{Liferay} \label{liferay}
 
 \chapter{Implementace}
-Prvním krokem při implementaci bylo vytvoření základu vizualizace v D3.js, což zahrnuje především výběr vhodného typu grafu (některé příklady jsou uvedeny v kapitole o D3.js \ref{d3jsGraphs}) a datové struktury, vykreslení všech požadovaných prvků vizualizace a načítání dat z CSV souboru.\par
+Prvním krokem při implementaci bylo vytvoření základu vizualizace v D3.js, což zahrnuje především výběr vhodného typu grafu (příklady jsou uvedeny v kapitole \ref{d3jsGraphs} o D3.js), návrh datové struktury, vykreslení všech požadovaných prvků vizualizace a načtení dat z CSV souboru.\par
 V dalším kroku byla vizualizace integrována do Angular aplikace jako samostatný modul, byly přidány interaktivní prvky a také načítání dat skrze API. O vytvoření Lifereay portletu s Angular aplikací se již stará skript, který připravil Bc. David Beran v rámci projektu \verb|kypo2-portlet-empty-angular|.
 % zeptat se jestli jen David Beran
 \section{Základ vizualizace}
@@ -434,7 +434,7 @@ Jako základní struktura pro stavbu vizualizace byl vybrán skládaný sloupcov
 V knihovně D3.js existuje pro tento typ grafu soubor metod s názvem Stack, který je částí modulu pro grafická primitiva \verb|d3-shapes|. Stack lze obecně použít pro tvary, které mají být na sebe těsně naskládány, mohou být takto skládány i plošné grafy. Negeneruje graf nebo tvary přímo, ale vypočítává pozice, podle kterých lze následně tvary vykreslit. \cite{d3jsorg}\par
 
 \subsection{Základ grafu pro vizualizaci}
-Stacked bar graf lze chápat jako několik vrstev, které jsou vertikálně naskládány na sebe, nebo jako v tomto případě vedle sebe.
+Tento typ grafu lze chápat jako několik vrstev, které jsou vertikálně naskládány na sebe, nebo jako v tomto případě vedle sebe.
 \begin{figure}[H]
   \begin{center}
     \includegraphics[width=4cm]{images/stack-ctf.pdf}
@@ -454,7 +454,7 @@ Každá vrstva grafu představuje určitou kategorii identifikovanou vlastním k
 ```
 \end{markdown*}
 
-Struktura potřebná pro vykreslení svg elementů je z těchto dat vypočítána pomocí \verb|stack| z D3.js. Je třeba specifikovat klíče, podle nich se pak data seskupí a vypočítají se body jednotlivých vrstev.
+Struktura potřebná pro vykreslení SVG elementů je z takových dat vypočítána pomocí \verb|stack| z D3.js. Je třeba specifikovat klíče, podle nich se pak data seskupí a vypočítají se pozice jednotlivých vrstev.
 
 \begin{markdown*}{
   fencedCode
@@ -477,19 +477,36 @@ Vráceno je pole, jehož prvky reprezentují jednotlivé kategorie, tedy herní 
 	  [[850, 1590], [630, 1580]]]    // level2
 ```
 \end{markdown*}
-Vypočítané hodnoty již určují body v grafu, v tomto případě \mbox{x-ové} souřadnice úrovně pro každý tým. Na základě těchto hodnot už mohou být vykresleny jednotlivé SVG obdélníky \verb|<rect>| do grafu.
+%Vypočítané hodnoty již určují body v grafu, v tomto případě \mbox{x-ové} souřadnice úrovní pro každý tým.
+Vypočítané hodnoty již vymezují jednotlivé úrovně v grafu, v tomto případě jejich \mbox{x-ové} pozice pro každý tým. Hodnota na ose y se určí dle týmu. Na základě těchto hodnot už mohou být vykresleny jednotlivé SVG obdélníky \verb|<rect>| do grafu.
+
+\subsection{Měřítka}
+Měřítka jsou v D3.js funkce, které mapují hodnoty z domény vstupních dat do výstupního rozsahu vizualizace \cite{interactiveVisualizationBook}.
+
+data mapovaná na y - týmy - diskrétní
+data mapovaná na x - úrovně - spojité a lineární
+
+\section{Datová struktura}
+%Dalším důležitým krokem byl návrh datové struktury, se kterou má vizualizace pracovat. Ta musí obsahovat všechny potřebné informace tak, aby mohly být vykresleny všechny požadované prvky ze zadnání, např. aktuální čas od začátku hry, data jednotlivých hráčů nebo časový plán. Některá data pak musí být v určitém formátu, jako např. strávený čas v jednotlivých úrovních, který musí mít formát popsaný v předchozí podkapitole, aby mohl být vypočítán a vykreslen skládaný graf. Dle toho byla navržena následující datová struktura, se kterou vizualizace pracuje:
+Dalším důležitým krokem byl návrh datové struktury, se kterou má vizualizace pracovat. Některá data musí být v určitém formátu, jako např. strávený čas v jednotlivých úrovních, který musí mít formát popsaný v předchozí podkapitole, aby mohl být vypočítán a vykreslen skládaný graf. Dle toho byla navržena následující datová struktura, se kterou vizualizace pracuje:
 
 \section{Struktura vizualizace}
-\subsection{Reprezentace týmů a úrovní}
+Vizualizace se skládá z několika součástí, které se vykreslují postupně. K celkovému rozložení na stránce byl použit grid z frameworku Bootstrap, který vizualizaci centruje a zarovnává některé její prvky.
+svg s grafem úrovní a plánu, sloupce s údaji jsou zvlášt v gridu
+%dát to víc do gridu, např. selecty, aby se dalo napsat, že je díky gridu responzivní
 
 \subsection{Vizualizace časového plánu}
 na x ose čas, na y ose týmy
 odhad, timeline
+datová struktura plandataset
 \subsection{Vizualizace herních úrovní}
+datová struktura gamedataset
 %% byly přidány další levely a je jich teď 6 -> ukázka s 6 levely
 \subsection{Události}
 \subsection{Sloupce s údaji}
-momentálně dva sloupce, tým, slouží jako osa x
+nejsou součástí SVG grafu, je ale taky svg, musí se počítat y souřadnice
+momentálně dva sloupce, tým, slouží jako osa
+možné přidat další
 \subsection{Další prvky}
 časová osa - její pozice na y ose je v místě odpovídající aktuálnímu času , čas - vpravo nahoře, převádí se do textu z timestamp, popisek události - při najetí na událost se přesune na její pozici a odkryje
 
@@ -531,6 +548,7 @@ ukázka konfigu a potom v listu stručný popis
 \section{Testy}
 
 \chapter{Závěr}
+možné přidat bodové hodnocení, získávat odněkud časový plán
 
 \printbibliography
 
