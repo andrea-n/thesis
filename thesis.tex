@@ -260,7 +260,7 @@ Grafický návrh, jehož autorem je Bc.~Kristína Zákopčanová, zahrnuje zmín
 Na obrázku \ref{fig:progress1} je znázorněn průběh hry krátce po jejím začátku společně s~časovými odhady jednotlivých úrovní. Každému týmu přísluší jeden řádek, název týmu je uveden vlevo. Sloupce pak značí jednotlivé úrovně, které se odlišují svou barvou. V~pravém horním rohu se zobrazuje uplynulý čas.
 \begin{enumerate}
   \item Svislé čáry představují odhadovanou dobu pro dokončení úrovně, jsou nezávislé na postupu týmu a~tudíž se nemění.
-  \item Šrafovaná oblast vyznačuje předpokládanou dobu řešení úrovně pro daný tým. Její počátek je ovlivněn tím, kdy tým začal na této úrovni pracovat, a~tedy také tím, kdy dokončil předchozí úrovně.
+  \item Šrafovaná oblast vyznačuje předpokládanou dobu řešení úrovně pro daný tým. Její počátek je ovlivněn tím, kdy tým začal na úrovni pracovat, a~tedy také tím, kdy dokončil předchozí úrovně.
   \item Časová osa, představuje aktuální moment.
   \item Sytější barva značí úroveň, na které tým právě pracuje.
   \item Světlejší barva značí již vyřešenou úroveň.
@@ -433,7 +433,7 @@ V dalším kroku byla vizualizace integrována do Angular aplikace jako samostat
 Jako základní struktura pro stavbu vizualizace byl vybrán skládaný sloupcový graf, tzv. stacked bar chart (obr. \ref{fig:stackBarChart}). Ten má několik vrstev položených na sebe. V tomto případě se přesněji jedná o graf pruhový, jelikož bylo nutné jej pro vizualizaci otočit a vykreslovat jako horizontální pruhy.\par
 V knihovně D3.js existuje pro tento typ grafu soubor metod s názvem Stack, který je částí modulu pro grafická primitiva \verb|d3-shapes|. Stack lze obecně použít pro tvary, které mají být na sebe těsně naskládány, mohou být takto skládány i plošné grafy. Negeneruje graf nebo tvary přímo, ale vypočítává pozice, podle kterých lze následně tvary vykreslit. \cite{d3jsorg}\par
 
-\subsection{Základ grafu pro vizualizaci}
+\subsection{Základ grafu pro vizualizaci} \label{chartBase}
 Tento typ grafu lze chápat jako několik vrstev, které jsou vertikálně naskládány na sebe, nebo jako v tomto případě vedle sebe.
 \begin{figure}[H]
   \begin{center}
@@ -477,7 +477,7 @@ Vráceno je pole, jehož prvky reprezentují jednotlivé kategorie, tedy herní 
 	  [[850, 1590], [630, 1580]]]    // level2
 ```
 \end{markdown*}
-%Vypočítané hodnoty již určují body v grafu, v tomto případě \mbox{x-ové} souřadnice úrovní pro každý tým.
+%ZRUŠIT ODSAZENÍ PŘED KÓDEM?????????????????????????
 Vypočítané hodnoty již vymezují jednotlivé úrovně v grafu, v tomto případě jejich \mbox{x-ové} pozice pro každý tým. Hodnota na ose y se určí dle týmu. Na základě těchto hodnot už mohou být vykresleny jednotlivé SVG obdélníky \verb|<rect>| do grafu.
 
 \subsection{Měřítka}
@@ -528,23 +528,67 @@ Vizualizace se skládá z několika částí, které se vykreslují postupně. K
 \end{figure}
 %OBRÁZEK DÁT Z PROGRESS VIEW!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! aby tam byl čas!!!!!!!!!!!!!!!!
 
-Hlavní část vizualizace je v rámci jednoho SVG elementu.
+% Tento element zahrnuje vizualizaci časového plánu hry, vizualizaci skutečné délky úrovní, události v podobě ikon, osu x a časovou osu vyznačující aktuální okamžik v grafu.
+Hlavní část vizualizace je v rámci jednoho SVG elementu. Tento element zahrnuje:
+\begin{enumerate}
+  \item vizualizaci časového plánu hry,
+  \item vizualizaci skutečné délky úrovní,
+  \item události v podobě ikon,
+  \item osu x,
+  \item časovou osu vyznačující aktuální okamžik v grafu.
+\end{enumerate}
+
+\begin{markdown*}{
+  fencedCode
+}
+```HTML
+	<svg class="ctf-progress-chart">
+	   <g class="ctf-game-wrapper">
+	      <g class="ctf-game">
+	         <g class="axis-x">...</g>		  //4
+	         <g class="game">...</g>		  //2
+	         <g class="plan">...</g>		  //1
+	         <g class="events">...</g>		  //3
+	         <g class="bounds">...</g>		  //1
+	         <line class="timeline"></line>	  //5
+	      </g>
+	   </g>
+	</svg>
+```
+\end{markdown*}
+
+Ostatní elementy, jako názvy a celkový čas týmů nebo text ukazující aktuální čas, jsou umístěny zvlášť v samostatných sloupcích okolo vizualizace.
+
 %ukazka struktury svg ve sbalenem kodu --> struktura vygenerovaneho svg kodu vizualizaci
+\subsection{Kostra vizualizace}
+Nejdříve je vygenerován nutný základ vizualizace, především hlavní \verb|<svg>| element, ale také obalující \verb|<g>| elementy.\par
+Šířka \verb|<svg>| je vypočítána na základě šířky rodičovského HTML elementu a odvíjí se od toho, jakou šířku má viewport\footnote{Viewport je zde oblast, do které prohlížeč vykresluje stránku, tedy viditelná část webové stránky.}. Výpočet výšky závisí na více proměnných. Při výpočtu je brána v úvahu výška viewportu, počet týmů a minimální přednastavená výška jednoho řádku vizualizace. Závisí ale také na vypočítané šířce, a to z důvodu částečného zachování proporcí.\par
+Dále jsou vytvořena a nastavena měřítka pro obě osy x a y. Doménou x-ového měřítka je celková odhadovaná délka hry, pro y je to množina týmů. Také je vykreslena osa x a hustota bodů na této ose respektuje šířku vizualizace.
+%zjemňuje se při zoomování?! dodělat
+%vyznačit nějak x a y?
 
 \subsection{Vizualizace časového plánu}
 \begin{figure}[H]
   \begin{center}
     \includegraphics[width=12.7cm]{images/ctf-plan.pdf}
   \end{center}
-  \caption{Časový odhad vykreslený do grafu.}
+  \caption{Časový odhad jednotlivých úrovní. Svislé čáry znázorňují nezávislý odhadovaný limit. Šrafované oblasti se týkají vždy daného týmu a jejich začátek se posunuje v závislosti na postupu týmu.}
   \label{fig:visualizationChart}
 \end{figure}
-na x ose čas, na y ose týmy
-odhad, timeline
-datová struktura plandataset
+Odhadovaný časový limit pro jednotlivé úrovně je vykreslován způsobem popsaným v podkapitole o základu grafu \ref{chartBase}. Použitá datová struktura je stejná, ale místo skutečné délky úrovní je v ní v ní uložen pouze odhad:
+\begin{markdown*}{
+  fencedCode
+}
+```Java
+[{"team": 1, "level1": 1000, "level2": 2000}]
+```
+\end{markdown*}
+Vykreslování probíhá dvakrát, nejdříve jsou pomocí d3.stack vygenerovány šrafované obdélníky a poté hranice v podobě svislých čar.
+
 \subsection{Vizualizace herních úrovní}
-datová struktura gamedataset
-aktualizace měřítka, aktualizace plánu - posunutí šrafování
+Princip vykreslování skutečné délky úrovní je opět stejný jako již popsaný způsob v \ref{chartBase}. Během vykreslování je však navíc třeba brát v úvahu, zda již tým úroveň dokončil, nebo na ní právě pracuje, kvůli přidělení světlé nebo syté barvy. Tato informace je již předpočítána v datové struktuře.\par
+Před vykreslením je nutné aktualizovat měřítka, protože týmy již mohly překročit celkový odhad a graf by přesáhl stanovenou šířku vizualizace.\par
+Po vykreslení reálných dat je třeba aktualizovat plán, protože se mohlo změnit měřítko. Také je třeba posunout šrafované oblasti plánu, které jsou závislé na aktuálním postupu týmu. Všechny šrafované oblasti s výjimkou té, která se týká aktuální úrovně, jsou skryty. Šrafování, které se týká aktuální úrovně, je posunuto na pozici jejího začátku.
 %% byly přidány další levely a je jich teď 6 -> ukázka s 6 levely
 \subsection{Události}
 \subsection{Sloupce s údaji}
