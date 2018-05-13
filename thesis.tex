@@ -492,13 +492,15 @@ Osa x vizualizace představuje čas a bylo pro ni použito spojité měřítko, 
 Na ose y se nachází jednotlivé týmy. Týmy tvoří diskrétní množinu, stejně jako jednotlivé řádky vizualizace. Proto bylo použito měřítko ordinální, konkrétně se jedná o \verb|d3.scaleBand|, které každý tým mapuje podle jména na správný řádek vizualizace.
 %Na ose y se nachází jednotlivé týmy a proto bylo nutné použít měřítko ordinální.
 
+\subsection{Barvy}
+
 \section{Datová struktura}
 %Dalším důležitým krokem byl návrh datové struktury, se kterou má vizualizace pracovat. Ta musí obsahovat všechny potřebné informace tak, aby mohly být vykresleny všechny požadované prvky ze zadnání, např. aktuální čas od začátku hry, data jednotlivých hráčů nebo časový plán. Některá data pak musí být v určitém formátu, jako např. strávený čas v jednotlivých úrovních, který musí mít formát popsaný v předchozí podkapitole, aby mohl být vypočítán a vykreslen skládaný graf. Dle toho byla navržena následující datová struktura, se kterou vizualizace pracuje:
-Záznamy událostí ze hry, ať už ve formátu CSV nebo JSON, musí být nejdříve zpracovány do vhodné datové struktury, se kterou bude moci vizualizace pracovat. Některá data musí být v určitém formátu, jako např. čas strávený v jednotlivých úrovních, aby mohl být vypočítán a vykreslen skládaný graf. Některé údaje musí být ze záznamů vypočítány. Datová struktura, se kterou vizualizace pracuje, je objekt s těmito atributy:
+Záznamy událostí ze hry, ať už ve formátu CSV nebo JSON, musí být nejdříve zpracovány do vhodné datové struktury, se kterou bude vizualizace pracovat. Některá data musí být v určitém formátu, aby mohla být zprácována za pomoci \verb|d3.stack| do výsledného grafu. Jedná se o odhadovanou a skutečnou délku každé úrovně pro jednotlivé týmy. Některé údaje musí být ze záznamů vypočítány.\par Datová struktura, se kterou vizualizace pracuje, je objekt s těmito atributy:
 \begin{itemize}
   \item \verb|time| – číslo udávající čas od začátku hry v sekundách,
   \item \verb|levels| – pole klíčů jednotlivých úrovní hry,
-  \item \verb|levelsTimePlan| – pole čísel udávájí časový odhad pro každou úroveň v sekundách,
+  \item \verb|levelsTimePlan| – pole čísel udávájící časový odhad pro každou úroveň v sekundách,
   \item \verb|gameDataset| – pole objektů představující týmy, má popsanou strukturu potřebnou pro použití s \verb|d3.stack|, uchovává však některé informace navíc:
   	\begin{itemize}
 		\item \verb|team| – název týmu,
@@ -508,7 +510,7 @@ Záznamy událostí ze hry, ať už ve formátu CSV nebo JSON, musí být nejdř
 		\item \verb|events| – pole událostí, jako využité nápovědy, zobrazená řešení nebo přeskočení úrovně
 		\item \verb|level1|, \verb|level2|, \verb|level3|… čas strávený v jednotlivých úrovních, pro zpracování pomocí d3.stack do skládaného grafu,
 	\end{itemize}
-  \item \verb|planDataset| – podobné pole objektů jako gameDataset, avšak bez některých prvků, používá se pro vykreslení časového plánu hry.
+  \item \verb|planDataset| – podobné pole objektů jako \verb|gameDataset|, avšak bez některých prvků, používá se pro vykreslení časového plánu hry.
 \end{itemize}
 %, jako využité nápovědy, celkově strávený čas apod.,
 
@@ -516,12 +518,25 @@ Záznamy událostí ze hry, ať už ve formátu CSV nebo JSON, musí být nejdř
 %K celkovému rozložení na stránce byl použit grid z frameworku Bootstrap, který vizualizaci centruje a zarovnává některé její prvky.
 Vizualizace se skládá z několika částí, které se vykreslují postupně. K celkovému rozložení na stránce byl použit grid z frameworku Bootstrap.
 %dát to víc do gridu, např. selecty, aby se dalo napsat, že je díky gridu responzivní
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=12.7cm]{images/ctf-all.pdf}
+  \end{center}
+  \caption{Implementovaná vizualizace s reálnými daty z CSV souboru.}
+  \label{fig:visualizationChart}
+\end{figure}
+%OBRÁZEK DÁT Z PROGRESS VIEW!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! aby tam byl čas!!!!!!!!!!!!!!!!
+
+Hlavní část vizualizace je v rámci jednoho SVG elementu.
+%ukazka struktury svg ve sbalenem kodu --> struktura vygenerovaneho svg kodu vizualizaci
+
 \subsection{Vizualizace časového plánu}
 \begin{figure}[H]
   \begin{center}
     \includegraphics[width=12.7cm]{images/ctf-plan.pdf}
   \end{center}
-  \caption{Plán}
+  \caption{Časový odhad vykreslený do grafu.}
   \label{fig:visualizationChart}
 \end{figure}
 na x ose čas, na y ose týmy
