@@ -498,7 +498,7 @@ Na ose y se nachází jednotlivé týmy. Týmy tvoří diskrétní množinu, ste
 %Dalším důležitým krokem byl návrh datové struktury, se kterou má vizualizace pracovat. Ta musí obsahovat všechny potřebné informace tak, aby mohly být vykresleny všechny požadované prvky ze zadnání, např. aktuální čas od začátku hry, data jednotlivých hráčů nebo časový plán. Některá data pak musí být v určitém formátu, jako např. strávený čas v jednotlivých úrovních, který musí mít formát popsaný v předchozí podkapitole, aby mohl být vypočítán a vykreslen skládaný graf. Dle toho byla navržena následující datová struktura, se kterou vizualizace pracuje:
 Záznamy událostí ze hry, ať už ve formátu CSV nebo JSON, musí být nejdříve zpracovány do vhodné datové struktury, se kterou bude vizualizace pracovat. Některá data musí být v určitém formátu, aby mohla být zprácována za pomoci \verb|d3.stack| do výsledného grafu. Jedná se o odhadovanou a skutečnou délku každé úrovně pro jednotlivé týmy. Některé údaje musí být ze záznamů vypočítány.\par Datová struktura, se kterou vizualizace pracuje, je objekt s těmito atributy:
 \begin{itemize}
-  \item \verb|time| – číslo udávající čas od začátku hry v sekundách,
+  \item \verb|time| – časové razítko udávající čas od začátku hry v sekundách,
   \item \verb|levels| – pole klíčů jednotlivých úrovní hry,
   \item \verb|levelsTimePlan| – pole čísel udávájící časový odhad pro každou úroveň v sekundách,
   \item \verb|gameDataset| – pole objektů představující týmy, má popsanou strukturu potřebnou pro použití s \verb|d3.stack|, uchovává však některé informace navíc:
@@ -560,10 +560,11 @@ Hlavní část vizualizace je v rámci jednoho SVG elementu. Tento element zahrn
 Ostatní elementy, jako názvy a celkový čas týmů nebo text ukazující aktuální čas, jsou umístěny zvlášť v samostatných sloupcích okolo vizualizace.
 
 %ukazka struktury svg ve sbalenem kodu --> struktura vygenerovaneho svg kodu vizualizaci
-\subsection{Kostra vizualizace}
+\subsection{Základní prvky vizualizace}
 Nejdříve je vygenerován nutný základ vizualizace, především hlavní \verb|<svg>| element, ale také obalující \verb|<g>| elementy.\par
 Šířka \verb|<svg>| je vypočítána na základě šířky rodičovského HTML elementu a odvíjí se od toho, jakou šířku má viewport\footnote{Viewport je zde oblast, do které prohlížeč vykresluje stránku, tedy viditelná část webové stránky.}. Výpočet výšky závisí na více proměnných. Při výpočtu je brána v úvahu výška viewportu, počet týmů a minimální přednastavená výška jednoho řádku vizualizace. Závisí ale také na vypočítané šířce, a to z důvodu částečného zachování proporcí.\par
-Dále jsou vytvořena a nastavena měřítka pro obě osy x a y. Doménou x-ového měřítka je celková odhadovaná délka hry, pro y je to množina týmů. Také je vykreslena osa x a hustota bodů na této ose respektuje šířku vizualizace.
+Dále jsou vytvořena a nastavena měřítka pro obě osy x a y. Doménou x-ového měřítka je celková odhadovaná délka hry, pro y je to množina týmů.\par
+V této části je taaké je vykreslena osa x, hustota bodů na této ose respektuje šířku vizualizace. Osa y se nevykresluje, její úlohu plní sloupec s názvy týmů na levé straně, který umožňuje řazení řádků.
 %zjemňuje se při zoomování?! dodělat
 %vyznačit nějak x a y?
 
@@ -575,7 +576,7 @@ Dále jsou vytvořena a nastavena měřítka pro obě osy x a y. Doménou x-ové
   \caption{Časový odhad jednotlivých úrovní. Svislé čáry znázorňují nezávislý odhadovaný limit. Šrafované oblasti se týkají vždy daného týmu a jejich začátek se posunuje v závislosti na postupu týmu.}
   \label{fig:visualizationChart}
 \end{figure}
-Odhadovaný časový limit pro jednotlivé úrovně je vykreslován způsobem popsaným v podkapitole o základu grafu \ref{chartBase}. Použitá datová struktura je stejná, ale místo skutečné délky úrovní je v ní v ní uložen pouze odhad:
+Odhadovaný časový limit pro jednotlivé úrovně je vykreslován způsobem popsaným v podkapitole o základu grafu \ref{chartBase}. Použitá datová struktura je stejná, ale místo skutečného postupu týmů je v ní v ní uložen pouze odhad:
 \begin{markdown*}{
   fencedCode
 }
@@ -587,22 +588,37 @@ Vykreslování probíhá dvakrát, nejdříve jsou pomocí d3.stack vygenerován
 
 \subsection{Vizualizace herních úrovní}
 Princip vykreslování skutečné délky úrovní je opět stejný jako již popsaný způsob v \ref{chartBase}. Během vykreslování je však navíc třeba brát v úvahu, zda již tým úroveň dokončil, nebo na ní právě pracuje, kvůli přidělení světlé nebo syté barvy. Tato informace je již předpočítána v datové struktuře.\par
-Před vykreslením je nutné aktualizovat měřítka, protože týmy již mohly překročit celkový odhad a graf by přesáhl stanovenou šířku vizualizace.\par
-Po vykreslení reálných dat je třeba aktualizovat plán, protože se mohlo změnit měřítko. Také je třeba posunout šrafované oblasti plánu, které jsou závislé na aktuálním postupu týmu. Všechny šrafované oblasti s výjimkou té, která se týká aktuální úrovně, jsou skryty. Šrafování, které se týká aktuální úrovně, je posunuto na pozici jejího začátku.
+Jelikož týmy již mohly překročit celkový odhad a graf by přesáhl stanovenou šířku vizualizace, je nutné před vykreslením aktualizovat měřítka.\par
+Po vykreslení reálných dat je třeba aktualizovat plán. Mohlo dojít ke změně měřítka a také je nutné posunout šrafované oblasti, které jsou závislé na aktuálním postupu týmu. Všechny šrafované oblasti s výjimkou té, která se týká aktuální úrovně, jsou skryty. Šrafování týkající se aktuální úrovně je posunuto na její začátek.
 %% byly přidány další levely a je jich teď 6 -> ukázka s 6 levely
 \subsection{Události}
+Po zobrazení plánu a postupu týmů se vykreslují jednotlivé události v podobě ikon. Každý objekt události nese informace o svém čase, týmu i úrovni, podle kterých je vykreslen do grafu. Uchovává také typ události, podle kterého je zvolen tvar ikony.
+%POSUNOVÁNÍ PŘI ZMĚNĚ POHLEDU!
 \subsection{Sloupce s údaji}
-jsou v gridu v samostatných sloupcích, aby byly zarovnané s ovládacími prvky nahoře
-nejsou součástí SVG grafu, je ale taky svg, musí se počítat y souřadnice
-momentálně dva sloupce, tým, slouží jako osa
-možné přidat další
+Informace vztahující k jednotlivým řádkům jsou zaznamenány v okolních sloupcích. Prvním z nich je sloupec s názvy týmů na levé straně, ten zároveň zastupuje osu y. Druhý sloupec na pravé straně udává celkový čas, který již tým ve hře strávil.\par
+Nad těmito sloupci je umožněno řazení a jsou zarovnány se souvisejícími ovládacími prvky. Z tohoto důvodu jsou umístěny mimo hlavní <svg> element vizualizace.\par
+Přidání dalších sloupů na pravou stranu je možné. Mohly by být přidány například informace o bodovém hodnocení, pokud budou k dispozici odpovídající data.
+%možné přidat další sloupce
 \subsection{Další prvky}
-časová osa - její pozice na y ose je v místě odpovídající aktuálnímu času , čas - vpravo nahoře, převádí se do textu z timestamp, popisek události - při najetí na událost se přesune na její pozici a odkryje
+Mezi další součásti vizualizace patří tyto prvky:
+\begin{itemize}
+  \item časová osa, která je vykreslena jako čára v místě aktuálního okamžiku,
+  \item čas od začátku hry v pravém horním rohu, převádí se z časového razítka v datové struktuře,
+  \item popisky zobrazující se po najetí na ikonu události.
+\end{itemize}
+Popisky událostí jsou řešeny jako jediný element, který je při najetí na událost přesunut na její pozici a odkryt. Zároveň je změněn jeho text podle popisu dané události.
 
-\section{Přizpůsobování velikosti okna}
-snaha, aby byla vizualizace v co největší možné míře responzivní
-bootstrap grid
-výpočet velikosti
+\section{Pohledy vizualizace}
+Během implementace bylo zjištěno, že týmy nezačínají hru ve stejný okamžik, což znamená změnu oproti grafickému návrhu. Ten vychází z předpokladu, že týmy začínají hru stejně, a řádky jsou proto z levé strany zarovnány, což neodpovídá skutečnosti. Tento pohled je však užitečný, protože lze porovnávat dobu řešení úrovně s časovým limitem, který je naznačen svislou čarou. Také lze tímto způsobem jednodušeji porovnávat týmy mezi sebou.\par
+Jednotlivé řádky je možné zarovnat podle jejich počátku, aby odpovídaly tomuto pohledu z grafického návrhu. Dojde tak ale k jejich posunutí a řádky přestanou být zarovnány s časovou osou ukazující aktuální moment, čímž tato osa ztratí smysl. Proto byly implementovány dva různé pohledy.
+
+\subsection{Průběžný přehled}
+Tento pohled na hru má význam v jejím průběhu. Zobrazuje postup, události a začátky hry v čase odpovídajícím skutečnosti. Také je zobrazena časová osa vyznačující aktuální okamžik a čas v pravém horním rohu. Týmy je možné řadit podle jejich názvu nebo celkového času.\par
+V tomto pohledu jsou data pravidelně aktualizována a je tak možné hru sledovat v reálném čase.
+\subsection{Závěrečný přehled}
+Po skončení hry, nebo i v jejím průběhu se lze přepnout do druhého pohledu. Tento pohled poskytuje celkové srovnání jednotlivých týmů. Řádky jsou zarovnány podle začátku hry. Lze je ale také srovnat podle začátku libovolné úrovně, nebo je podle délky úrovně řadit. Je tak možné porovnávat celkovou délku hry nebo jednotlivých úrovní mezi všemi týmy.
+
+%ve final není osa a nejsou tam čáry
 
 \section{Angular aplikace}
 %% možná obrázek
