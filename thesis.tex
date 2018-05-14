@@ -435,29 +435,35 @@ Gridový systém slouží k~rozložení a~zarovnání obsahu stránky. Použív�
 Grid je responzivní a~je definováno několik mezí rozlišení v~pixel\-ech, které odpovídají určitým typům zařízení (mobilní telefon na výšku a~na šířku, tablet, notebook a~velké obrazovky). Počet sloupců na řádku se dá specifikovat pro tyto meze zvlášť, např. čtyři sloupce, které jsou vedle sebe na velké obrazovce, se na mobilním zařízení zalomí po jednom pod sebe.
 
 \section{Angular}
-Angular je framework a platforma určená pro vývoj klientských webových aplikací v jazycích HTML a TypeScript\footnote{TypeScript je nadstavba jazyka JavaScript doplněná např. o statické typování nebo prvky z oblasti objektově-orientovaného programování, jako třídy a rozhraní. Kód je možné zkompilovat do jazyka JavaScript, který lze spustit ve webovém prohlížeči.} (případně JavaScript) vytvořený společností Google. Historicky první verzí je AngularJS psaný čistě v jazyce JavaScript. Ten byl kompletně přepsán a nahrazen verzí 2 nazvanou Angular. Postupně vznikly novější verze 4, 5 a 6, které jsou zpětně kompatibilní.\par
-%Angular je platforma a MVC\footnote{MVC (Model-View-Controller) je architektonický vzor, který rozděluje software na tři nezávislé komponenty: datový model, uživatelské rozhraní a řídící logiku.} framework
-%je možné zkompilovat do javascriptu nebo se kompiluje
+Angular je framework a~platforma určená pro vývoj klientských webových aplikací v~jazycích HTML a~TypeScript\footnote{TypeScript je nadstavba jazyka JavaScript doplněná např. o~statické typování nebo prvky z~oblasti objektově-orientovaného programování, jako třídy a~rozhraní. Kód se kompiluje do jazyka JavaScript, který lze spustit ve webovém prohlížeči.} (případně JavaScript) vytvořený společností Google. Historicky první verzí je AngularJS psaný čistě v~jazyce JavaScript. Ten byl kompletně přepsán a~nahrazen verzí~2 nazvanou Angular. Postupně vznikly novější verze 4, 5 a~6, které jsou zpětně kompatibilní.\par
 
 \subsection{Architektura Angular aplikací}
-Aplikace jsou modulární a každá má alespoň jeden modul. Uživatelské rozhraní je definováno komponentami. Aplikace používají HTML šablony, které jsou doplněné o speciální značky (direktivy) a jsou součástí komponent. Komponenty využívají služby, které obstarávají aplikační logiku. Služby i komponenty jsou třídy, jejichž typ je označen dekorátorem\footnote{Dekorátory jsou funkce modifikující třídy JavaScriptu. Angular definuje řadu dekorátorů, které přiřazují třídám určitá metadata, aby bylo možné určit jejich význam a způsob, jakým budou zpracovávány.}.\par
+Aplikace jsou modulární a~každá má alespoň jeden modul. Uživatelské rozhraní je definováno komponentami. Aplikace používají HTML šablony, které jsou doplněné o~speciální značky (direktivy) a~jsou součástí komponent. Komponenty využívají služby, které obstarávají aplikační logiku. Služby i komponenty jsou třídy, jejichž typ je označen dekorátorem\footnote{Dekorátory jsou funkce modifikující třídy JavaScriptu. Angular definuje řadu dekorátorů, které přiřazují třídám určitá metadata, aby bylo možné určit jejich význam a způsob, jakým budou zpracovávány.}.\par
 Závislosti objektů jsou spravovány vkládáním závislostí (dependency injection) a výměna dat mezi modelem a šablonou je založena na oboustranném mapování dat (two-way data binding). \cite{angulario}
 
 \subsection{Moduly}
-Základní jednotkou Angular aplikací jsou moduly (tzv. NgModule), aplikace má vždy jeden kořenový (root) modul, nazvaný podle konvence AppModule, který se stará o spuštění aplikace. Může být rozdělena do dalších funkčních modulů.\par
-Modul je definován jako třída označená dekorátorem @NgModule. Dekorátor popisuje daný modul pomocí objektu s metadaty, který mu je předán jako parametr. Následující prvky tohoto objektu patří k nejdůležitějším.
+Základní jednotkou Angular aplikací jsou moduly (tzv. NgModules). Aplikace má vždy jeden kořenový modul, nazvaný podle konvence \verb|AppModule|, který se stará o spuštění aplikace. Může být rozdělena do dalších funkčních modulů.\par
+Modul je definován jako třída označená dekorátorem \verb|@NgModule|. Dekorátor popisuje daný modul pomocí objektu s metadaty, který mu je předán jako parametr. K nejdůležitějším prvkům tohoto objektu patří: \cite{angulario}
 %Tento dekorátor pomocí předaného objektu s metadaty popisuje daný modul.
 %Dekorátoru je předán objekt s metadaty popisujícími daný modul.
 %Tento objekt může obsahovat několik důležitých prvků:
 \begin{itemize}
-  \item declarations – seznam tříd uživatelského rozhraní, zejména komponent a direktiv, náležících do modulu,
-  \item exports – podmnožina tříd, které mají být viditelné z ostatních modulů,
-  \item imports – seznam modulů, jejichž exportované třídy jsou potřebné v tomto modulu,
-  \item providers – seznam služeb (jsou zaregistrovány do globální kolekce služeb a dostupné z celé aplikace),
-  \item bootstrap – hlavní kořenová komponenta (ta by měla být nastavena jen v kořenovém modulu).
+  \item \verb|declarations| – seznam tříd uživatelského rozhraní, zejména komponent a direktiv, náležících do modulu,
+  \item \verb|exports| – podmnožina tříd, které mají být viditelné z ostatních modulů,
+  \item \verb|imports| – seznam modulů, jejichž exportované třídy jsou potřebné v tomto modulu,
+  \item \verb|providers| – seznam služeb (jsou zaregistrovány do globální kolekce služeb a dostupné z celé aplikace),
+  \item \verb|bootstrap| – hlavní kořenová komponenta (ta by měla být nastavena jen v kořenovém modulu).
 \end{itemize}
 %exports - podmnožina deklarací, které mají být viditelné z ostatních modulů
 
+\subsection{Komponenty}
+Komponenta je zodpovědná za správu části uživatelského rozhraní (view). Její logiku obstarává třída označená dekorátorem \verb|@Component| a s pohledem interaguje skrze metody a vlastnosti (properties). Příkladem může být komponenta, která spravuje hlavičku webové stránky pomocí vlastnosti s menu a metodu \verb|onClick|, která obsluhuje kliknutí na jednotlivé prvky menu.\par
+Komponenty mají životní cyklus a jsou vytvářeny a odebírány v závislosti na tom, jak se uživatel pohybuje v aplikaci. Na jednotlivé části cyklu je možné navázat vlastní akce pomocí tzv. hooks, mezi které patří například: \cite{angulario}S
+\begin{itemize}
+  \item \verb|ngOnInit|, která se volá při inicializaci komponenty,
+  \item \verb|ngOnChanges|, která je volána při změnách vlastností komponenty,
+  \item \verb|ngOnDestroy|, která se volá před jejím odebráním.
+\end{itemize}
 
 
 \section{Papa Parse}
