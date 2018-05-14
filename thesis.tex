@@ -226,7 +226,7 @@ Kombinací dat ze hry a~z~dotazníků se podařilo dojít k~několika závěrům
 
 \chapter{Návrh vizualizace}
 Vizualizace, která je výsledkem praktické části této práce, pracuje s~daty získávanými v~průběhu CtF her v~prostředí KYPO, popsaných v~předchozí kapitole \ref{ctfGamesKYPO}.\par
-Tato data mohou být využita k~analýze her nebo k~získání přehledu o~jejich průběhu. Analýza dat pomůže při odhalování nedostatků a~při budoucím návrhu a~zlepšování her tak, aby byly pro účastníky co nejvíce zajímavé. Lze například sledovat, zda skutečný čas potřebný pro zvládnutí úrovně odpovídá stanovenému limitu, jak hráči využívají nápověd a~zda jsou pro ně nápovědy užitečné. Také ale mohou vyučujícím v~průběhu hry poskytovat přehled o~tom, jak jednotlivé týmy postupují, v~jaké úrovni se nacházejí a~které týmy by mohly potřebovat jejich pomoc.\par
+Tato data mohou být využita k~analýze her nebo k~získání přehledu o~jejich průběhu. Analýza dat pomůže při odhalování nedostatků a~při budoucím návrhu a~zlepšování her tak, aby byly pro účastníky co nejvíce zajímavé. Lze například sledovat, zda skutečný čas potřebný pro zvládnutí úrovně odpovídá stanovenému limitu, jak hráči využívají nápověd a~zda jsou pro ně nápovědy užitečné. Také ale mohou vyučujícím v~průběhu hry poskytnout přehled o~tom, jak jednotlivé týmy postupují, v~jaké úrovni se nacházejí a~které týmy by mohly potřebovat jejich pomoc.\par
 Tato vizualizace je určena právě vyučujícím a~její cíle jsou:
 \begin{itemize}
   \item celkový přehled o~všech účastnících, v~jaké úrovni se právě nacházejí,
@@ -235,7 +235,7 @@ Tato vizualizace je určena právě vyučujícím a~její cíle jsou:
 \end{itemize}
 
 \section{Požadavky na vizualizaci}
-Vzhledem ke zmíněným cílům jsou pro vizualizaci podstatné záznamy s~dokončením úrovně, využitou nápovědou, zobrazeným řešením a~přeskočením úrovně. Také je nutné znázornit porovnání s~časovým plánem. Naproti tomu nemusí být nutné, aby vyučující viděli nesprávná řešení. Je tedy potřeba vhodným způsobem vizuálně reprezentovat následující hodnoty:
+Vzhledem ke zmíněným cílům jsou pro vizualizaci podstatné záznamy o~dokončení úrovně, využití nápovědy, zobrazení řešení a~přeskočení do další úrovně. Také je nutné znázornit porovnání s~časovým plánem. Naproti tomu nemusí být nutné, aby vyučující viděli nesprávná řešení. Je tedy třeba vhodným způsobem vizuálně reprezentovat následující hodnoty:
 \begin{itemize}
   \item časový odhad úrovní,
   \item skutečně strávený čas při řešení úrovně,
@@ -245,7 +245,7 @@ Vzhledem ke zmíněným cílům jsou pro vizualizaci podstatné záznamy s~dokon
 \end{itemize}
 Z~hlediska interaktivity by vizualizace měla splňovat tyto požadavky:
 \begin{itemize}
-  \item možnost řazení týmů, např. podle celkového času hry nebo dle času zvolené úrovně
+  \item možnost řazení týmů, např. podle celkového času hry nebo podle času zvolené úrovně
   \item možnost filtrování týmů,
   \item zobrazení popisku události po najetí myší.
 \end{itemize}
@@ -261,11 +261,11 @@ Grafický návrh, jehož autorem je Bc.~Kristína Zákopčanová, zahrnuje zmín
   \caption{Grafický návrh vizualizace od Bc.~Kristíny Zákopčanové, kde je znázorněn průběh hry po devíti minutách od jejího začátku.}
   \label{fig:progress1}
 \end{figure}
-Na obrázku \ref{fig:progress1} je znázorněn průběh hry krátce po jejím začátku společně s~časovými odhady jednotlivých úrovní. Každému týmu přísluší jeden řádek, název týmu je uveden vlevo. Sloupce pak značí jednotlivé úrovně, které se odlišují svou barvou. V~pravém horním rohu se zobrazuje uplynulý čas.
+Na obrázku \ref{fig:progress1} je znázorněn průběh hry krátce po jejím začátku společně s~odhadem času pro každou úroveň. Každému týmu přísluší jeden řádek, název týmu je uveden vlevo. Sloupce pak značí jednotlivé úrovně, které se odlišují svou barvou. V~pravém horním rohu se zobrazuje uplynulý čas.
 \begin{enumerate}
   \item Svislé čáry představují odhadovanou dobu pro dokončení úrovně, jsou nezávislé na postupu týmu a~tudíž se nemění.
   \item Šrafovaná oblast vyznačuje předpokládanou dobu řešení úrovně pro daný tým. Její počátek je ovlivněn tím, kdy tým začal na úrovni pracovat, a~tedy také tím, kdy dokončil předchozí úrovně.
-  \item Časová osa, představuje aktuální moment.
+  \item Časová osa, která představuje aktuální moment.
   \item Sytější barva značí úroveň, na které tým právě pracuje.
   \item Světlejší barva značí již vyřešenou úroveň.
 \end{enumerate}
@@ -276,7 +276,7 @@ Na obrázku \ref{fig:progress1} je znázorněn průběh hry krátce po jejím za
   \caption{Grafický návrh vizualizace od Bc.~Kristíny Zákopčanové, hra je za polovinou odhadované doby. Zobrazeny jsou i~jednotlivé události.}
   \label{fig:progress2}
 \end{figure}
-Návrh na obrázku \ref{fig:progress2} ukazuje další postup ve hře, kdy se týmy nachází již ve třetí nebo čtvrté úrovni. Navrženy jsou také události (6–8).
+Návrh na obrázku \ref{fig:progress2} ukazuje další postup ve hře, kdy se již týmy nachází ve třetí nebo čtvrté úrovni. Navrženy jsou také události (6–8).
 \begin{enumerate}
   \setcounter{enumi}{5}
   \item Tým využil nápovědu.
@@ -296,7 +296,7 @@ Z~hlediska použitých technologií a~integrace do projektu KYPO byly specifikov
   \item aplikace bude schopná načítat data z~CSV souboru,
   \item dále bude schopná získávat data skrze REST API a~také tato data zobrazovat v~reálném čase.
 \end{itemize}
-KYPO využívá vlastní webový portál postavený na platformě Liferay a~je tedy samozřejmým požadavkem, aby byla vizualizace součástí tohoto portálu jako samostatný portlet. Aplikace vizualizace má být implementována jako Angular modul, protože Angular byl vybrán jako jednotný framework pro vývoj dalších portletů do KYPO portálu a~také byla připravena kostra portletu využívající tento framework jako základ pro nové projekty. Samotná vizualizace pak má být vykreslována pomocí knihovny D3.js určenou právě pro vizualizaci dat.\par
+KYPO využívá vlastní webový portál postavený na platformě Liferay, a~je tedy samozřejmým požadavkem, aby byla vizualizace součástí tohoto portálu jako samostatný portlet. Aplikace vizualizace má být implementována jako Angular modul, protože Angular byl vybrán jako jednotný framework pro vývoj dalších portletů do KYPO portálu a~také byla připravena kostra portletu využívající tento framework jako základ pro nové projekty. Samotná vizualizace má být vykreslována pomocí knihovny D3.js, která je určena právě pro vizualizaci dat.\par
 Jako zdroj dat mají sloužit CSV soubory, popsané v~podkapitole o~rozšířeních CtF her \ref{gameExtensions}. Později, až bude k~dispozici API poskytující podobné záznamy událostí ze hry, má být aplikace schopná získávat data i~skrze toto rozhraní a~zobrazovat je v~reálném čase.
 %%je to v reálném čase, když se jen každou sekundu překresluje?
 
@@ -326,30 +326,39 @@ SVG obsahuje elementy mnoha kategorií, patří mezi ně zejména různé kontej
 
 %%CSS selektory umožnují vybrat určité elementy DOM. Nejčastěji podle typu prvku nebo hodnoty jeho atributů (např. id nebo třídy).
 \subsection{Princip práce s D3.js}
-D3.js, podobně jako např. knihovna jQuery, pracuje a~manipuluje s~modelem dokumentu DOM\footnote{DOM (Document Object Model) je rozhraní pro XML a HTML dokumenty, které umožňuje přistupovat k~jednotlivým prvkům dokumentu a~měnit tak jeho strukturu, styl a~obsah. Jedná se o~objektově orientovanou reprezentaci stránky.}. V D3.js však mohou být styly a~atributy elementů specifikovány nejen jako konstanty, ale také jako funkce mapující data.\cite{d3jsorg}.\par
-Podstatou je mapování dat na jednotlivé vlastnosti elementů vizualizace. Tím jsou elementy transformovány, ať už je to jejich velikost, poloha, barva atd. Jakým způsobem se data budou mapovat záleží na vlastní implementaci a~na typu vybraného grafu. Například u~sloupcového grafu budou data ovlivňovat výšku sloupců, u~bublinového zase poloměr či polohu kruhů. \cite{interactiveVisualizationBook}\par
+D3.js, podobně jako např. knihovna jQuery, pracuje a~manipuluje s~modelem dokumentu DOM\footnote{DOM (Document Object Model) je rozhraní pro XML a HTML dokumenty, které umožňuje přistupovat k~jednotlivým prvkům dokumentu a~měnit tak jeho strukturu, styl a~obsah. Jedná se o~objektově orientovanou reprezentaci stránky.}. V D3.js však mohou být styly a~atributy elementů specifikovány nejen jako konstanty, ale také jako funkce mapující data \cite{d3jsorg}.\par
+Podstatou je mapování dat na jednotlivé vlastnosti elementů vizualizace. Tím jsou elementy transformovány, ať už je to jejich velikost, poloha, barva atd. Jakým způsobem se data budou mapovat, záleží na vlastní implementaci a~na typu vybraného grafu. Například u~sloupcového grafu budou data ovlivňovat výšku sloupců, u~bublinového zase poloměr či polohu kruhů. \cite{interactiveVisualizationBook}\par
 Princip vykreslování jednotlivých prvků vizualizace je následující:
 \begin{itemize}
   \item výběr množiny uzlů,
-  \item navázání dat na vybranou množinu,
-  \item případné vytvoření chybějících (nebo smazání přebytečných) uzlů,
-  \item transformace elementů podle navázaných dat.
+  \item mapování dat na vybranou množinu,
+  \item případné vytvoření chybějících (nebo vymazání přebytečných) uzlů,
+  \item transformace elementů podle namapovaných dat.
 \end{itemize}
+Nejdříve je nutné vybrat prvky dokumentu, které se sváží s~daty. Pokud dosud neexistují, budou vytvořeny (třetí krok). Konkrétní výběr se určí pomocí CSS selektoru.
+%popsat css selektor
+Lze vybírat jeden samotný uzel pomocí metody \verb|select|, nebo množinu všech uzlů odpovídajících danému selektoru pomocí \verb|selectAll|. Následující příkaz označí všechny obdélníky \verb|<rect>|.
 \begin{markdown*}{
   fencedCode
 }
-Nejdříve je nutné vybrat prvky dokumentu, které se sváží s~daty. Pokud dosud neexistují, budou vytvořeny (třetí krok). Konkrétní výběr se určí pomocí CSS selektoru.
-Lze vybírat buď jeden samotný uzel pomocí metody `select`, nebo množinu všech uzlů odpovídajících danému selektoru pomocí `selectAll`. Následující ukázka označí všechny obdélníky `<rect>`.
 ``` sh
 	d3.selectAll("rect"); 
 ```
-Data se vkládají metodou `data`. Pokud se jedná o~pouhou aktualizaci již existujících elementů, další krok není potřebný a~mohou být přímo aplikovány transformace. Ukázka vložení dat a~změna výšky obdélníků:
+\end{markdown*}
+Data se vkládají metodou \verb|data|. Pokud se jedná o~pouhou aktualizaci již existujících elementů, další krok není potřebný a~mohou být přímo aplikovány transformace. Ukázka vložení pole s daty a~změna výšky obdélníků podle těchto dat:
+\begin{markdown*}{
+  fencedCode
+}
 ``` sh
 	d3.select("svg").selectAll("rect")
 	  .data([5, 10, 15, 20, 25])
 	  .attr("height", function(d) { return d; });
 ```
-V případě, že elementy dosud neexistují (nebo je jejich počet menší, než délka datového pole), jsou chybějící elementy přidány voláním metod `enter` a `append`.
+\end{markdown*}
+V případě, že elementy dosud neexistují (nebo je jejich počet menší, než délka datového pole), jsou chybějící elementy přidány voláním metod \verb|enter| a \verb|append|.
+\begin{markdown*}{
+  fencedCode
+}
 ``` sh
 	d3.select("svg").selectAll("rect")
 	  .data([5, 10, 15, 20, 25])
@@ -358,12 +367,12 @@ V případě, že elementy dosud neexistují (nebo je jejich počet menší, ne�
 ```
 \end{markdown*}
 \subsection{Příklady grafů a vizualizací}\label{d3jsGraphs}
-Knihovna poskytuje pouze potřebnou funkcionalitu pro vizualizaci dat, již připravené vizualizace v~D3.js nejsou. K dispozici je však několik metod, které usnadní práci s~určitými typy vizualizací a~grafů. Metoda předaná data transformuje, přepočítá a~vrátí obecně složitější datovou strukturu, která je vhodná pro určitý druh vizualizace. Následuje několik příkladů možných využití knihovny. \cite{d3APIReference}
+Knihovna poskytuje pouze potřebnou funkcionalitu pro vizualizaci dat, připravené vizualizace v~D3.js nejsou. K dispozici je však několik metod, které usnadní práci s~určitými typy vizualizací a~grafů. Metoda předaná data transformuje, přepočítá a~vrátí obecně složitější datovou strukturu, která je vhodná pro určitý druh vizualizace. Následuje několik příkladů možných využití knihovny. \cite{d3APIReference}
 \begin{itemize}
-  \item Line generuje křivky nebo lomené čáry (spline, polyline) pro použití ve spojnicových grafech.
+  \item Line generuje aproximace křivek a lomené čáry (spline, poly\-line) pro použití ve spojnicových grafech.
   \item Area počítá plochy pro použití v~plošných grafech, definované dvěma ohraničujícími čarami.
   \item Pie vypočítává potřebné úhly pro výsečové nebo prstencové grafy. Pomocí \verb|arc| pak mohou být na základě těchto úhlů vygenerovány oblouky grafu.
-  \item Stack slouží pro tvorbu skládaných sloupcových grafů (obr. \ref{fig:stackBarChart}). Data obsahují klíče, kterými se specifikují dané série:
+  \item Stack slouží pro tvorbu skládaných sloupcových grafů (obr. \ref{fig:stackBarChart}). Data obsahují klíče, kterými se specifikují dané vrstvy:
 \begin{markdown*}{
   fencedCode
 }
@@ -390,7 +399,7 @@ Knihovna poskytuje pouze potřebnou funkcionalitu pro vizualizaci dat, již při
   \caption{Graf vytvořený s využitím modulu \texttt{d3-force}.}
   \label{fig:forceGraph}
 \end{figure}
-  \item Pack patří do modulu pro práci s~hierarchickými daty, kde hierarchie je reprezentována zanořením, kvantita velikostí prvků. Uzel stromu jsou reprezentován jako kruh, obsahující uvnitř své podstromy jako menší kruhy. Velikost uzlu aproximuje součet velikostí jeho podstromů.
+  \item Pack patří do modulu pro práci s~hierarchickými daty. Hierarchie je reprezentována zanořením, kvantita velikostí prvků. Uzel stromu je reprezentován jako kruh, obsahující uvnitř své podstromy jako menší kruhy. Velikost uzlu aproximuje součet velikostí jeho podstromů.
 \end{itemize}
 
 \begin{figure}[H]
@@ -411,15 +420,15 @@ Knihovna poskytuje pouze potřebnou funkcionalitu pro vizualizaci dat, již při
 \end{figure}
 
 \section{Bootstrap}
-Bootstrap je framework určený pro tvorbu responzivních webových stránek, který zahrnuje řadu stylů a~UI komponent usnadňujících vývoj v~HTML a~CSS. Tvoří jej sada CSS stylů, některé komponenty vyžadují také JavaScript, což zahrnuje kromě vlastních pluginů také knihovnu jQuery.\par
-Framework tvoří například následující součásti. \cite{bootstrapcom}
+Bootstrap je framework určený pro tvorbu responzivních webových stránek, který zahrnuje řadu stylů a~UI komponent usnadňujících vývoj v~HTML a~CSS. Tvoří jej sada CSS stylů, některé komponenty ale vyžadují také JavaScript.\par
+Framework tvoří například následující součásti: \cite{bootstrapcom}
 \begin{itemize}
-  \item Rozložení stránky (layout), zahrnuje především responzivní gridový systém.
-  \item Styly např. pro barvy, pozicování, odsazení, viditelnost apod.
-  \item Styly pro obsahové prvky, např. text (zarovnání textu, tloušťka písma), tabulky nebo responzivní obrázky. 
-  \item Komponenty, jako např. navigace, modalová okna, formuláře, stránkování, rozbalovací nabídky atd.
+  \item responzivní gridový systém pro rozložení stránky,
+  \item obecné styly např. pro pozicování, odsazení, viditelnost elementů apod.,
+  \item styly pro obsahové prvky, např. text (zarovnání textu, tloušťka písma), tabulky nebo responzivní obrázky,
+  \item komponenty, jako např. navigace, modalová okna, formuláře, stránkování, rozbalovací nabídky atd.
 \end{itemize}
-Boostrap je jednoduše dostupný ve formě zkompilovaných CSS a~JS souborů, je také ale možné použít zdrojové soubory (Sass\footnote{Sass (Syntactically Awesome StyleSheets) je jedním z~CSS preprocesorů, který rozšiřuje možnosti CSS stylů např. o~proměnné, zanořování, funkce, cykly apod., čímž ulehčuje práci a~údržbu a~zmenšuje množství potřebného kódu. Kód se kompiluje do výsledného CSS souboru.} a~JavaScript). V~druhém případě je nutné zdroje kompilovat, je ale možné je zařadit do vlastního projektu a~kompilovat zdroje jako celek. Lze pak například použít jen potřebné komponenty a~přizpůsobovat framework vlastním potřebám.
+Boostrap je jednoduše dostupný ve formě zkompilovaných CSS a~JS souborů, je ale také možné použít zdrojové soubory (Sass\footnote{Sass (Syntactically Awesome StyleSheets) je jedním z~CSS preprocesorů, který rozšiřuje možnosti CSS stylů např. o~proměnné, zanořování, funkce, cykly apod., čímž ulehčuje práci a~údržbu a~zmenšuje množství potřebného kódu. Kód se kompiluje do výsledného CSS souboru.} a~JavaScript). V~druhém případě je nutné zdroje kompilovat, je ale možné je zařadit do vlastního projektu a~kompilovat všechny zdroje jako celek. Lze pak například použít jen potřebné komponenty a~přizpůsobovat framework vlastním potřebám.
 
 \subsection{Gridový systém}
 Gridový systém slouží k~rozložení a~zarovnání obsahu stránky. Používá se jako série kontejneru, řádků a~sloupců. \cite{bootstrapcom} Kontejner obaluje obsah stránky a~centruje ho. Do kontejneru patří řádky, které vždy obalují sadu sloupců. Sloupce mohou být v~libovolných kombinacích, až 12~sloupců na řádek, pak se zalamují. Řádky se sloupci lze libovolně zanořovat do jiných sloupců.\par
