@@ -465,6 +465,14 @@ Komponenty mají životní cyklus a jsou vytvářeny a odebírány v závislosti
   \item \verb|ngOnDestroy|, která se volá před jejím odebráním.
 \end{itemize}
 
+\subsection{Šablony a direktivy}
+Šablony kombinují HTML kód se značkami Angularu, tzv. direktivami, které mohou upravit DOM stránky ještě před tím, než je zobrazený uživateli. Jedná se o třídy označené dekorátorem @Directive.\par
+Komponenty jsou jedním z možných typů direktiv, dekorátor komponenty je ve skutečnosti rozšířeným dekorátorem direktivy. Celkem jsou tři typy direktiv.
+\begin{itemize}
+  \item Komponenty, což jsou direktivy se šablonami. Dekorátor komponenty je rozšířený o vlastnosti zaměřené na šablony.
+  \item Strukturální, které mění DOM přidáváním nebo odebíráním elementů. Patří mezi ně například \verb|ngIf| pro podmíněné zobrazení kódu nebo \verb|ngFor| pro přidávání prvků v cyklu.
+  \item Atributové, které mění, přidávají nebo odebírají atributy existujících elementů. Mezi ně patří např. ngClass měnící hodnoty class atributu nebo ngModel. Ten implementuje obousměrné mapování dat mezi elementem a vlastností komponenty a nastavuje elementu hodnotu, elementy jsou typicky formulářové prvky.
+\end{itemize}
 
 \section{Papa Parse}
 \section{Liferay} \label{liferay}
