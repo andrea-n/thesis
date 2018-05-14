@@ -301,7 +301,7 @@ Jako zdroj dat mají sloužit CSV soubory, popsané v~podkapitole o~rozšířen�
 %%je to v reálném čase, když se jen každou sekundu překresluje?
 
 \chapter{Použité technologie}
-Na základě požadavků popsaných v~předchozí kapitole \ref{technologyRequirements} byly při implementaci použity následující technologie. Pro samotnou vizualizaci byla použita knihovna D3.js a~responzivní grid z~frameworku Bootstrap, aplikace je pak postavena na frameworku Angular. Načítání dat z~CSV souboru je řešeno pomocí knihovny Papa Parse, pro kterou existuje integrace do Angular aplikací. S~využitím již připraveného projektu v~rámci KYPO je pak tato aplikace integrována do Liferay portletu.
+Na základě požadavků popsaných v~předchozí kapitole \ref{technologyRequirements} byly při implementaci použity následující technologie. Pro samotnou vizualizaci byla použita knihovna D3.js a~responzivní grid z~frameworku Bootstrap, aplikace je pak postavena na frameworku Angular verze 4. Načítání dat z~CSV souboru je řešeno pomocí knihovny Papa Parse, pro kterou existuje integrace do Angular aplikací. S~využitím již připraveného projektu v~rámci KYPO je pak tato aplikace integrována do Liferay portletu.
 
 \section{D3.js}
 %%vizuální reprezentace dat
@@ -435,6 +435,31 @@ Gridový systém slouží k~rozložení a~zarovnání obsahu stránky. Použív�
 Grid je responzivní a~je definováno několik mezí rozlišení v~pixel\-ech, které odpovídají určitým typům zařízení (mobilní telefon na výšku a~na šířku, tablet, notebook a~velké obrazovky). Počet sloupců na řádku se dá specifikovat pro tyto meze zvlášť, např. čtyři sloupce, které jsou vedle sebe na velké obrazovce, se na mobilním zařízení zalomí po jednom pod sebe.
 
 \section{Angular}
+Angular je framework a platforma určená pro vývoj klientských webových aplikací v jazycích HTML a TypeScript\footnote{TypeScript je nadstavba jazyka JavaScript doplněná např. o statické typování nebo prvky z oblasti objektově-orientovaného programování, jako třídy a rozhraní. Kód je možné zkompilovat do jazyka JavaScript, který lze spustit ve webovém prohlížeči.} (případně JavaScript) vytvořený společností Google. Historicky první verzí je AngularJS psaný čistě v jazyce JavaScript. Ten byl kompletně přepsán a nahrazen verzí 2 nazvanou Angular. Postupně vznikly novější verze 4, 5 a 6, které jsou zpětně kompatibilní.\par
+%Angular je platforma a MVC\footnote{MVC (Model-View-Controller) je architektonický vzor, který rozděluje software na tři nezávislé komponenty: datový model, uživatelské rozhraní a řídící logiku.} framework
+%je možné zkompilovat do javascriptu nebo se kompiluje
+
+\subsection{Architektura Angular aplikací}
+Aplikace jsou modulární a každá má alespoň jeden modul. Uživatelské rozhraní je definováno komponentami. Aplikace používají HTML šablony, které jsou doplněné o speciální značky (direktivy) a jsou součástí komponent. Komponenty využívají služby, které obstarávají aplikační logiku. Služby i komponenty jsou třídy, jejichž typ je označen dekorátorem\footnote{Dekorátory jsou funkce modifikující třídy JavaScriptu. Angular definuje řadu dekorátorů, které přiřazují třídám určitá metadata, aby bylo možné určit jejich význam a způsob, jakým budou zpracovávány.}.\par
+Závislosti objektů jsou spravovány vkládáním závislostí (dependency injection) a výměna dat mezi modelem a šablonou je založena na oboustranném mapování dat (two-way data binding). \cite{angulario}
+
+\subsection{Moduly}
+Základní jednotkou Angular aplikací jsou moduly (tzv. NgModule), aplikace má vždy jeden kořenový (root) modul, nazvaný podle konvence AppModule, který se stará o spuštění aplikace. Může být rozdělena do dalších funkčních modulů.\par
+Modul je definován jako třída označená dekorátorem @NgModule. Dekorátor popisuje daný modul pomocí objektu s metadaty, který mu je předán jako parametr. Následující prvky tohoto objektu patří k nejdůležitějším.
+%Tento dekorátor pomocí předaného objektu s metadaty popisuje daný modul.
+%Dekorátoru je předán objekt s metadaty popisujícími daný modul.
+%Tento objekt může obsahovat několik důležitých prvků:
+\begin{itemize}
+  \item declarations – seznam tříd uživatelského rozhraní, zejména komponent a direktiv, náležících do modulu,
+  \item exports – podmnožina tříd, které mají být viditelné z ostatních modulů,
+  \item imports – seznam modulů, jejichž exportované třídy jsou potřebné v tomto modulu,
+  \item providers – seznam služeb (jsou zaregistrovány do globální kolekce služeb a dostupné z celé aplikace),
+  \item bootstrap – hlavní kořenová komponenta (ta by měla být nastavena jen v kořenovém modulu).
+\end{itemize}
+%exports - podmnožina deklarací, které mají být viditelné z ostatních modulů
+
+
+
 \section{Papa Parse}
 \section{Liferay} \label{liferay}
 
