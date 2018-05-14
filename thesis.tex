@@ -95,11 +95,14 @@
 \begin{document}
 \chapter{Úvod}
 
+Cílem této práce je poskytnout vyučujícím vizuální reprezentaci dat získávaných v průběhu bezpečnostních her, a umožnit jim tak přehled o situaci a stavu jednotlivých hráčů.
+%Cílem této práce je poskytnout vyučujícím vizuální reprezentaci získávaných dat, která by jim umožnila lepší přehled o situaci a stavu jednotlivých hráčů.
+Hlavní obsah textové části je rozdělen do několika kapitol.
 \begin{itemize}
-  \item První kapitola stručně představuje prostředí Kybernetického polygonu, pro které byla vizualizace implementována. Dále se věnuje bezpečnostním hrám s názvem Capture the Flag, které se v prostředí Kybernetického polygonu odehrávají. Je popsán jejich návrh, implementace a testování, včetně výsledků a následných vylepšení, které se týkají také této vizualizace.
-  \item V druhé kapitole jsou popsány cíle vizualizace a požadavky na ni, včetně popisu grafického návrhu od Bc. Kristíny Zákopčanové.
-  \item Třetí kapitola uvádí technologie použité při implementaci. Zábývá se zejména knihovnou D3.js a frameworkem Angular 2. Stručně představuje také framework Bootstrap, knihovnu Papa Parse a portál Liferay.
-  \item 
+  \item Druhá kapitola stručně představuje prostředí Kybernetického polygonu, pro které byla vizualizace implementována. Dále se věnuje bezpečnostním hrám s názvem Capture the Flag, které se v prostředí Kybernetického polygonu odehrávají. Je popsán jejich návrh, implementace a testování, včetně výsledků a následných vylepšení, které se týkají také této vizualizace.
+  \item Ve třetí kapitole jsou popsány cíle vizualizace a požadavky na ni, včetně popisu grafického návrhu od Bc. Kristíny Zákopčanové.
+  \item Čtvrtá kapitola uvádí technologie použité při implementaci. Nejdůležitější z nich knihovna D3.js a dále framework Angular.. Stručně představuje také framework Bootstrap, knihovnu Papa Parse a portál Liferay.
+  \item Pátá kapitola popisuje implementaci vizualizace. Vysvětluje principy vykreslování vizualizace, dále její strukturu, možnosti ovládání. Popisuje také výslednou aplikaci, způsob načítání dat a testy této aplikace.
 \end{itemize}
 
 \chapter{Kybernetický polygon}
@@ -138,7 +141,7 @@ Z hlediska zaměření se na útok nebo obranu mohou mít tyto hry různé modif
 Oproti tomu varinta s~obranou i~útokem je vhodná pro menší počet týmů. Každý tým dostane svou vlastní síť a~čas na návrh obrany a~útoků. Body pak týmy získávají za nalezené vlajky i~obranu své sítě. \cite{Masarik2017thesis}
 
 \section{Capture the Flag hry v KYPO} \label{ctfGamesKYPO}
-Pro výukové účely byl do KYPO implementován modul pro vytváření a~běh Ctf her. Pomocí portletů v~Liferay portálu mohou vyučující hry spravovat a~studenti získají přístup k~rozhraní, které zajistí jejich průchod skrze hru. Také byl vytvořen prototyp hry zaměřený na výuku penetračního testování.\par
+Pro výukové účely byl do KYPO implementován modul pro vytváření a~běh CtF her. Pomocí portletů v~Liferay portálu mohou vyučující hry spravovat a~studenti získají přístup k~rozhraní, které zajistí jejich průchod skrze hru. Také byl vytvořen prototyp hry zaměřený na výuku penetračního testování.\par
 Při návrhu je třeba brát v~úvahu nevyváženost ve znalostech a~schopnostech jednotlivých hráčů či týmů. Ta může způsobit, že pro některé účastníky bude hra příliš obtížná nebo příliš snadná. Z~tohoto důvodu je vhodné hru rozdělit na menší úseky a~také zpřístupnit různé nápovědy, které budou moci hráči využít. Aby účastníci nebyli zbytečně vyrušováni, bývá také žádoucí, aby hra proběhla s~minimem zásahů do hry vyučujícími a~úlohy jako vysvětlení pravidel, zadání úkolu či vyhodnocení byly v~režii platformy. \cite{ctfDesign} 
 
 \subsection{Návrh} \label{gameDesign}
@@ -146,23 +149,23 @@ Capture the Flag jsou v~Kybernetickém polygonu navrženy jako útočné (attack
 Hry jsou rozděleny do několika po sobě jdoucích úrovní s~relativně zvyšující se obtížností, zpravidla je jich menší počet (3–5). Každá z~těchto úrovní má definovaný cíl, např. krádež dat ze vzdáleného serveru. Pro dokončení úrovně musí hráč nalézt správný flag, který je ve formě krátkého textového řetězce, typicky je to kontrolní součet nalezených dat. Za nalezení tohoto řešení hráči obdrží odpovídající počet bodů.\par
 %% lze hru koncipovat jako soutěž - je to správně?
 Na začátku hry se týmy seznámí s~pravidly a poté vstoupí do první úrovně. Se vstupem do úrovně se zpřístupní její aktuální zadání společně s~polem pro nalezené řešení. Na vyřešení úrovně má tým časový limit, který může s~bodovou penalizací překročit. Tento po sekundách odpočítávaný limit má přiblížit simulaci reálným situacím, kde čas může hrát roli. Zároveň poskytuje hráčům určitý časový odhad a~srovnání náročnosti s~ostatními úrovněmi.\par
-Pro případ, že již tým nemá dostatek času nebo má potíže s~vyřešením úkolu, je v~každé úrovni k~dispozici určitý počet nápověd za cenu bodové penalizace. Nápovědy jsou volitelné a~lze je vybírat na základě zobrazené informace o~jejich povaze, např. jaký nástroj nebo příkaz zvolit či jak nástroj použít. Bodová penalizace se může pro různé nápovědy lišit. V~případě, že ani s~využitím nápověd tým nedokáže úroveň dokončit, má ještě možnost zobrazit si její řešení. To je užitečné zejména v~případech, kdy hra probíhá vzdáleně a~účastníci nejsou v~jedné místosti s~vyučujícím. Dále je týmu umožněno přeskočit úroveň a~přejít do další nebo ukončit hru. Co se týká externích zdrojů nebo poznámek, jejich použití je v~reálných situacích běžné, a~proto může být jejich využití během hry povoleno. \cite{ctfDesign}\par
+Pro případ, že již tým nemá dostatek času nebo má potíže s~vyřešením úkolu, je v~každé úrovni k~dispozici určitý počet nápověd za cenu bodové penalizace. Nápovědy jsou volitelné a~lze je vybírat na základě zobrazené informace o~jejich povaze, např. jaký nástroj nebo příkaz zvolit či jak nástroj použít. Bodová penalizace se může pro různé nápovědy lišit. V~případě, že ani s~využitím nápověd tým nedokáže úroveň dokončit, má ještě možnost zobrazit si její řešení. To je užitečné zejména v~případech, kdy hra probíhá vzdáleně a~účastníci nejsou v~jedné místosti s~vyučujícím. Dále je týmu umožněno přeskočit úroveň a~přejít do další, nebo hru ukončit. Co se týká externích zdrojů nebo poznámek, jejich použití je v~reálných situacích běžné, a~proto může být jejich využití během hry povoleno. \cite{ctfDesign}\par
 
 \subsection{Implementace}
 %% Doplnit obrázek z portletu/ů!!!!!!
-Ctf hry jsou ve webovém portálu KYPO implementovány jako nový modul a~skrze jeho portlety jsou poskytnuty pohledy pro tyto uživatelské role:
+CtF hry jsou ve webovém portálu KYPO implementovány jako nový modul, jehož portlety poskytují pohledy pro tyto uživatelské role:
 \begin{itemize}
   \item vyučující, který potřebuje hry vytvářet a~spravovat,
   \item student, který potřebuje hrou projít.
 \end{itemize}
 Vyučující používá pro správu administrátorský portlet. Ten umožňuje přidávání, modifikaci a~odstraňování jak her, tak i~úrovní v~rámci dané hry. Také lze upravovat úvod nebo pravidla hry a~u~jednotlivých úrovní je možné měnit jejich zadání, časový limit, bodové hodnocení a~nápovědy s~jejich penalizací. Mimo něj však musí vyučující poskytnout topologii sítě a~připravit všechna zařízení ve hře včetně operačního systému, aplikací a~služeb. \cite{ctfDesign, Dankovcikova2015thesis}\par
 %% vytváří typologii opravdu mimo portlet? ano
-Student používá pro přístup do hry odlišný portlet reprezentující herní rozhraní, který poskytuje funkcionalitu popsanou v~předchozí podkapitole \ref{gameDesign}.\par
-Přístupy k~zařízením v~průběhu hry zajišťuje VNC portlet, který je jedním ze základních modulů portálu. VNC portlet dovoluje sdílení obrazovky virtuálních zařízení skrze VNC\footnote{Virtual Network Computing (VNC) je systém umožňující vzdálené připojení ke grafickému uživatelskému rozhraní.} spojení. Pomocí něj může vyučující přistupovat k~sandboxům ve hře, což je užitečné zvláště v~případech, kdy vyučující a~studenti nejsou společně v~jedné místnosti.\cite{ctfDesign}
+Student používá pro přístup do hry odlišný portlet reprezentující herní rozhraní, který poskytuje již popsanou funcionalitu.\par
+Přístupy k~zařízením v~průběhu hry zajišťuje VNC portlet, který je jedním ze základních modulů portálu. VNC portlet dovoluje sdílení obrazovky virtuálních zařízení skrze VNC\footnote{Virtual Network Computing (VNC) je systém umožňující vzdálené připojení ke grafickému uživatelskému rozhraní.} spojení. Pomocí něj může vyučující přistupovat k~sandboxům ve hře, což je užitečné zvláště v~případech, kdy vyučující a~studenti nejsou společně v~jedné místnosti. \cite{ctfDesign}
 %% je info o VNC portletu správně?
 
 \subsection{Prototyp}
-Za účelem testování nového modulu byl vytvořen prototyp hry pro výuku základních technik penetračního testování. Prototyp zahrnuje čtyři úrovně s~konečným cílem přípravy NTP DDoS amplification\footnote{NTP amplification je DDoS útok, při kterém útočník využije Network Time Protocol (NTP) server k~zahlcení cíle útoku. Princip „zesílení“ spočívá v~tom, že požadavky zaslané na NTP server s~podvrženou zdrojovou IP adresou, která je současně IP adresou cíle, jsou menší než vrácené odpovědi.} útoku.\par
+Za účelem testování nového modulu byl vytvořen prototyp hry pro výuku základních technik penetračního testování. Prototyp zahrnuje čtyři úrovně s~cílem přípravy NTP DDoS amplification\footnote{NTP amplification je DDoS útok, při kterém útočník využije Network Time Protocol (NTP) server k~zahlcení cíle útoku. Princip „zesílení“ spočívá v~tom, že požadavky zaslané na NTP server s~podvrženou zdrojovou IP adresou, která je současně IP adresou cíle, jsou menší než vrácené odpovědi.} útoku.\par
 Na začátku hry vidí účastníci jen topologii sítě bez podrobnějších informací a~mají přístup k~jednomu zařízení. Hra poté pokračuje čtyřmi úrovněmi zaměřenými na:
 \begin{itemize}
   \item průzkum síťových služeb,
@@ -174,7 +177,7 @@ Na začátku hry vidí účastníci jen topologii sítě bez podrobnějších in
 %%V druhé úrovni je flag jako VCE\footnote{Common Vulnerabilities and Exposures (VCE) je systém, ve kterém je každé známé zranitelnosti přiřazen jednoznačný identifikátor.} identifikátor, který má být získán z~obsahu databáze použitím SQL injection. I~zde jsou doporučeny nástroje k~použití a~připraveny dvě nápovědy, jako upřesnění zranitelného skriptu serveru nebo hlavní část příkazu.\par
 %%V~třetí úrovni má být tato nalezená zranitelnost využita k~získání přístupu na server, kde se v~lokálním souboru nachází aktuální flag. Připraveny jsou čtyři nápovědy. První nápověda pomáhá se spuštěním konzole nástroje, další s~vyhledáním návodu na využití zranitelnosti, třetí ukáže potřebný modul nástroje Metasploit a~poslední specifikuje název hledaného souboru.\par
 %%V~poslední čtvrté úrovni není cílem nalézt její flag, ale konfigurací NTP služby umožnit daný útok. Kontrola, zda je server správně nakonfigurován, se provede stisknutím tlačítka a~v~případě pozitivního vyhodnocení je hra úspěšně dokončena. Nápovědy nasměrují hráče ke konfiguračnímu souboru a~poukáží na následnou potřebu restartování služby. \cite{ctfDesign}\par
-Úkolem v~první úrovni je prozkoumat síťové porty a~zadat správný flag, což je seznam otevřených síťových portů. V~druhé úrovni je flag jako VCE\footnote{Common Vulnerabilities and Exposures (VCE) je systém, ve kterém je každé známé zranitelnosti přiřazen jednoznačný identifikátor.} identifikátor, který má být získán z~obsahu databáze použitím SQL injection. V~obou úrovních jsou doporučeny nástroje, které by měli být použity a~jsou k~dispozici dvě volitelné nápovědy. V~třetí úrovni má být tato nalezená zranitelnost využita k~získání přístupu na server, kde se v~lokálním souboru nachází aktuální flag. Připraveny jsou čtyři nápovědy. V~poslední čtvrté úrovni není cílem nalézt její flag, ale konfigurací NTP služby umožnit daný útok. Kontrola, zda je server správně nakonfigurován, se provede stisknutím tlačítka a~v~případě pozitivního vyhodnocení je hra úspěšně dokončena. Nápovědy nasměrují hráče ke konfiguračnímu souboru a~poukáží na následnou potřebu restartování služby.
+Úkolem v~první úrovni je prozkoumat síťové porty a~zadat správný flag, jímž je seznam otevřených síťových portů. V~druhé úrovni je flag jako VCE\footnote{Common Vulnerabilities and Exposures (VCE) je systém, ve kterém je každé známé zranitelnosti přiřazen jednoznačný identifikátor.} identifikátor, který má být získán z~obsahu databáze použitím SQL injection. V~obou úrovních jsou doporučeny nástroje, které by měly být použity a~jsou k~dispozici dvě volitelné nápovědy. V~třetí úrovni má být tato nalezená zranitelnost využita k~získání přístupu na server, kde se v~lokálním souboru nachází aktuální flag. Připraveny jsou čtyři nápovědy. V~poslední čtvrté úrovni není cílem nalézt její flag, ale konfigurací NTP služby umožnit daný útok. Kontrola, zda je server správně nakonfigurován, se provede stisknutím tlačítka a~v~případě pozitivního vyhodnocení je hra úspěšně dokončena. Nápovědy nasměrují hráče ke konfiguračnímu souboru a~poukáží na následnou potřebu restartování služby.
 
 \subsection{Testování} \label{gameTesting}
 Popsaný prototyp byl již otestován při mnoha různých příležitostech, jak národních i~mezinárodních, a~taktéž byla zapojena škála uchazečů lišících se věkem, znalostmi i~zkušenostmi (dle zdroje \cite{ctfDesign} to bylo již v~roce 2016 celkem 18 příležitostí a~přibližně 260 účastníků).
@@ -189,7 +192,7 @@ Náročnost jednotlivých úrovní není stejná a~na některých úrovních str
 %% Také často nemívali problém s nalezením řešení, ale měli potíže s jeho realizací, jako např. nezkušenost s příkazovým řádkem nebo opomenutí restartu služby po změně konfigurace.
 Informace poskytované mimo herní platformu bývají rušivé a~nevyhovují ani hráčům, ani vyučujícím. To bylo vypozorováno při několika příležitostech, kdy vyučující hráčům představovali doporučené řešení pro každou úroveň. Nejedná se však jen o~skutečnost, že doplňující informace ze strany vyučujících mohou studentům hru přerušit a~změnit střed jejich pozornosti, ale také o~fakt, že hráči nepostupují stejně rychle a~potřebují tyto informace v~rozdílnou dobu. Zejména, pokud se hra koná na dálku a~účastníci, kteří v~tomto případě dostávají instrukce prostřednictvím e-mailu, by mohli správné řešení obržet příliš brzy, nebo by o~něj museli žádat. Je tedy výhodné, když tuto možnost poskytne přímo herní platforma a~hráči si mohou sami zobrazit řešení v~rozhraní hry. Možnost zobrazení správného řešení bylo jedním z~přidaných vylepšení oproti původní verzi.\par
 Nápovědy byly v~rámci původního řešení herního modulu hráčům nabízeny postupně v~lineárním pořadí, od základních po ty, co poskytují informací více. Navíc nebyl k~dispozici žádný popis, čeho se daná nápověda týká. V~takovém případě si hráči nejsou jistí, zda jim nápověda pomůže. Nastávaly situace, kdy si vzali nápovědu s~informací, kterou již znali, nebo si nápovědu raději nevzali, protože již v~úrovni pokročili dále a~museli by ztratit body i~za nápovědy, které nepotřebovali. Pro vylepšení systému nápověd bylo implementováno další rozšíření.\par
-Vyučující nemají v~administrátorském portletu přehled o~postupu jednotlivých týmů a~nemohou tak například pomoci těm, kteří potřebují jejich asistenci. Znalosti jednotlivých hráčů či týmů se často liší a~někteří z nich jsou začátečníci s~nedostatečnými předchozími znalostmi. Aby mohli takové hráče včas rozpoznat, bylo nutné se účastníků zeptat nebo sledovat jejich konzole přímo na místě nebo přes KYPO portál. Další vylepšení v podobě zaznamenávání interakcí s~herním modulem umožnilo alespoň omezené sledování jednotlivých kroků hráčů. \cite{ctfDesign}
+Vyučující nemají v~administrátorském portletu přehled o~postupu jednotlivých týmů a~nemohou tak například pomoci těm, kteří jejich pomoc potřebují. Znalosti jednotlivých hráčů či týmů se často liší a~někteří z nich jsou začátečníci s~nedostatečnými předchozími znalostmi. Aby mohli takové hráče včas rozpoznat, bylo nutné se účastníků zeptat nebo sledovat jejich konzole přímo na místě nebo přes KYPO portál. Další vylepšení v podobě zaznamenávání interakcí s~herním modulem umožnilo alespoň omezené sledování jednotlivých kroků hráčů. \cite{ctfDesign}
 
 \subsection{Rozšíření a vyhodnocení} \label{gameExtensions}
 Na základě poznatků popsaných v~předchozí podkapitole \ref{gameTesting} byla do herního modulu přidána následující vylepšení:
@@ -198,8 +201,8 @@ Na základě poznatků popsaných v~předchozí podkapitole \ref{gameTesting} by
   \item možnost zobrazení správného řešení,
   \item zaznamenávání jednotlivých akcí účastníků.
 \end{itemize}
-Nápovědy jsou nyní koncipovány tak, aby se hráč mohl rozhodnout zda a~jakou nápovědu použít. Zaprvé je ke každé nápovědě přidána informace, čeho se daná nápověda týká, například „který nástroj zvolit“, „jak použít daný nástroj“ nebo „jaký použít příkaz“. Dále není nutné využít nápovědy postupně, ale hráč si může zvolit, kterou nápovědu si na základě popisu zobrazí. Pokud ani přes použití nápověd nedokáže pokračovat, může využít dalšího rozšíření a~zobrazit si doporučené řešení přímo v~prostředí hry. \cite{ctfDesign}\par
-Také jsou nyní sledovány akce hráčů během hry, následující události jsou společně s~jejich časovými razítky zaznamenávány do CSV souboru:
+Nápovědy jsou nyní koncipovány tak, aby se hráč mohl rozhodnout zda a~jakou nápovědu použít. Zaprvé, ke každé nápovědě je přidána informace, čeho se daná nápověda týká, například „který nástroj zvolit“, „jak nástroj použít“ nebo „jaký použít příkaz“. Dále není nutné využít nápovědy postupně, ale hráč si může zvolit, kterou nápovědu si na základě popisu zobrazí. Pokud ani přes použití nápověd nedokáže pokračovat, může využít dalšího rozšíření a~zobrazit si doporučené řešení přímo v~prostředí hry. \cite{ctfDesign}\par
+Také jsou nyní sledovány akce hráčů během hry, následující události jsou zaznamenávány společně s~údajem o~jejich čase do CSV souboru:
 \begin{itemize}
   \item začátek a~dokončení hry,
   \item začátek a~dokončení úrovně,
@@ -212,12 +215,13 @@ Také jsou nyní sledovány akce hráčů během hry, následující události j
 \end{itemize}
 Tyto události zachycují pouze interakce mezi hráčem a~modulem hry. Samotné poskytují jen omezené informace o~krocích jednotlivých hráčů \cite{ctfDesign}, mohou však být dále zpracovávány v~různých statistikách či vizualizacích.
 Kromě popsaných rozšíření byl také upraven původní prototyp a~ten nyní zahrnuje šest úrovní s~cílem krádeže informací. Hráč opět začíná s~přístupem jen k~jednomu zařízení v~síti, ale sandbox nové hry obsahuje více cílových zařízení než původní.\par
-Pro zjištění více informací byly použity také dotazníky, a~to před začátkem hry, po skončení každé úrovně a~na konci celé hry. Před začátkem hry byly zjišťovány údaje týkající se daného účastníka. Dotazník na konci úrovně se dotazoval na její odhadovanou složitost, časový limit a~užitečnost nápověd. Poslední dotazník na konci hry zjišťoval celkovou složitost a~pocity ze hry. Kombinací dat ze hry a~z~dotazníků se podařilo dojít k~těmto závěrům \cite{ctfDesign}:
+Pro zjištění více informací byly použity také dotazníky, a~to před začátkem hry, po skončení každé úrovně a~na konci celé hry. Před začátkem hry byly zjišťovány údaje týkající se daného účastníka. Dotazník na konci úrovně se dotazoval na její odhadovanou složitost, časový limit a~užitečnost nápověd. Poslední dotazník na konci hry zjišťoval celkovou složitost a~pocity ze hry.\par
+Kombinací dat ze hry a~z~dotazníků se podařilo dojít k~několika závěrům \cite{ctfDesign}.
 \begin{itemize}
   \item Hráči využívají zdokonalený systém nápověd a~možnost zobrazení řešení.
   \item Nepodařilo se zjistit, zda nápovědy účastníkům pomáhají, protože odpovědi z~dotazníků neodpovídaly záznamům ze hry. Někteří v~dotazníku uvedli, že jim nápověda pomohla, přestože žádnou nevyužili, nebo naopak uvedli, že nápovědu nepotřebovali, i~když ji ve skutečnosti použili.
-  \item Mnozí hráči, kteří využili zobrazení řešení, dokázali úroveň dokončit, není jich ale takový počet, jako se předpokládalo.
-  \item Úrovně~4~a~6 byly hodnoceny jako nejtěžší, čemuž odpovídal i~průměrný čas na jejich dokončení.
+  \item Počet hráčů, kteří si zobrazili řešení a zároveň dokázali úroveň dokončit, je menší, než se očekávalo.
+  \item Jako nejtěžší byla hodnocena šestá a čtvrtá úroveň, čemuž odpovídal i~průměrný čas na jejich dokončení.
 \end{itemize}
 
 \chapter{Návrh vizualizace}
@@ -610,7 +614,7 @@ Popisky událostí jsou řešeny jako jediný element, který je při najetí na
 
 \section{Pohledy vizualizace}
 Během implementace bylo zjištěno, že týmy nezačínají hru ve stejný okamžik, což znamená změnu oproti grafickému návrhu. Ten vychází z předpokladu, že týmy začínají hru stejně, a řádky jsou proto z levé strany zarovnány, což neodpovídá skutečnosti. Tento pohled je však užitečný, protože lze porovnávat dobu řešení úrovně s časovým limitem, který je naznačen svislou čarou. Také lze tímto způsobem jednodušeji porovnávat týmy mezi sebou.\par
-Jednotlivé řádky je možné zarovnat podle jejich počátku, aby odpovídaly tomuto pohledu z grafického návrhu. Dojde tak ale k jejich posunutí a řádky přestanou být zarovnány s časovou osou ukazující aktuální moment, čímž tato osa ztratí smysl. Proto byly implementovány dva různé pohledy.
+Jednotlivé řádky je možné zarovnat podle jejich počátku, jako je tomu v grafickém návrhu. Dojde tak ale k jejich posunutí a řádky přestanou být zarovnány s časovou osou ukazující aktuální moment, čímž tato osa ztratí smysl. Proto byly implementovány dva různé pohledy.
 
 \subsection{Průběžný přehled}
 Tento pohled na hru má význam v jejím průběhu. Zobrazuje postup, události a začátky hry v čase odpovídajícím skutečnosti. Také je zobrazena časová osa vyznačující aktuální okamžik a čas v pravém horním rohu. Týmy je možné řadit podle jejich názvu nebo celkového času.\par
@@ -628,6 +632,7 @@ Po skončení hry, nebo i v jejím průběhu se lze přepnout do druhého pohled
 %% je to česky direktiva?
 
 \section{Načítání dat z CSV souboru}
+data jsou upravena uz behem parsovai, poite jsou zpracovana do datove struktury
 \subsection{Struktura dat}
 \subsection{Zpracování dat}
 \subsection{Služba LoadCsvDataService}
