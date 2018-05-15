@@ -525,8 +525,12 @@ Mezi výhody této knihovny patří: \cite{papa}
 
 Při volání metody parse je možné specifikovat např.:
 
-
 \section{Liferay} \label{liferay}
+Liferay je open-source platforma určená pro tvorbu webových portálů, postavená na jazyce Java. Platforma obsahuje již vestavěné aplikace a poskytuje framework pro tvorbu dalších aplikací. Portál také nabízí uživatelské rozhraní, které umožňuje pohodlnou správu jeho funkcí.\par
+Mezi hlavní výhody platformy patří její rozšiřitelnost a možnost nasazovat vlastní aplikace, tzv. portlety. Liferay umožňuje vytváření celých kolekcí stránek (sites), které obsahují jednotlivé stránky s jejich portlety.\cite{liferay}
+\subsection{Portlety}
+Portlet je samostatná webová aplikace a také tak funguje, běží však jen na části stránky. Vyvíjí se jen samotná aplikace, ostatní prvky na stránce jsou obstarány jinými komponentami. Portlety také mohou využívat funkce portálu, jako např. správu uživatelů nebo oprávnění.\par
+Portlety se vkládají do jednotlivých stránek, které mohou obsahovat portletů několik. Portlety lze na stránce rozmisťovat a měnit jejich rozměry. \cite{liferay}
 
 \chapter{Implementace}
 Prvním krokem při implementaci bylo vytvoření základu vizualizace v D3.js, což zahrnuje především výběr vhodného typu grafu (příklady jsou uvedeny v kapitole \ref{d3jsGraphs} o D3.js), návrh datové struktury, vykreslení všech požadovaných prvků vizualizace a načtení dat z CSV souboru.\par
@@ -733,9 +737,16 @@ Po skončení hry, nebo i v jejím průběhu se lze přepnout do druhého pohled
 \subsection{Direktivy}
 %% je to česky direktiva?
 
+\section{Načítání dat přes REST API}
+
+\subsection{Popis API}
+\subsection{Struktura dat}
+\subsection{Zpracování dat}
+%flow diagram? (cesta dat) - je tam řazení, muselo by to být za ovládacími prvky
+
 \section{Načítání dat z CSV souboru}
 %která vrací načtená data jako již popsanou datovou strukturu, se kterou může komponenta vizualizace přímo pracovat.
-Pro načítání dat z CSV souborů se záznamy událostí byla implementována služba \verb|LoadCsvDataService|. Ta vrací načtená data v potřebném formátu, a proto s nimi může komponenta vizualizace přímo pracovat. Pro samotné načtení a parsování souborů používá knihovnu Papa Parse, která využívá streamování a parsuje soubory po řádcích. Lze tak už během parsování pracovat s jednotlivými řádky souboru.\par
+Pro načítání dat z CSV souborů se záznamy událostí byla implementována služba \verb|LoadCsvDataService|. Ta vrací načtená data v potřebném formátu, a tak s nimi může komponenta vizualizace přímo pracovat. Pro samotné načtení a parsování souborů používá knihovnu Papa Parse, která využívá streamování a parsuje soubory po řádcích. Lze tak už během parsování pracovat s jednotlivými řádky souboru.\par
 Každý záznam události v CSV souboru obsahuje tyto údaje:
 %\verb|tým, datum a čas, relativní čas, úroveň, název události|.
 \begin{itemize}
@@ -747,14 +758,19 @@ Každý záznam události v CSV souboru obsahuje tyto údaje:
 \end{itemize}
 
 
-\subsection{Struktura dat}
 \subsection{Zpracování dat}
+Službě 
+Na základě typu události se uloží konec úrovně nebo se přidá
+\begin{itemize}
+  \item Game started
+  \item Hint 4 taken
+  \item Correct flag submited
+  \item Returned from help level
+  \item název události.
+\end{itemize}
 
-\section{Načítání dat přes REST API}
-\subsection{Popis API}
 \subsection{Struktura dat}
-\subsection{Zpracování dat}
-%flow diagram? (cesta dat) - je tam řazení, muselo by to být za ovládacími prvky
+
 
 \section{Ovládací prvky}
 popisky nahoře - samostatná komponenta
