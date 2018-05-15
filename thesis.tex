@@ -80,6 +80,7 @@
 \usepackage{graphicx} 
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{listings}
 \lstset{
   basicstyle      = \ttfamily,%
   identifierstyle = \color{black},%
@@ -438,7 +439,7 @@ Grid je responzivní a~je definováno několik mezí rozlišení v~pixel\-ech, k
 Angular je framework a~platforma určená pro vývoj klientských webových aplikací v~jazycích HTML a~TypeScript\footnote{TypeScript je nadstavba jazyka JavaScript doplněná např. o~statické typování nebo prvky z~oblasti objektově-orientovaného programování, jako třídy a~rozhraní. Kód se kompiluje do jazyka JavaScript, který lze spustit ve webovém prohlížeči.} (případně JavaScript) vytvořený společností Google. Historicky první verzí je AngularJS psaný čistě v~jazyce JavaScript. Ten byl kompletně přepsán a~nahrazen verzí~2 nazvanou Angular. Postupně vznikly novější verze 4, 5 a~6, které jsou zpětně kompatibilní.\par
 
 \subsection{Architektura Angular aplikací}
-Aplikace jsou modulární a~každá má alespoň jeden modul. Uživatelské rozhraní je definováno komponentami. Aplikace používají HTML šablony, které jsou doplněné o~speciální značky (direktivy) a~jsou součástí komponent. Komponenty využívají služby, které obstarávají aplikační logiku. Služby i komponenty jsou třídy, jejichž typ je označen dekorátorem\footnote{Dekorátory jsou funkce modifikující třídy JavaScriptu. Angular definuje řadu dekorátorů, které přiřazují třídám určitá metadata, aby bylo možné určit jejich význam a způsob, jakým budou zpracovávány.}.\par
+Aplikace jsou modulární a~každá má alespoň jeden modul. Uživatelské rozhraní je definováno komponentami. Aplikace používají HTML šablony, které jsou doplněné o~speciální značky a~jsou součástí komponent. Komponenty využívají služby, které obstarávají aplikační logiku. Služby i komponenty jsou třídy, jejichž typ je označen dekorátorem\footnote{Dekorátory jsou funkce modifikující třídy JavaScriptu. Angular definuje řadu dekorátorů, které přiřazují třídám určitá metadata, aby bylo možné určit jejich význam a způsob, jakým budou zpracovávány.}.\par
 Závislosti objektů jsou spravovány vkládáním závislostí (dependency injection) a výměna dat mezi modelem a šablonou je založena na oboustranném mapování dat (two-way data binding). \cite{angulario}
 
 \subsection{Moduly}
@@ -458,21 +459,31 @@ Modul je definován jako třída označená dekorátorem \verb|@NgModule|. Dekor
 
 \subsection{Komponenty}
 Komponenta je zodpovědná za správu části uživatelského rozhraní (view). Její logiku obstarává třída označená dekorátorem \verb|@Component| a s pohledem interaguje skrze metody a vlastnosti (properties). Příkladem může být komponenta, která spravuje hlavičku webové stránky pomocí vlastnosti s menu a metodu \verb|onClick|, která obsluhuje kliknutí na jednotlivé prvky menu.\par
-Komponenty mají životní cyklus a jsou vytvářeny a odebírány v závislosti na tom, jak se uživatel pohybuje v aplikaci. Na jednotlivé části cyklu je možné navázat vlastní akce pomocí tzv. hooks, mezi které patří například: \cite{angulario}S
+Komponenty mají životní cyklus a jsou vytvářeny a odebírány v závislosti na tom, jak se uživatel pohybuje v aplikaci. Na jednotlivé části cyklu je možné navázat vlastní akce pomocí tzv. hooks, mezi které patří například: \cite{angulario}
 \begin{itemize}
   \item \verb|ngOnInit|, která se volá při inicializaci komponenty,
   \item \verb|ngOnChanges|, která je volána při změnách vlastností komponenty,
   \item \verb|ngOnDestroy|, která se volá před jejím odebráním.
 \end{itemize}
 
-\subsection{Šablony a direktivy}
-Šablony kombinují HTML kód se značkami Angularu, tzv. direktivami, které mohou upravit DOM stránky ještě před tím, než je zobrazený uživateli. Jedná se o třídy označené dekorátorem @Directive.\par
-Komponenty jsou jedním z možných typů direktiv, dekorátor komponenty je ve skutečnosti rozšířeným dekorátorem direktivy. Celkem jsou tři typy direktiv.
+\subsection{Direktivy}
+%Šablony kombinují HTML kód se značkami Angularu, tzv. direktivami, které mohou upravit DOM stránky ještě před tím, než je zobrazený uživateli.
+Angular rozšiřuje HTML šablony o tzv. direktivy. Ty aplikují na šablony logiku a mohou upravit DOM stránky ještě před tím, než je zobrazen uživateli. Jedná se o třídy označené dekorátorem \verb|@Directive|.\par
+Komponenty jsou zvláštním případem direktiv, dekorátor komponenty je rozšířeným dekorátorem direktivy. Celkem jsou tři typy direktiv. \cite{angulario}
 \begin{itemize}
-  \item Komponenty, což jsou direktivy se šablonami. Dekorátor komponenty je rozšířený o vlastnosti zaměřené na šablony.
-  \item Strukturální, které mění DOM přidáváním nebo odebíráním elementů. Patří mezi ně například \verb|ngIf| pro podmíněné zobrazení kódu nebo \verb|ngFor| pro přidávání prvků v cyklu.
-  \item Atributové, které mění, přidávají nebo odebírají atributy existujících elementů. Mezi ně patří např. ngClass měnící hodnoty class atributu nebo ngModel. Ten implementuje obousměrné mapování dat mezi elementem a vlastností komponenty a nastavuje elementu hodnotu, elementy jsou typicky formulářové prvky.
+  \item Komponenty, tedy direktivy se šablonami. Mají vlastní dekorátor, který je rozšířený o vlastnosti týkající se šablon.
+  \item Strukturální, které mění DOM přidáváním nebo odebíráním elementů. Patří mezi ně například \verb|ngIf| pro podmíněné zobrazení kódu nebo \verb|ngFor| pro generování prvků v cyklu. Následující příklad vygeneruje odstavec pro každého uživatele.
+\begin{lstlisting}[showstringspaces=false,language=html]
+<p *ngFor="let user of users"></p>
+\end{lstlisting}
+  \item Atributové, které mění, přidávají nebo odebírají atributy existujících elementů. Mezi ně patří např. \verb|ngClass| měnící hodnoty \verb|class| atributu nebo \verb|ngModel|. Ten implementuje obousměrné mapování dat mezi elementem a vlastností komponenty a nastavuje elementu hodnotu, elementy jsou typicky formulářové prvky. Příklad ukazuje pole formuláře, jehož hodnota je svázána se jménem uživatele.
+\begin{lstlisting}[showstringspaces=false,language=html]
+<input [(ngModel)]="user.name">
+\end{lstlisting}
 \end{itemize}
+
+\subsection{Mapování dat}
+
 
 \section{Papa Parse}
 \section{Liferay} \label{liferay}
