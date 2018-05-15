@@ -483,8 +483,31 @@ Komponenty jsou zvláštním případem direktiv, dekorátor komponenty je rozš
 \end{itemize}
 
 \subsection{Mapování dat}
+Mapování dat je mechanismus pro předávání dat mezi prvky šablony a částmi komponenty. Následující čtyři zápisy je možné v šabloně použít pro mapování dat, liší se v obsahu a směru předávání dat.
+\begin{itemize}
+  \item Interpolace, kterou lze předat hodnotu vlastnosti komponenty do obsahu elementu v šabloně. Obecně, interpolace vyhodnotí výraz ve složených závorkách a převede ho do textového řetězce.
+\begin{lstlisting}[showstringspaces=false]
+{{value}}
+\end{lstlisting}
+  \item Mapování vlastnosti, kdy se předává hodnota vlastnosti komponenty do vlastnosti elementu v šabloně.
+  %Nastavuje vlastnost elementu v šabloně na hodnotu vlastnosti komponenty.
+  \begin{lstlisting}[showstringspaces=false]
+[property] = "value"
+\end{lstlisting}
+  \item Mapování události předává data opačným směrem, od elementu do komponenty. Události v závorkách se přiřadí příkaz, typicky volání metody komponenty. Pokud daná událost nastane (například uživatel klikne na tlačítko), metoda se zavolá.
+\begin{lstlisting}[showstringspaces=false]
+(event) = "handler"
+\end{lstlisting}
+  \item Oboustranné mapování, které kombinuje mapování vlastnosti a události. Umožňuje oboustranný tok dat, kdy je třeba zobrazovat hodnotu vlastnosti a zároveň ji aktualizovat, pokud je uživatelem změněna.
+\begin{lstlisting}[showstringspaces=false]
+[(ngModel)] = "property"
+\end{lstlisting}
+\end{itemize}
 
-
+\subsection{Služby a vkládání závislostí}
+Služba může být libovolná funkcionalita, kterou aplikace potřebuje. Smyslem komponent je zprostředkování uživatelského rozhraní, a další funkcionalitu jako například načítání dat skrze API je tedy vhodné implementovat pomocí služeb.\par
+Služba se definují jako třídy s dekorátorem @Injectable, aby je bylo možné předávat komponentám jako závislosti pomocí dependency injection\footnote{Dependency injection je technika návrhového vzoru IoC (Inversion of Control). Závislostí je myšlena instance třídy. Princip spočívá v tom, že o instanciování a vložení objektu se nestará programátor, ale kontejner závislostí (dependency injection container). Implementace je flexibilnější a závislosti lze měnit za jiné, což je žádoucí například při testování.}.
+%% Je to Dependency injection správně??? 
 \section{Papa Parse}
 \section{Liferay} \label{liferay}
 
