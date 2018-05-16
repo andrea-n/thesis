@@ -726,10 +726,9 @@ Jednotlivé řádky je možné zarovnat podle jejich počátku, jako je tomu v g
 \subsection{Průběžný pohled}
 Tento pohled na hru má význam v jejím průběhu. Zobrazuje postup a události hry v čase odpovídajícím skutečnosti. Týmy tedy nejsou z levé strany zarovnány a z grafu je patrné, kdy tým hru začal. Také je zobrazena časová osa vyznačující aktuální okamžik a čas v pravém horním rohu. Naopak se nezobrazují svislé čáry pro odhad času úrovní. Týmy je možné řadit podle jejich názvu nebo celkového času hry.\par
 V tomto pohledu jsou data pravidelně aktualizována a lze tak hru sledovat v reálném čase.
-\subsection{Závěrečný přehled}%Závěrečný
+\subsection{Závěrečný přehled}
 Po skončení hry, nebo i v jejím průběhu je možné se přepnout do druhého pohledu. Tento pohled poskytuje celkové srovnání jednotlivých týmů. Řádky jsou zarovnány podle začátku hry. Lze je ale také srovnat podle začátku libovolné úrovně, nebo je podle délky úrovně řadit. Je tak možné porovnávat celkovou délku hry nebo čas jednotlivých úrovní mezi všemi týmy.\par
 Časová osa je vynechána, ale jsou zobrazeny limity pro jednotlivé úrovně, se kterými lze srovnávat skutečné hodnoty.
-%ve final není osa
 
 \section{Angular aplikace}
 %% možná obrázek
@@ -739,15 +738,43 @@ Po skončení hry, nebo i v jejím průběhu je možné se přepnout do druhého
 %% je to česky direktiva?
 
 \section{Načítání dat přes REST API}
-NENI SEZNAM ID HER!!!! PROTO JE ID V CONFIGU
+%a komponenta vizualizace tak již s nimi může přímo pracovat.
+Za účelem načítání dat skrze REST API byla implementována služba \verb|LoadDataService|. Ta vrací načtená data v potřebném formátu, a tak s nimi může komponenta vizualizace přímo pracovat. Služba získává data s pomocí modulu HttpClient, který je součástí frameworku Angular.
+
 \subsection{Popis API}
+Aplikace využívá dva zdroje API, vrácené odpovědi jsou ve formátu JSON.
+%\begin{itemize}
+%  \item \verb|GET /games/{gameId}| – tento zdroj podle zadaného ID hry poskytuje údaje o dané hře.\par
+%  \item \verb|GET /games/{gameId}/events| –  podle specifikovaného ID hry vrací záznamy jejích událostí.\par  		
+%  \item První zdroj podle zadaného ID hry poskytuje údaje o dané hře. Aplikace ho využívá k získání informace o počtu úrovní.\par
+%		\verb|GET /games/{gameId}|
+%  \item Další zdroj vrací podle specifikovaného ID hry záznamy jejích událostí.\par
+%		\verb|GET /games/{gameId}/events|
+%\end{itemize}
+\begin{itemize}
+  %\item \verb|GET /games/{gameId}| – tento zdroj podle zadaného ID hry poskytuje údaje o dané hře.\par
+  %\item \verb|GET /games/{gameId}/events| –  podle specifikovaného ID hry vrací záznamy jejích událostí.\par  		
+  \item \verb|GET /games/{gameId}|\par
+  Tento zdroj podle zadaného ID hry poskytuje informace o dané hře, jako např. její popis nebo seznam úrovní.
+  \item \verb|GET /games/{gameId}/events|\par
+  Další zdroj vrací podle specifikovaného ID hry pole jejích událostí. Každá událost nese několik informací, např.:
+  	\begin{itemize}
+  	  \item id hráče,
+  	  \item časové razítko události,
+  	  \item relativní čas události od začátku úrovně, udávaný v sekundách,
+  	  \item úroveň,
+  	  \item typ události.
+  	\end{itemize}
+\end{itemize}
+Aplikace využívá první zdroj k získání informace o počtu úrovní, aby bylo možné připravit datovou strukturu plánu hry. Informace o časovém odhadu jednotlivých úrovní nejsou k dispozici z žádného zdroje. Z tohoto důvodu jsou časové limity specifikovány v rámci konfigurace aplikace \ref{config}. Jelikož není dostupný seznam her, ze kterého by bylo možné hru vybrat, bylo rozhodnuto, že ID hry, která má být zobrazena, bude také součástí konfigurace.\par
+
 \subsection{Struktura dat}
 \subsection{Zpracování dat}
 %flow diagram? (cesta dat) - je tam řazení, muselo by to být za ovládacími prvky
 
 \section{Načítání dat z CSV souboru}
 %která vrací načtená data jako již popsanou datovou strukturu, se kterou může komponenta vizualizace přímo pracovat.
-Pro načítání dat z CSV souborů se záznamy událostí byla implementována služba \verb|LoadCsvDataService|. Ta vrací načtená data v potřebném formátu, a tak s nimi může komponenta vizualizace přímo pracovat. Pro samotné načtení a parsování souborů používá knihovnu Papa Parse, která využívá streamování a parsuje soubory po řádcích. Lze tak už během parsování pracovat s jednotlivými řádky souboru.\par
+Načítání dat z CSV souborů zajišťuje služba \verb|LoadCsvDataService|. Ta vrací načtená data v potřebném formátu, a tak s nimi může komponenta vizualizace přímo pracovat. Pro samotné načtení a parsování souborů používá knihovnu Papa Parse, která využívá streamování a parsuje soubory po řádcích. Lze tak už během parsování pracovat s jednotlivými řádky souboru.\par
 Každý záznam události v CSV souboru obsahuje tyto údaje:
 %\verb|tým, datum a čas, relativní čas, úroveň, název události|.
 \begin{itemize}
@@ -781,13 +808,14 @@ datová struktura zkopírována, kopie je seřazena a podle ní graf překreslen
 realizováno obdobným způsobem, 
 %\subsection{Zoom}
 
-\section{Konfigurace}
+\section{Konfigurace} \label{config}
 Aplikace dovoluje konfigurovat některé její parametry. V Angular aplikacích lze konfiguraci řešit vytvořením třídy k tomu určené, v tomto případě \verb|AppConfig|, a konstanty, která je instancí této třídy. Tato konstanta uchovává dané nastavení a je vkládána do komponenty pomocí dependency injection.\par
 Konfigurace aplikace se nachází v souboru \verb|app.config.ts| a obsahuje následující parametry:
 \begin{itemize}
   \item \verb|apiUrl| – specifikuje URL REST API, ze kterého aplikace získává data,
   \item \verb|gameId| – specifikuje ID hry, která má být načtena,
-  \item \verb|levelsTimePlan| – udává odhadovanou dobu řešení pro každou úroveň, zadává se v sekundách jako pole čísel např. [1200, 1500, 1900, 2100],
+  \item \verb|levelsTimePlan| – udává odhadovanou dobu řešení pro každou úroveň, zadává se v sekundách jako pole čísel např.\par
+  			\verb|[1200, 1500, 1900, 2100]|,
   \item \verb|gameColors| – určuje jednotlivé barvy úrovní ve vizualizaci, barvy se zadávají jako pole hexadecimálních kódů,
   \item \verb|lightenedColors| – světlé barvy již odehraných úrovní,
   \item \verb|planColors| – barvy svislých čar značících časové limity,
