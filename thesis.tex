@@ -724,11 +724,12 @@ Během implementace bylo zjištěno, že týmy nezačínají hru ve stejný okam
 Jednotlivé řádky je možné zarovnat podle jejich počátku, jako je tomu v grafickém návrhu. Dojde tak ale k jejich posunutí a řádky přestanou být zarovnány s časovou osou ukazující aktuální moment, čímž tato osa ztratí smysl. Proto byly implementovány dva různé pohledy.
 
 \subsection{Průběžný pohled}
-Tento pohled na hru má význam v jejím průběhu. Zobrazuje postup, události a začátky hry v čase odpovídajícím skutečnosti. Také je zobrazena časová osa vyznačující aktuální okamžik a čas v pravém horním rohu. Týmy je možné řadit podle jejich názvu nebo celkového času.\par
-V tomto pohledu jsou data pravidelně aktualizována a je tak možné hru sledovat v reálném čase.
+Tento pohled na hru má význam v jejím průběhu. Zobrazuje postup a události hry v čase odpovídajícím skutečnosti. Týmy tedy nejsou z levé strany zarovnány a z grafu je patrné, kdy tým hru začal. Také je zobrazena časová osa vyznačující aktuální okamžik a čas v pravém horním rohu. Naopak se nezobrazují svislé čáry pro odhad času úrovní. Týmy je možné řadit podle jejich názvu nebo celkového času hry.\par
+V tomto pohledu jsou data pravidelně aktualizována a lze tak hru sledovat v reálném čase.
 \subsection{Závěrečný přehled}%Závěrečný
-Po skončení hry, nebo i v jejím průběhu se lze přepnout do druhého pohledu. Tento pohled poskytuje celkové srovnání jednotlivých týmů. Řádky jsou zarovnány podle začátku hry. Lze je ale také srovnat podle začátku libovolné úrovně, nebo je podle délky úrovně řadit. Je tak možné porovnávat celkovou délku hry nebo jednotlivých úrovní mezi všemi týmy.
-%ve final není osa a nejsou tam čáry
+Po skončení hry, nebo i v jejím průběhu je možné se přepnout do druhého pohledu. Tento pohled poskytuje celkové srovnání jednotlivých týmů. Řádky jsou zarovnány podle začátku hry. Lze je ale také srovnat podle začátku libovolné úrovně, nebo je podle délky úrovně řadit. Je tak možné porovnávat celkovou délku hry nebo čas jednotlivých úrovní mezi všemi týmy.\par
+Časová osa je vynechána, ale jsou zobrazeny limity pro jednotlivé úrovně, se kterými lze srovnávat skutečné hodnoty.
+%ve final není osa
 
 \section{Angular aplikace}
 %% možná obrázek
@@ -738,7 +739,7 @@ Po skončení hry, nebo i v jejím průběhu se lze přepnout do druhého pohled
 %% je to česky direktiva?
 
 \section{Načítání dat přes REST API}
-
+NENI SEZNAM ID HER!!!! PROTO JE ID V CONFIGU
 \subsection{Popis API}
 \subsection{Struktura dat}
 \subsection{Zpracování dat}
@@ -781,7 +782,21 @@ realizováno obdobným způsobem,
 %\subsection{Zoom}
 
 \section{Konfigurace}
-ukázka konfigu a potom v listu stručný popis
+Aplikace dovoluje konfigurovat některé její parametry. V Angular aplikacích lze konfiguraci řešit vytvořením třídy k tomu určené, v tomto případě \verb|AppConfig|, a konstanty, která je instancí této třídy. Tato konstanta uchovává dané nastavení a je vkládána do komponenty pomocí dependency injection.\par
+Konfigurace aplikace se nachází v souboru \verb|app.config.ts| a obsahuje následující parametry:
+\begin{itemize}
+  \item \verb|apiUrl| – specifikuje URL REST API, ze kterého aplikace získává data,
+  \item \verb|gameId| – specifikuje ID hry, která má být načtena,
+  \item \verb|levelsTimePlan| – udává odhadovanou dobu řešení pro každou úroveň, zadává se v sekundách jako pole čísel např. [1200, 1500, 1900, 2100],
+  \item \verb|gameColors| – určuje jednotlivé barvy úrovní ve vizualizaci, barvy se zadávají jako pole hexadecimálních kódů,
+  \item \verb|lightenedColors| – světlé barvy již odehraných úrovní,
+  \item \verb|planColors| – barvy svislých čar značících časové limity,
+  \item \verb|darkColor| – tmavá barva pro ikony událostí v aktuální úrovni,
+  \item \verb|minBarHeight| – číslo, které určuje minimální výšku každého řádku vizualizace v pixelech.
+  %\item\item \verb|gameColors|, \verb|planColors|, \verb|lightenedColors| – určuje jednotlivé barvy úrovní ve vizualizaci, gameColors značí aktuální úrovně, lightenedColors již odehrané úrovně a planColor barvy svislých čar pro časové limity, zadávají se jako pole barev v hexadecimálním kódu,
+
+\end{itemize}
+
 
 \section{Testy}
 
