@@ -436,11 +436,11 @@ Gridový systém slouží k~rozložení a~zarovnání obsahu stránky. Použív�
 Grid je responzivní a~je definováno několik mezí rozlišení v~pixel\-ech, které odpovídají určitým typům zařízení (mobilní telefon na výšku a~na šířku, tablet, notebook a~velké obrazovky). Počet sloupců na řádku se dá specifikovat pro tyto meze zvlášť, např. čtyři sloupce, které jsou vedle sebe na velké obrazovce, se na mobilním zařízení zalomí po jednom pod sebe.
 
 \section{Angular}
-Angular je framework a~platforma určená pro vývoj klientských webových aplikací v~jazycích HTML a~TypeScript\footnote{TypeScript je nadstavba jazyka JavaScript doplněná např. o~statické typování nebo prvky z~oblasti objektově-orientovaného programování, jako třídy a~rozhraní. Kód se kompiluje do jazyka JavaScript, který lze spustit ve webovém prohlížeči.} (případně JavaScript) vytvořený společností Google. Historicky první verzí je AngularJS psaný čistě v~jazyce JavaScript. Ten byl kompletně přepsán a~nahrazen verzí~2 nazvanou Angular. Postupně vznikly novější verze 4, 5 a~6, které jsou zpětně kompatibilní.\par
+Angular je framework a~platforma určená pro vývoj klientských webových aplikací v~jazycích HTML a~TypeScript\footnote{TypeScript je nadstavba jazyka JavaScript doplněná např. o~statické typování nebo prvky z~oblasti objektově-orientovaného programování, jako třídy a~rozhraní. Kód se kompiluje do jazyka JavaScript, který lze spustit ve webovém prohlížeči.} (případně JavaScript) vytvořený společností Google. Historicky první verzí je AngularJS psaný čistě v~jazyce JavaScript. Ten byl kompletně přepsán a~nahrazen verzí~2 označovanou pouze jako Angular. Postupně vznikly novější verze 4, 5 a~6, které jsou zpětně kompatibilní.\par
 
 \subsection{Architektura Angular aplikací}
 Aplikace jsou modulární a~každá má alespoň jeden modul. Uživatelské rozhraní je definováno komponentami. Aplikace používají HTML šablony, které jsou doplněné o~speciální značky a~jsou součástí komponent. Komponenty využívají služby, které obstarávají aplikační logiku. Služby i komponenty jsou třídy, jejichž typ je označen dekorátorem\footnote{Dekorátory jsou funkce modifikující třídy JavaScriptu. Angular definuje řadu dekorátorů, které přiřazují třídám určitá metadata, aby bylo možné určit jejich význam a způsob, jakým budou zpracovávány.}.\par
-Závislosti objektů jsou spravovány vkládáním závislostí (dependency injection) a výměna dat mezi modelem a šablonou je založena na oboustranném mapování dat (two-way data binding). \cite{angulario}
+Závislosti objektů jsou spravovány vkládáním závislostí (dependency injection) a výměna dat mezi modelem a šablonou je založena na oboustranné vazbě dat (two-way data binding). \cite{angulario}
 
 \subsection{Moduly}
 Základní jednotkou Angular aplikací jsou moduly (tzv. NgModules). Aplikace má vždy jeden kořenový modul, nazvaný podle konvence \verb|AppModule|, který se stará o spuštění aplikace. Může být rozdělena do dalších funkčních modulů.\par
@@ -452,13 +452,14 @@ Modul je definován jako třída označená dekorátorem \verb|@NgModule|. Dekor
   \item \verb|declarations| – seznam tříd uživatelského rozhraní, zejména komponent a direktiv, náležících do modulu,
   \item \verb|exports| – podmnožina tříd, které mají být viditelné z ostatních modulů,
   \item \verb|imports| – seznam modulů, jejichž exportované třídy jsou potřebné v tomto modulu,
-  \item \verb|providers| – seznam služeb (jsou zaregistrovány do globální kolekce služeb a dostupné z celé aplikace),
+  \item \verb|providers| – seznam služeb, které jsou zaregistrovány do globální kolekce služeb a dostupné z celé aplikace,
   \item \verb|bootstrap| – hlavní kořenová komponenta (ta by měla být nastavena jen v kořenovém modulu).
 \end{itemize}
 %exports - podmnožina deklarací, které mají být viditelné z ostatních modulů
 
 \subsection{Komponenty}
 Komponenta je zodpovědná za správu části uživatelského rozhraní (view). Její logiku obstarává třída označená dekorátorem \verb|@Component| a s pohledem interaguje skrze metody a vlastnosti (properties). Příkladem může být komponenta, která spravuje hlavičku webové stránky pomocí vlastnosti s menu a metodu \verb|onClick|, která obsluhuje kliknutí na jednotlivé prvky menu.\par
+%JE DOBŘE TEN PŘÍKLAD????
 Komponenty mají životní cyklus a jsou vytvářeny a odebírány v závislosti na tom, jak se uživatel pohybuje v aplikaci. Na jednotlivé části cyklu je možné navázat vlastní akce pomocí tzv. hooks, mezi které patří například: \cite{angulario}
 \begin{itemize}
   \item \verb|ngOnInit|, která se volá při inicializaci komponenty,
@@ -476,29 +477,29 @@ Komponenty jsou zvláštním případem direktiv, dekorátor komponenty je rozš
 \begin{lstlisting}[showstringspaces=false,language=html]
 <p *ngFor="let user of users"></p>
 \end{lstlisting}
-  \item Atributové, které mění, přidávají nebo odebírají atributy existujících elementů. Mezi ně patří např. \verb|ngClass| měnící hodnoty \verb|class| atributu nebo \verb|ngModel|. Ten implementuje obousměrné mapování dat mezi elementem a vlastností komponenty a nastavuje elementu hodnotu, elementy jsou typicky formulářové prvky. Příklad ukazuje pole formuláře, jehož hodnota je svázána se jménem uživatele.
+  \item Atributové, které mění, přidávají nebo odebírají atributy existujících elementů. Mezi ně patří např. \verb|ngClass| měnící hodnoty \verb|class| atributu nebo \verb|ngModel|. Ten implementuje obousměrnou vazbu dat mezi elementem a vlastností komponenty a nastavuje hodnotu elementu. Příklad ukazuje pole formuláře, jehož hodnota je svázána se jménem uživatele.
 \begin{lstlisting}[showstringspaces=false,language=html]
 <input [(ngModel)]="user.name">
 \end{lstlisting}
 \end{itemize}
 
-\subsection{Mapování dat}
-Mapování dat je mechanismus pro předávání dat mezi prvky šablony a částmi komponenty. Následující čtyři zápisy je možné v šabloně použít pro mapování dat, liší se v obsahu a směru předávání dat.  \cite{angulario}
+\subsection{Vázání dat}
+Vázání dat (data binding) je mechanismus pro předávání dat mezi prvky šablony a částmi komponenty. Následující čtyři zápisy je možné v šabloně použít pro vazbu dat, liší se v obsahu a směru předávání dat.  \cite{angulario}
 \begin{itemize}
   \item Interpolace, kterou lze předat hodnotu vlastnosti komponenty do obsahu elementu v šabloně. Obecně, interpolace vyhodnotí výraz ve složených závorkách a převede ho do textového řetězce.
 \begin{lstlisting}[showstringspaces=false]
 {{value}}
 \end{lstlisting}
-  \item Mapování vlastnosti, kdy se předává hodnota vlastnosti komponenty do vlastnosti elementu v šabloně.
+  \item Vázání vlastnosti, kdy se předává hodnota vlastnosti komponenty do vlastnosti elementu v šabloně.
   %Nastavuje vlastnost elementu v šabloně na hodnotu vlastnosti komponenty.
   \begin{lstlisting}[showstringspaces=false]
 [property] = "value"
 \end{lstlisting}
-  \item Mapování události předává data opačným směrem, od elementu do komponenty. Události v závorkách se přiřadí příkaz, typicky volání metody komponenty. Pokud daná událost nastane (například uživatel klikne na tlačítko), metoda se zavolá.
+  \item Vázání události předává data opačným směrem, od elementu do komponenty. Události v závorkách se přiřadí příkaz, typicky volání metody komponenty. Pokud daná událost nastane (například uživatel klikne na tlačítko), metoda se zavolá.
 \begin{lstlisting}[showstringspaces=false]
 (event) = "handler"
 \end{lstlisting}
-  \item Oboustranné mapování, které kombinuje mapování vlastnosti a události. Umožňuje oboustranný tok dat, kdy je třeba zobrazovat hodnotu vlastnosti a zároveň ji aktualizovat, pokud je uživatelem změněna.
+  \item Oboustranná vazba, která kombinuje vázání vlastnosti a události. Umožňuje oboustranný tok dat, kdy je třeba hodnotu vlastnosti zobrazovat a zároveň ji aktualizovat, pokud je uživatelem změněna.
 \begin{lstlisting}[showstringspaces=false]
 [(ngModel)] = "property"
 \end{lstlisting}
@@ -510,7 +511,7 @@ Služby se definují jako třídy s dekorátorem \verb|@Injectable|, aby je bylo
 %% Je to Dependency injection správně??? 
 
 \section{Papa Parse}
-Papa Parse je knihovna pro JavaScript, která je určená pro parsování textu a souborů ve formátu CSV. Tuto knihovnu je možné integrovat do Angular aplikací pomocí ngx-papaparse.\par
+Papa Parse je knihovna pro JavaScript, která je určená pro parsování textu a souborů ve formátu CSV. Tuto knihovnu je možné integrovat do Angular aplikací pomocí nadstavby ngx-papaparse.\par
 %co je ngx-papaparse???????????
 Mezi výhody této knihovny patří: \cite{papa}
 \begin{itemize}
@@ -529,7 +530,7 @@ Při volání metody parse je možné specifikovat např.:
 Liferay je open-source platforma určená pro tvorbu webových portálů, postavená na jazyce Java. Platforma obsahuje již vestavěné aplikace a poskytuje framework pro tvorbu dalších aplikací. Portál také nabízí uživatelské rozhraní, které umožňuje pohodlnou správu jeho funkcí.\par
 Mezi hlavní výhody platformy patří její rozšiřitelnost a možnost nasazovat vlastní aplikace, tzv. portlety. Liferay umožňuje vytváření celých kolekcí stránek (sites), které obsahují jednotlivé stránky s jejich portlety.\cite{liferay}
 \subsection{Portlety}
-Portlet je samostatná webová aplikace a také tak funguje, běží však jen na části stránky. Vyvíjí se jen samotná aplikace, ostatní prvky na stránce jsou obstarány jinými komponentami. Portlety také mohou využívat funkce portálu, jako např. správu uživatelů nebo oprávnění.\par
+Portlet je samostatná webová aplikace, běží však jen na části stránky. Vyvíjí se jen samotná aplikace, ostatní prvky na stránce jsou obstarány jinými komponentami. Portlety také mohou využívat funkce portálu, jako např. správu uživatelů nebo oprávnění.\par
 Portlety se vkládají do jednotlivých stránek, které mohou obsahovat portletů několik. Portlety lze na stránce rozmisťovat a měnit jejich rozměry. \cite{liferay}
 
 \chapter{Implementace}
@@ -731,18 +732,27 @@ Po skončení hry, nebo i v jejím průběhu je možné se přepnout do druhého
 Časová osa je vynechána, ale jsou zobrazeny limity pro jednotlivé úrovně, se kterými lze srovnávat skutečné hodnoty.
 
 \section{Angular aplikace}
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=12.7cm]{images/architektura-4.pdf}
+  \end{center}
+  \caption{Grafické znázornění architektury aplikace.}
+  \label{fig:architecture}
+\end{figure}
 %% možná obrázek
 \subsection{Komponenty}
 \subsection{Služby}
 \subsection{Direktivy}
 %% je to česky direktiva?
 
-\section{Načítání dat přes REST API}
+\section{Načítání dat}
+Aplikace dokáže načítat data z CSV souborů se záznamy ze hry a také pomocí rozhraní, které poskytuje podobné záznamy v jiném formátu. Pro oba zdroje existuje v aplikaci služba, která načítání dat zajištuje.
+\subsection{Načítání dat skrze REST API}
 %a komponenta vizualizace tak již s nimi může přímo pracovat.
-Za účelem načítání dat skrze REST API byla implementována služba \verb|LoadDataService|. Ta vrací načtená data v potřebném formátu, a tak s nimi může komponenta vizualizace přímo pracovat. Služba získává data s pomocí modulu HttpClient, který je součástí frameworku Angular.
+Pro načítání dat pomocí rozhraní byla implementována služba \verb|LoadDataService|. Ta vrací načtená data v potřebném formátu, a tak s nimi může komponenta vizualizace přímo pracovat. Služba využívá k získávání dat modul \verb|HttpClient|, který je součástí frameworku Angular.
 
-\subsection{Popis API}
-Aplikace využívá dva zdroje API, vrácené odpovědi jsou ve formátu JSON.
+\subsection{Popis REST API}
+Aplikace využívá dva zdroje rozhraní, vrácené odpovědi jsou ve formátu JSON.
 %\begin{itemize}
 %  \item \verb|GET /games/{gameId}| – tento zdroj podle zadaného ID hry poskytuje údaje o dané hře.\par
 %  \item \verb|GET /games/{gameId}/events| –  podle specifikovaného ID hry vrací záznamy jejích událostí.\par  		
@@ -757,7 +767,7 @@ Aplikace využívá dva zdroje API, vrácené odpovědi jsou ve formátu JSON.
   \item \verb|GET /games/{gameId}|\par
   Tento zdroj podle zadaného ID hry poskytuje informace o dané hře, jako např. její popis nebo seznam úrovní.
   \item \verb|GET /games/{gameId}/events|\par
-  Další zdroj vrací podle specifikovaného ID hry pole jejích událostí. Každá událost nese několik informací, např.:
+  Druhý zdroj vrací podle specifikovaného ID hry pole jejích událostí. Každá událost nese několik informací, např.:
   	\begin{itemize}
   	  \item id hráče,
   	  \item časové razítko události,
@@ -768,37 +778,29 @@ Aplikace využívá dva zdroje API, vrácené odpovědi jsou ve formátu JSON.
 \end{itemize}
 Aplikace využívá první zdroj k získání informace o počtu úrovní, aby bylo možné připravit datovou strukturu plánu hry. Informace o časovém odhadu jednotlivých úrovní nejsou k dispozici z žádného zdroje. Z tohoto důvodu jsou časové limity specifikovány v rámci konfigurace aplikace \ref{config}. Jelikož není dostupný seznam her, ze kterého by bylo možné hru vybrat, bylo rozhodnuto, že ID hry, která má být zobrazena, bude také součástí konfigurace.\par
 
-\subsection{Struktura dat}
-\subsection{Zpracování dat}
-%flow diagram? (cesta dat) - je tam řazení, muselo by to být za ovládacími prvky
-
-\section{Načítání dat z CSV souboru}
+\subsection{Načítání dat z CSV souboru}
 %která vrací načtená data jako již popsanou datovou strukturu, se kterou může komponenta vizualizace přímo pracovat.
-Načítání dat z CSV souborů zajišťuje služba \verb|LoadCsvDataService|. Ta vrací načtená data v potřebném formátu, a tak s nimi může komponenta vizualizace přímo pracovat. Pro samotné načtení a parsování souborů používá knihovnu Papa Parse, která využívá streamování a parsuje soubory po řádcích. Lze tak už během parsování pracovat s jednotlivými řádky souboru.\par
+Načítání dat z CSV souborů zajišťuje služba \verb|LoadCsvDataService|. Ta opět vrací data v potřebném formátu. Pro samotné načtení a parsování souborů používá knihovnu Papa Parse, která využívá streamování a parsuje soubory po řádcích. Lze tak už během parsování pracovat s jednotlivými řádky souboru.\par
 Každý záznam události v CSV souboru obsahuje tyto údaje:
 %\verb|tým, datum a čas, relativní čas, úroveň, název události|.
 \begin{itemize}
   \item tým, 
   \item datum a čas události,
-  \item relativní čas události, je počítán od začátku dané úrovně, ve formátu HH:MM:SS,
-  \item číslo úrovně,
+  \item relativní čas události, který je počítán od začátku dané úrovně, ve formátu HH:MM:SS,
+  \item úroveň,
   \item název události.
 \end{itemize}
-
+Již během parsování souboru jsou oba údaje s časem převedeny na časové razítko (timestamp). Také je zjištěn celkový začátek hry, a to jako nejmenší časový údaj ze všech událostí. Všechna získaná data jsou dále předána ke zpracování.
+%TODO!!!!! U CSV NEVÍME DOPŘEDU POČET LEVELŮ
 
 \subsection{Zpracování dat}
-Službě 
-Na základě typu události se uloží konec úrovně nebo se přidá
+Pole načtených událostí je následně v rámci služby zpracováno během jednoho cyklu do výsledné datové struktury. Pro každý tým je vytvořen objekt, do kterého se postupně ukládají určité události, jako např. využité nápovědy, nebo se do něho zaznamenávají informace o průběhu hry. Mezi daty získanými z CSV a skrze API jsou rozdíly, princip práce s událostmi je však následující:
 \begin{itemize}
-  \item Game started
-  \item Hint 4 taken
-  \item Correct flag submited
-  \item Returned from help level
-  \item název události.
+  \item game started – uloží čas začátku hry daného týmu,
+  \item correct flag submited, případně game finished, game exited – jelikož tyto události ukončují úroveň, jejich čas je uložen k dané úrovni jako její celkový čas,
+  \item hint taken, solution displayed a level skipped – přidá danou událost do pole událostí.
 \end{itemize}
-
-\subsection{Struktura dat}
-
+Po průchodu všech událostí je dodatečně dopočítán celkový čas a také je zjištěna aktuální úroveň, na které tým pracuje.
 
 \section{Ovládací prvky}
 popisky nahoře - samostatná komponenta
