@@ -542,11 +542,11 @@ Prvním krokem při implementaci bylo vytvoření základu vizualizace v D3.js, 
 V dalším kroku byla vizualizace integrována do Angular aplikace jako samostatný modul, byly přidány interaktivní prvky a také načítání dat skrze API. O vytvoření Lifereay portletu s Angular aplikací se již stará skript, který připravil Bc. David Beran v rámci projektu \verb|kypo2-portlet-empty-angular|.
 % zeptat se jestli jen David Beran
 \section{Princip vizualizace}
-Jako základní struktura pro stavbu vizualizace byl vybrán skládaný sloupcový graf, tzv. stacked bar chart (obr. \ref{fig:stackBarChart}). Ten má několik vrstev položených na sebe. V tomto případě se přesněji jedná o graf pruhový, jelikož bylo nutné jej pro vizualizaci otočit a vykreslovat jako horizontální pruhy.\par
-V knihovně D3.js existuje pro tento typ grafu soubor metod s názvem Stack, který je částí modulu pro grafická primitiva \verb|d3-shapes|. Stack lze obecně použít pro tvary, které mají být na sebe těsně naskládány, mohou být takto skládány i plošné grafy. Negeneruje graf nebo tvary přímo, ale vypočítává pozice, podle kterých lze následně tvary vykreslit. \cite{d3jsorg}\par
+Jako základní struktura pro stavbu vizualizace byl vybrán skládaný sloupcový graf, tzv. stacked bar chart (obr. \ref{fig:stackBarChart}), který má několik vrstev položených na sebe. V tomto případě se přesněji jedná o graf pruhový, jelikož jej bylo nutné pro vizualizaci otočit a vykreslovat ho jako horizontální pruhy.\par
+V knihovně D3.js existuje pro tento typ grafu soubor metod s názvem Stack, který je částí modulu pro grafická primitiva \verb|d3-shapes|. Stack lze obecně použít pro tvary, které mají být na sebe těsně naskládány, mohou být takto skládány i plošné grafy. Stack negeneruje graf nebo tvary přímo, ale vypočítává pozice, podle kterých lze následně tvary vykreslit. \cite{d3jsorg}\par
 
 \subsection{Základ grafu pro vizualizaci} \label{chartBase}
-Tento typ grafu lze chápat jako několik vrstev, které jsou vertikálně naskládány na sebe, nebo jako v tomto případě vedle sebe.
+Tento typ grafu lze chápat jako několik vrstev, které jsou poskládány vedle sebe.
 \begin{figure}[H]
   \begin{center}
     \includegraphics[width=4cm]{images/stack-ctf.pdf}
@@ -554,7 +554,7 @@ Tento typ grafu lze chápat jako několik vrstev, které jsou vertikálně naskl
   \caption{Využití skládaného grafu pro vizualizaci herních úrovní.}
   \label{fig:visualizationChart}
 \end{figure}
-Každá vrstva grafu představuje určitou kategorii identifikovanou vlastním klíčem. Jednotlivými kategoriemi budou v této vizualizaci úrovně hry s odpovídajícími klíči \verb|level1|, \verb|level2|, \verb|level3| atd. Jejich hodnota bude vždy čas, který tým v dané úrovni strávil, počítaný v sekundách. Příklad struktury dat pro dva týmy a tři herní úrovně:
+Každá vrstva grafu představuje určitou kategorii identifikovanou vlastním klíčem. Jednotlivými kategoriemi budou v této vizualizaci úrovně hry s odpovídajícími klíči \verb|level1|, \verb|level2|, \verb|level3| atd. Jejich hodnota bude vždy čas, který tým v dané úrovni strávil, počítaný v sekundách. Příklad struktury dat pro dva týmy a dvě herní úrovně:
 %[{"team": 1, "level1": 850, "level2": 740, "level3": 910},
 % {"team": 2, "level1": 630, "level2": 950, "level3": 980}]
 \begin{markdown*}{
@@ -612,7 +612,8 @@ Na ose y se nachází jednotlivé týmy. Týmy tvoří diskrétní množinu, ste
 
 \section{Datová struktura}
 %Dalším důležitým krokem byl návrh datové struktury, se kterou má vizualizace pracovat. Ta musí obsahovat všechny potřebné informace tak, aby mohly být vykresleny všechny požadované prvky ze zadnání, např. aktuální čas od začátku hry, data jednotlivých hráčů nebo časový plán. Některá data pak musí být v určitém formátu, jako např. strávený čas v jednotlivých úrovních, který musí mít formát popsaný v předchozí podkapitole, aby mohl být vypočítán a vykreslen skládaný graf. Dle toho byla navržena následující datová struktura, se kterou vizualizace pracuje:
-Záznamy událostí ze hry, ať už ve formátu CSV nebo JSON, musí být nejdříve zpracovány do vhodné datové struktury, se kterou bude vizualizace pracovat. Některá data musí být v určitém formátu, aby mohla být zprácována za pomoci \verb|d3.stack| do výsledného grafu. Jedná se o odhadovanou a skutečnou délku každé úrovně pro jednotlivé týmy. Některé údaje musí být ze záznamů vypočítány.\par Datová struktura, se kterou vizualizace pracuje, je objekt s těmito atributy:
+Záznamy událostí ze hry, ať už ve formátu CSV nebo JSON, musí být nejdříve zpracovány do vhodné datové struktury, se kterou bude vizualizace pracovat. Některá data musí být v určitém formátu, aby mohla být zprácována za pomoci \verb|d3.stack| do výsledného grafu, např. odhadovaná a skutečná délka úrovní. Některé údaje musí být ze záznamů vypočítány.\par
+Zpracovaná datová struktura, se kterou vizualizace pracuje, je objekt s těmito atributy:
 \begin{itemize}
   \item \verb|time| – časové razítko udávající čas od začátku hry v sekundách,
   \item \verb|levels| – pole klíčů jednotlivých úrovní hry,
@@ -632,7 +633,7 @@ Záznamy událostí ze hry, ať už ve formátu CSV nebo JSON, musí být nejdř
 
 \section{Struktura vizualizace} \label{chartStructure}
 %K celkovému rozložení na stránce byl použit grid z frameworku Bootstrap, který vizualizaci centruje a zarovnává některé její prvky.
-Vizualizace se skládá z několika částí, které se vykreslují postupně. K celkovému rozložení na stránce byl použit grid z frameworku Bootstrap.
+K celkovému rozložení na stránce byl použit grid z frameworku Bootstrap, který vizualizaci centruje a zarovnává některé její prvky. Vizualizace se pak skládá z několika částí. 
 %dát to víc do gridu, např. selecty, aby se dalo napsat, že je díky gridu responzivní
 
 \begin{figure}[H]
@@ -680,7 +681,7 @@ Ostatní elementy, jako názvy a celkový čas týmů nebo text ukazující aktu
 Nejdříve je vygenerován nutný základ vizualizace, především hlavní \verb|<svg>| element, ale také obalující \verb|<g>| elementy.\par
 Šířka \verb|<svg>| je vypočítána na základě šířky rodičovského HTML elementu a odvíjí se od toho, jakou šířku má viewport\footnote{Viewport je zde oblast, do které prohlížeč vykresluje stránku, tedy viditelná část webové stránky.}. Výpočet výšky závisí na více proměnných. Při výpočtu je brána v úvahu výška viewportu, počet týmů a minimální přednastavená výška jednoho řádku vizualizace. Závisí ale také na vypočítané šířce, a to z důvodu částečného zachování proporcí.\par
 Dále jsou vytvořena a nastavena měřítka pro obě osy x a y. Doménou x-ového měřítka je celková odhadovaná délka hry, pro y je to množina týmů.\par
-V této části je také je vykreslena osa x, hustota bodů na této ose respektuje šířku vizualizace. Osa y se nevykresluje, její úlohu plní sloupec s názvy týmů na levé straně, který umožňuje řazení řádků.
+V této části je také vykreslena osa x, hustota bodů na této ose respektuje šířku vizualizace. Osa y se nevykresluje, její úlohu plní sloupec s názvy týmů na levé straně, který zároveň umožňuje řazení týmů.
 %zjemňuje se při zoomování?! dodělat
 %vyznačit nějak x a y?
 
@@ -710,8 +711,8 @@ Po vykreslení reálných dat je třeba aktualizovat plán. Mohlo dojít ke změ
 \subsection{Události}
 Po zobrazení plánu a postupu týmů se vykreslují jednotlivé události v podobě ikon. Každý objekt události nese informace o svém čase, týmu i úrovni, podle kterých je vykreslen do grafu. Uchovává také typ události, podle kterého je zvolen tvar ikony.
 %POSUNOVÁNÍ PŘI ZMĚNĚ POHLEDU!
-\subsection{Sloupce s údaji}
-Informace vztahující k jednotlivým řádkům jsou zaznamenány v okolních sloupcích. Prvním z nich je sloupec s názvy týmů na levé straně, ten zároveň zastupuje osu y. Druhý sloupec na pravé straně udává celkový čas, který již tým ve hře strávil.\par
+\subsection{Sloupce}
+Informace vztahující se k jednotlivým řádkům jsou zaznamenány v okolních sloupcích. Prvním z nich je sloupec s názvy týmů na levé straně, ten zároveň zastupuje osu y. Druhý sloupec na pravé straně udává celkový čas, který již tým ve hře strávil.\par
 Nad těmito sloupci je umožněno řazení a jsou zarovnány se souvisejícími ovládacími prvky. Z tohoto důvodu jsou umístěny mimo hlavní \verb|<svg>| element vizualizace.\par
 Přidání dalších sloupů na pravou stranu je možné. Mohly by být přidány například informace o bodovém hodnocení, pokud budou k dispozici odpovídající data.
 %možné přidat další sloupce
@@ -730,6 +731,7 @@ Jednotlivé řádky je možné zarovnat podle jejich počátku, jako je tomu v g
 
 \subsection{Průběžný pohled}
 Tento pohled na hru má význam v jejím průběhu. Zobrazuje postup a události hry v čase odpovídajícím skutečnosti. Týmy tedy nejsou z levé strany zarovnány a z grafu je patrné, kdy tým hru začal. Také je zobrazena časová osa vyznačující aktuální okamžik a čas v pravém horním rohu. Naopak se nezobrazují svislé čáry pro odhad času úrovní. Týmy je možné řadit podle jejich názvu nebo celkového času hry.\par
+Posunutí začátku hry je implementováno přidáním další vrstvy do skládaného grafu. Tato vrstva má transparentní barvu a její hodnoty jsou vždy rovny začátku hry daného týmu.\par
 V tomto pohledu jsou data pravidelně aktualizována a lze tak hru sledovat v reálném čase.
 \subsection{Závěrečný přehled}
 Po skončení hry, nebo i v jejím průběhu je možné se přepnout do druhého pohledu. Tento pohled poskytuje celkové srovnání jednotlivých týmů. Řádky jsou zarovnány podle začátku hry. Lze je ale také srovnat podle začátku libovolné úrovně, nebo je podle délky úrovně řadit. Je tak možné porovnávat celkovou délku hry nebo čas jednotlivých úrovní mezi všemi týmy.\par
@@ -761,7 +763,7 @@ Další direktiva \verb|MouseMoveDirective| slouží pro posunování viditelné
 %PŘIDAT PŘÍPADNĚ CTRL NA ZOOM!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 \section{Načítání dat}
-Aplikace dokáže načítat data z CSV souborů a také pomocí rozhraní, které poskytuje podobné záznamy v jiném formátu. CSV soubor se záznamy ze hry lze nahrát pomocí tlačítka. Pro oba zdroje existuje v aplikaci služba, která načítání dat zajištuje.
+Aplikace dokáže načítat data z CSV souborů a také pomocí API, které poskytuje podobné záznamy ve formátu JSON. CSV soubor se záznamy ze hry lze nahrát pomocí tlačítka. Pro oba zdroje existuje v aplikaci služba, která načítání dat zajištuje.
 \subsection{Načítání dat skrze REST API}
 %a komponenta vizualizace tak již s nimi může přímo pracovat.
 Pro načítání dat pomocí rozhraní byla implementována služba \verb|Load|\-\verb|DataService|. Ta vrací načtená data v potřebném formátu, a tak s nimi může komponenta vizualizace přímo pracovat. Služba využívá k získávání dat modul \verb|HttpClient|, který je součástí frameworku Angular.
@@ -810,10 +812,10 @@ Již během parsování souboru jsou oba údaje s časem převedeny na časové 
 %TODO!!!!! U CSV NEVÍME DOPŘEDU POČET LEVELŮ
 
 \subsection{Zpracování dat}
-Pole načtených událostí je následně v rámci služby zpracováno během jednoho cyklu do výsledné datové struktury. Pro každý tým je vytvořen objekt, do kterého se postupně ukládají určité události, jako např. využité nápovědy, nebo se do něho zaznamenávají informace o průběhu hry. Mezi daty získanými z CSV a skrze API jsou rozdíly, princip práce s událostmi je však následující:
+Pole načtených událostí je následně v rámci služby zpracováno během jednoho cyklu do výsledné datové struktury. Pro každý tým je vytvořen objekt, do kterého se buď postupně přidávají určité události, jako např. využité nápovědy, nebo se do něho zaznamenávají informace o průběhu hry. Mezi daty získanými z CSV a skrze API jsou rozdíly, princip práce s událostmi je však následující:
 \begin{itemize}
   \item \verb|game started| – uloží čas začátku hry daného týmu,
-  \item \verb|correct flag submited, game finished| – jelikož tyto události ukončují úroveň, jejich čas je uložen k dané úrovni jako její celkový čas,
+  \item \verb|correct flag submited, game finished| – jelikož tyto události ukončují úroveň, je jejich čas uložen jako čas dané úrovně,
   \item \verb|hint taken, solution displayed, level skipped| – přidá danou událost do pole událostí.
 \end{itemize}
 Po průchodu všech událostí je dodatečně dopočítán celkový čas a také je zjištěna aktuální úroveň, na které tým pracuje.
@@ -852,8 +854,19 @@ Konfigurace aplikace se nachází v souboru \verb|app.config.ts| a obsahuje nás
 
 \end{itemize}
 
-
 \section{Testy}
+Angular umožňuje použití více možných nástrojů určených pro testování. Při instalaci projektu a při vytváření komponent skrze Angular CLI je však již nainstalován testovací framework Jasmine a jsou připraveny základy testů komponent. Pro spouštění a vyhodnocování testů je používán nástroj Karma. Ten umožňuje spouštět testy z příkazového řádku, testovat kód oproti různým prohlížečům a zobrazovat výsledky testů.\par
+Protože komponenty zahrnují nejen třídu, ale i šablonu, je u nich třeba také testovat, zda třída a šablona komponenty spolu správně spolupracují. Při testech nejsou používány skutečné služby a konfigurace, ale pouze jejich náhrada (mock-up). Během vývoje byly vytvořeny tyto testy pro hlavní komponentu vizualizace:
+\begin{itemize}
+  \item test, zda byla komponenta vytvořena,
+  \item testy metody pro počítání barvy,
+  \item testy metody pro převod času,
+  \item ověření správného počtu úrovní,
+  \item ověření správného počtu týmů,
+  \item ověření správného řazení týmů podle jména, úrovně a celkového času,
+  \item zjištění, zda jsou události ve správném počtu a zda mají správnou barvu.
+\end{itemize}
+
 
 \chapter{Závěr}
 možné přidat bodové hodnocení, získávat odněkud časový plán
