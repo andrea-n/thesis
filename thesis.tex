@@ -437,28 +437,28 @@ Grid je responzivní a~je definováno několik mezí rozlišení v~pixel\-ech, k
 Angular je framework a~platforma určená pro vývoj klientských webových aplikací v~jazycích HTML a~TypeScript\footnote{TypeScript je nadstavba jazyka JavaScript doplněná např. o~statické typování nebo prvky z~oblasti objektově-orientovaného programování, jako třídy a~rozhraní. Kód se kompiluje do jazyka JavaScript, který lze spustit ve webovém prohlížeči.} (případně JavaScript) vytvořený společností Google. Historicky první verzí je AngularJS psaný čistě v~jazyce JavaScript. Ten byl kompletně přepsán a~nahrazen verzí~2 označovanou pouze jako Angular. Postupně vznikly novější verze 4, 5 a~6, které jsou zpětně kompatibilní.\par
 
 \subsection{Architektura Angular aplikací}
-Aplikace jsou modulární a~každá má alespoň jeden modul. Uživatelské rozhraní je definováno komponentami. Aplikace používají HTML šablony, které jsou doplněné o~speciální značky a~jsou součástí komponent. Komponenty využívají služby, které obstarávají aplikační logiku. Služby i komponenty jsou třídy, jejichž typ je označen dekorátorem\footnote{Dekorátory jsou funkce modifikující třídy JavaScriptu. Angular definuje řadu dekorátorů, které přiřazují třídám určitá metadata, aby bylo možné určit jejich význam a způsob, jakým budou zpracovávány.}.\par
-Závislosti objektů jsou spravovány vkládáním závislostí (dependency injection) a výměna dat mezi modelem a šablonou je založena na oboustranné vazbě dat (two-way data binding). \cite{angulario}
+Aplikace jsou modulární a~každá má alespoň jeden modul. Uživatelské rozhraní je definováno komponentami. Aplikace používají HTML šablony, které jsou doplněné o~speciální značky a~jsou součástí komponent. Komponenty využívají služby, které obstarávají aplikační logiku. Služby i~komponenty jsou třídy, jejichž typ je označen dekorátorem\footnote{Dekorátory jsou funkce modifikující třídy JavaScriptu. Angular definuje řadu dekorátorů, které přiřazují třídám určitá metadata, aby bylo možné určit jejich význam a~způsob, jakým budou zpracovávány.}.\par
+Závislosti objektů jsou spravovány vkládáním závislostí (dependency injection) a~výměna dat mezi modelem a~šablonou je založena na oboustranné vazbě dat (two-way data binding). \cite{angulario}
 
 \subsection{Moduly}
-Základní jednotkou Angular aplikací jsou moduly (tzv. NgModules). Aplikace má vždy jeden kořenový modul, nazvaný podle konvence \verb|AppModule|, který se stará o spuštění aplikace. Může být rozdělena do dalších funkčních modulů.\par
-Modul je definován jako třída označená dekorátorem \verb|@NgModule|. Dekorátor popisuje daný modul pomocí objektu s metadaty, který mu je předán jako parametr. K nejdůležitějším prvkům tohoto objektu patří: \cite{angulario}
+Základní jednotkou Angular aplikací jsou moduly (tzv.~NgModules). Aplikace má vždy jeden kořenový modul, nazvaný podle konvence \verb|AppModule|, který se stará o~spuštění aplikace. Může být rozdělena do dalších funkčních modulů.\par
+Modul je definován jako třída označená dekorátorem \verb|@NgModule|. Dekorátor popisuje daný modul pomocí objektu s~metadaty, který mu je předán jako parametr. K~nejdůležitějším prvkům tohoto objektu patří: \cite{angulario}
 %Tento dekorátor pomocí předaného objektu s metadaty popisuje daný modul.
 %Dekorátoru je předán objekt s metadaty popisujícími daný modul.
 %Tento objekt může obsahovat několik důležitých prvků:
 \begin{itemize}
-  \item \verb|declarations| – seznam tříd uživatelského rozhraní, zejména komponent a direktiv, náležících do modulu,
-  \item \verb|exports| – podmnožina tříd, které mají být viditelné z ostatních modulů,
-  \item \verb|imports| – seznam modulů, jejichž exportované třídy jsou potřebné v tomto modulu,
-  \item \verb|providers| – seznam služeb, které jsou zaregistrovány do globální kolekce služeb a dostupné z celé aplikace,
-  \item \verb|bootstrap| – hlavní kořenová komponenta (ta by měla být nastavena jen v kořenovém modulu).
+  \item \verb|declarations| – seznam tříd uživatelského rozhraní, zejména komponent a~direktiv, náležících do modulu,
+  \item \verb|exports| – podmnožina tříd, které mají být viditelné z~ostatních modulů,
+  \item \verb|imports| – seznam modulů, jejichž exportované třídy jsou potřebné v~tomto modulu,
+  \item \verb|providers| – seznam služeb, které jsou zaregistrovány do globální kolekce služeb a~dostupné z~celé aplikace,
+  \item \verb|bootstrap| – hlavní kořenová komponenta (ta by měla být nastavena jen v~kořenovém modulu).
 \end{itemize}
 %exports - podmnožina deklarací, které mají být viditelné z ostatních modulů
 
 \subsection{Komponenty}
-Komponenta je zodpovědná za správu části uživatelského rozhraní (view). Její logiku obstarává třída označená dekorátorem \verb|@Component| a s pohledem interaguje skrze metody a vlastnosti (properties). Příkladem může být komponenta, která spravuje hlavičku webové stránky pomocí vlastnosti s menu a metodu \verb|onClick|, která obsluhuje kliknutí na jednotlivé prvky menu.\par
+Komponenta je zodpovědná za správu části uživatelského rozhraní (view). Její logiku obstarává třída označená dekorátorem \verb|@Component| a~s~pohledem interaguje skrze metody a~vlastnosti (properties). Příkladem může být komponenta, která spravuje hlavičku webové stránky pomocí vlastnosti s~menu a~metodu \verb|onClick|, která obsluhuje kliknutí na jednotlivé prvky menu.\par
 %JE DOBŘE TEN PŘÍKLAD????
-Komponenty mají životní cyklus a jsou vytvářeny a odebírány v závislosti na tom, jak se uživatel pohybuje v aplikaci. Na jednotlivé části cyklu je možné navázat vlastní akce pomocí tzv. hooks, mezi které patří například: \cite{angulario}
+Komponenty mají životní cyklus a~jsou vytvářeny a~odebírány v~závislosti na tom, jak se uživatel pohybuje v~aplikaci. Na jednotlivé části cyklu je možné navázat vlastní akce pomocí tzv.~hooks, mezi které patří například: \cite{angulario}
 \begin{itemize}
   \item \verb|ngOnInit|, která se volá při inicializaci komponenty,
   \item \verb|ngOnChanges|, která je volána při změnách vlastností komponenty,
@@ -467,81 +467,79 @@ Komponenty mají životní cyklus a jsou vytvářeny a odebírány v závislosti
 
 \subsection{Direktivy}
 %Šablony kombinují HTML kód se značkami Angularu, tzv. direktivami, které mohou upravit DOM stránky ještě před tím, než je zobrazený uživateli.
-Angular rozšiřuje HTML šablony o tzv. direktivy. Direktivy aplikují na šablony logiku a mohou upravit DOM stránky ještě před tím, než je zobrazen uživateli. Jedná se o třídy označené dekorátorem \verb|@Directive|.\par
+Angular rozšiřuje HTML šablony o~tzv.~direktivy. Direktivy aplikují na šablony logiku a~mohou upravit DOM stránky ještě před tím, než je zobrazen uživateli. Jedná se o~třídy označené dekorátorem \verb|@Directive|.\par
 Komponenty jsou zvláštním případem direktiv, dekorátor komponenty je rozšířeným dekorátorem direktivy. Celkem jsou tři typy direktiv. \cite{angulario}
 \begin{itemize}
-  \item Komponenty, což jsou direktivy se šablonami. Mají vlastní dekorátor, který je rozšířený o vlastnosti týkající se právě šablon. Komponenta je v šabloně reprezentována vlastní značkou jako na následujícím příkladu.
-  %Následující příklad ukazuje, jakým způsobem je komponenta s názvem UsersListComponent reprezentována v šabloně.
+  \item Komponenty, což jsou direktivy se šablonami. Mají vlastní dekorátor, který je rozšířený o~vlastnosti týkající se právě šablon. Komponenta je v~šabloně reprezentována vlastní značkou jako na následujícím příkladu.
+  %Následující příklad ukazuje, jakým způsobem je komponenta s~názvem UsersListComponent reprezentována v~šabloně.
 \begin{lstlisting}[showstringspaces=false,language=html]
 <app-users-list>
 \end{lstlisting}
-  \item Strukturální, které mění DOM přidáváním nebo odebíráním elementů. Patří mezi ně například \verb|ngIf| pro podmíněné zobrazení kódu nebo \verb|ngFor| pro generování prvků v cyklu. Následující příklad vygeneruje odstavec pro každého uživatele.
+  \item Strukturální, které mění DOM přidáváním nebo odebíráním elementů. Patří mezi ně například \verb|ngIf| pro podmíněné zobrazení kódu nebo \verb|ngFor| pro generování prvků v~cyklu. Následující příklad vygeneruje odstavec pro každého uživatele.
 \begin{lstlisting}[showstringspaces=false,language=html]
 <p *ngFor="let user of users"></p>
 \end{lstlisting}
-  \item Atributové, které mění, přidávají nebo odebírají atributy existujících elementů. Mezi ně patří např. \verb|ngClass| měnící hodnoty \verb|class| atributu nebo \verb|ngModel|. Ten implementuje obousměrnou vazbu dat mezi elementem a vlastností komponenty a nastavuje hodnotu elementu. Příklad ukazuje pole formuláře, jehož hodnota je svázána se jménem uživatele.
+  \item Atributové, které mění, přidávají nebo odebírají atributy existujících elementů. Mezi ně patří např.~\verb|ngClass| měnící hodnoty \verb|class| atributu nebo \verb|ngModel|. Ten implementuje obousměrnou vazbu dat mezi elementem a~vlastností komponenty a~nastavuje hodnotu elementu. Příklad ukazuje pole formuláře, jehož hodnota je svázána se jménem uživatele.
 \begin{lstlisting}[showstringspaces=false,language=html]
 <input [(ngModel)]="user.name">
 \end{lstlisting}
 \end{itemize}
 
 \subsection{Vázání dat}
-Vázání dat (data binding) je mechanismus pro předávání dat mezi prvky šablony a částmi komponenty. Následující čtyři zápisy je možné v šabloně použít pro vazbu dat, liší se v obsahu a směru předávání dat.  \cite{angulario}
+Vázání dat (data binding) je mechanismus pro předávání dat mezi prvky šablony a~částmi komponenty. Následující čtyři zápisy je možné v~šabloně použít pro vazbu dat, liší se v~obsahu a~směru předávání dat. \cite{angulario}
 \begin{itemize}
-  \item Interpolace, kterou lze předat hodnotu vlastnosti komponenty do obsahu elementu v šabloně. Obecně, interpolace vyhodnotí výraz ve složených závorkách a převede ho do textového řetězce.
+  \item Interpolace, kterou lze předat hodnotu vlastnosti komponenty do obsahu elementu v~šabloně. Obecně, interpolace vyhodnotí výraz ve složených závorkách a~převede ho do textového řetězce.
 \begin{lstlisting}[showstringspaces=false]
 {{value}}
 \end{lstlisting}
-  \item Vázání vlastnosti, kdy se předává hodnota vlastnosti komponenty do vlastnosti elementu v šabloně.
+  \item Vázání vlastnosti, kdy se předává hodnota vlastnosti komponenty do vlastnosti elementu v~šabloně.
   %Nastavuje vlastnost elementu v šabloně na hodnotu vlastnosti komponenty.
   \begin{lstlisting}[showstringspaces=false]
 [property] = "value"
 \end{lstlisting}
-  \item Vázání události předává data opačným směrem, od elementu do komponenty. Události v závorkách se přiřadí příkaz, typicky volání metody komponenty. Pokud daná událost nastane (například uživatel klikne na tlačítko), metoda se zavolá.
+  \item Vázání události předává data opačným směrem, od elementu do komponenty. Události v~závorkách se přiřadí příkaz, typicky volání metody komponenty. Pokud daná událost nastane (například uživatel klikne na tlačítko), metoda se zavolá.
 \begin{lstlisting}[showstringspaces=false]
 (event) = "handler"
 \end{lstlisting}
-  \item Oboustranná vazba, která kombinuje vázání vlastnosti a události. Umožňuje oboustranný tok dat, kdy je třeba hodnotu vlastnosti zobrazovat a zároveň ji aktualizovat, pokud je uživatelem změněna.
+  \item Oboustranná vazba, která kombinuje vázání vlastnosti a~události. Umožňuje oboustranný tok dat, kdy je třeba hodnotu vlastnosti zobrazovat a~zároveň ji aktualizovat, pokud je uživatelem změněna.
 \begin{lstlisting}[showstringspaces=false]
 [(ngModel)] = "property"
 \end{lstlisting}
 \end{itemize}
 
 \subsection{Služby a vkládání závislostí}
-Služba může být libovolná funkcionalita, kterou aplikace potřebuje. Smyslem komponent je zprostředkování uživatelského rozhraní, a další funkcionalitu jako například načítání dat skrze API je tedy vhodné implementovat pomocí služeb.  \cite{angulario}\par
-Služby se definují jako třídy s dekorátorem \verb|@Injectable|, aby je bylo možné předávat komponentám jako závislosti pomocí dependency injection\footnote{Dependency injection je technika návrhového vzoru IoC (Inversion of Control). Závislostí je myšlena instance třídy. Princip spočívá v tom, že o instanciování a vložení objektu se nestará programátor, ale kontejner závislostí (dependency injection container). Implementace je flexibilnější a závislosti lze měnit za jiné, což je žádoucí například při testování.}.
+Služba může být libovolná funkcionalita, kterou aplikace potřebuje. Smyslem komponent je zprostředkování uživatelského rozhraní, a~další funkcionalitu jako například načítání dat skrze API je tedy vhodné implementovat pomocí služeb. \cite{angulario}\par
+Služby se definují jako třídy s~dekorátorem \verb|@Injectable|, aby je bylo možné předávat komponentám jako závislosti pomocí dependency injection\footnote{Dependency injection je technika návrhového vzoru IoC (Inversion of Control). Závislostí je myšlena instance třídy. Princip spočívá v~tom, že o~instanciování a~vložení objektu se nestará programátor, ale kontejner závislostí (dependency injection container). Implementace je flexibilnější a~závislosti lze měnit za jiné, což je žádoucí například při testování.}.
 %% Je to Dependency injection správně??? 
 
 \section{Papa Parse}
-Papa Parse je knihovna pro JavaScript, která je určená pro parsování textu a souborů ve formátu CSV. Tuto knihovnu je možné integrovat do Angular aplikací pomocí nadstavby ngx-papaparse.\par
+Papa Parse je knihovna pro JavaScript, která je určená pro parsování textu a~souborů ve formátu CSV. Tuto knihovnu je možné integrovat do Angular aplikací pomocí nadstavby ngx-papaparse.\par
 %co je ngx-papaparse???????????
 Mezi výhody této knihovny patří: \cite{papa}
 \begin{itemize}
   \item lze specifikovat oddělovač jednotlivých záznamů,
-  \item soubory lze načítat i vzdáleně skrze HTTP zadáním URL souboru,
-  \item umožňuje streamování a lze tak zpracovávat velké soubory,
+  \item soubory lze načítat i~vzdáleně skrze HTTP zadáním URL souboru,
+  \item umožňuje streamování a~lze tak zpracovávat velké soubory,
   \item zabraňuje blokování stránky použitím dalšího vlákna během parsování, tuto funkci lze nastavit pomocí worker: true,
   \item umožňuje dynamické typování zpracovaných dat (na number, boolean)
   \item ošetřuje chyby vzniklé při parsování.
   %\item umožňuje také převádět data opačným směrem do CSV.
 \end{itemize}
 
-Při volání metody parse je možné specifikovat např.:
-
 \section{Liferay} \label{liferay}
-Liferay je open-source platforma určená pro tvorbu webových portálů, postavená na jazyce Java. Platforma obsahuje již vestavěné aplikace a poskytuje framework pro tvorbu dalších aplikací. Portál také nabízí uživatelské rozhraní, které umožňuje pohodlnou správu jeho funkcí.\par
-Mezi hlavní výhody platformy patří její rozšiřitelnost a možnost nasazovat vlastní aplikace, tzv. portlety. Liferay umožňuje vytváření celých kolekcí stránek (sites), které obsahují jednotlivé stránky s jejich portlety.\cite{liferay}
+Liferay je open-source platforma určená pro tvorbu webových portálů, postavená na jazyce Java. Platforma obsahuje již vestavěné aplikace a~poskytuje framework pro tvorbu dalších aplikací. Portál také nabízí uživatelské rozhraní, které umožňuje pohodlnou správu jeho funkcí.\par
+Mezi hlavní výhody platformy patří její rozšiřitelnost a~možnost nasazovat vlastní aplikace, tzv.~portlety. Liferay umožňuje vytváření celých kolekcí stránek (sites), které obsahují jednotlivé stránky s~jejich portlety.\cite{liferay}
 \subsection{Portlety}
-Portlet je samostatná webová aplikace, běží však jen na části stránky. Vyvíjí se jen samotná aplikace, ostatní prvky na stránce jsou obstarány jinými komponentami. Portlety také mohou využívat funkce portálu, jako např. správu uživatelů nebo oprávnění.\par
-Portlety se vkládají do jednotlivých stránek, které mohou obsahovat portletů několik. Portlety lze na stránce rozmisťovat a měnit jejich rozměry. \cite{liferay}
+Portlet je samostatná webová aplikace, běží však jen na části stránky. Vyvíjí se jen samotná aplikace, ostatní prvky na stránce jsou obstarány jinými komponentami. Portlety také mohou využívat funkce portálu, jako např.~správu uživatelů nebo oprávnění.\par
+Portlety se vkládají do jednotlivých stránek, které mohou obsahovat portletů několik. Portlety lze na stránce rozmisťovat a~měnit jejich rozměry. \cite{liferay}
 
 \chapter{Implementace}
-Prvním krokem při implementaci bylo vytvoření základu vizualizace v D3.js, což zahrnuje především výběr vhodného typu grafu (příklady jsou uvedeny v kapitole \ref{d3jsGraphs} o D3.js), návrh datové struktury, vykreslení všech požadovaných prvků vizualizace a načtení dat z CSV souboru.\par
-V dalším kroku byla vizualizace integrována do Angular aplikace jako samostatný modul, byly přidány interaktivní prvky a také načítání dat skrze API. O vytvoření Lifereay portletu s Angular aplikací se již stará skript, který připravil Bc. David Beran v rámci projektu \verb|kypo2-portlet-empty-angular|.
+Prvním krokem při implementaci bylo vytvoření základu vizualizace v~D3.js, což zahrnuje především výběr vhodného typu grafu (příklady jsou uvedeny v~kapitole \ref{d3jsGraphs} o~D3.js), návrh datové struktury, vykreslení všech požadovaných prvků vizualizace a~načtení dat z~CSV souboru.\par
+V~dalším kroku byla vizualizace integrována do Angular aplikace jako samostatný modul, byly přidány interaktivní prvky a~také načítání dat skrze API. O~vytvoření Lifereay portletu s~Angular aplikací se již stará skript, který připravil Bc.~David Beran v~rámci projektu \verb|kypo2-portlet-empty-angular|.
 % zeptat se jestli jen David Beran
 \section{Princip vizualizace}
-Jako základní struktura pro stavbu vizualizace byl vybrán skládaný sloupcový graf, tzv. stacked bar chart (obr. \ref{fig:stackBarChart}), který má několik vrstev položených na sebe. V tomto případě se přesněji jedná o graf pruhový, jelikož jej bylo nutné pro vizualizaci otočit a vykreslovat ho jako horizontální pruhy.\par
-V knihovně D3.js existuje pro tento typ grafu soubor metod s názvem Stack, který je částí modulu pro grafická primitiva \verb|d3-shapes|. Stack lze obecně použít pro tvary, které mají být na sebe těsně naskládány, mohou být takto skládány i plošné grafy. Stack negeneruje graf nebo tvary přímo, ale vypočítává pozice, podle kterých lze následně tvary vykreslit. \cite{d3jsorg}\par
+Jako základní struktura pro stavbu vizualizace byl vybrán skládaný sloupcový graf, tzv.~stacked bar chart (obr.~\ref{fig:stackBarChart}), který má několik vrstev položených na sebe. V~tomto případě se přesněji jedná o~graf pruhový, jelikož jej bylo nutné pro vizualizaci otočit a~vykreslovat ho jako horizontální pruhy.\par
+V~knihovně D3.js existuje pro tento typ grafu soubor metod s~názvem Stack, který je částí modulu pro grafická primitiva \verb|d3-shapes|. Stack lze obecně použít pro tvary, které mají být na sebe těsně naskládány, mohou být takto skládány i~plošné grafy. Stack negeneruje graf nebo tvary přímo, ale vypočítává pozice, podle kterých lze následně tvary vykreslit. \cite{d3jsorg}\par
 
 \subsection{Základ grafu pro vizualizaci} \label{chartBase}
 Tento typ grafu lze chápat jako několik vrstev, které jsou poskládány vedle sebe.
@@ -552,7 +550,7 @@ Tento typ grafu lze chápat jako několik vrstev, které jsou poskládány vedle
   \caption{Využití skládaného grafu pro vizualizaci herních úrovní.}
   \label{fig:visualizationChart}
 \end{figure}
-Každá vrstva grafu představuje určitou kategorii identifikovanou vlastním klíčem. Jednotlivými kategoriemi budou v této vizualizaci úrovně hry s odpovídajícími klíči \verb|level1|, \verb|level2|, \verb|level3| atd. Jejich hodnota bude vždy čas, který tým v dané úrovni strávil, počítaný v sekundách. Příklad struktury dat pro dva týmy a dvě herní úrovně:
+Každá vrstva grafu představuje určitou kategorii identifikovanou vlastním klíčem. Jednotlivými kategoriemi budou v~této vizualizaci úrovně hry s~odpovídajícími klíči \verb|level1|, \verb|level2|, \verb|level3| atd. Jejich hodnota bude vždy čas, který tým v~dané úrovni strávil, počítaný v~sekundách. Příklad struktury dat pro dva týmy a~dvě herní úrovně:
 %[{"team": 1, "level1": 850, "level2": 740, "level3": 910},
 % {"team": 2, "level1": 630, "level2": 950, "level3": 980}]
 \begin{markdown*}{
@@ -566,7 +564,7 @@ Každá vrstva grafu představuje určitou kategorii identifikovanou vlastním k
 ```
 \end{markdown*}
 
-Struktura potřebná pro vykreslení SVG elementů je z takových dat vypočítána pomocí \verb|stack| z D3.js. Je třeba specifikovat klíče, podle nich se pak data seskupí a vypočítají se pozice jednotlivých vrstev.
+Struktura potřebná pro vykreslení SVG elementů je z~takových dat vypočítána pomocí \verb|stack| z~D3.js. Je třeba specifikovat klíče, podle kterých se data seskupí do vrstev. Metoda \verb|stack| poté vypočítá pozice elementů v~těchto vrstvách.
 
 \begin{markdown*}{
   fencedCode
@@ -577,7 +575,7 @@ stack = d3.stack()
 layers = stack(data);
 ```
 \end{markdown*}
-Vráceno je pole, jehož prvky reprezentují jednotlivé kategorie, tedy herní úrovně. Každá úroveň je opět pole a jeho prvky odpovídají jednotlivým týmům.
+Vráceno je pole, jehož prvky reprezentují jednotlivé kategorie, tedy herní úrovně. Každá úroveň je opět pole a~jeho prvky odpovídají jednotlivým týmům.
 %[[[   0, 850], [   0, 630]],        // level1
 %	  [[850, 1590], [630, 1580]],       // level2
 %	  [[1590, 2500], [1580, 2560]]]     // level3
@@ -592,60 +590,62 @@ Vráceno je pole, jehož prvky reprezentují jednotlivé kategorie, tedy herní 
 ```
 \end{markdown*}
 %ZRUŠIT ODSAZENÍ PŘED KÓDEM?????????????????????????
-Vypočítané hodnoty již vymezují jednotlivé úrovně v grafu, v tomto případě jejich \mbox{x-ové} pozice pro každý tým. Hodnota na ose y se určí dle týmu. Na základě těchto hodnot už mohou být vykresleny jednotlivé SVG obdélníky \verb|<rect>| do grafu.
+Vypočítané hodnoty již vymezují jednotlivé úrovně v~grafu, v~tomto případě jejich \mbox{x-ové} pozice pro každý tým. Hodnota na ose~y se určí podle týmu. Na základě těchto hodnot už mohou být vykresleny jednotlivé SVG obdélníky \verb|<rect>| do grafu.
 
 \subsection{Měřítka}
-Data mohou nabývat hodnot v různém rozsahu a je nutné je při vykreslování vhodně škálovat do výsledného obrazu. Měřítka (scales) v D3.js jsou funkce, které mapují hodnoty z domény vstupních dat do výstupního rozsahu vizualizace \cite{d3jsorg}. Měřítek je několik v závislosti na vstupní doméně a výstupním oboru hodnot. Pro tuto vizualizaci jsou podstatné následující dva typy:
+Data mohou nabývat hodnot v~různém rozsahu a~je nutné je při vykreslování škálovat do výsledného obrazu. Měřítka (scales) v~D3.js jsou funkce, které mapují hodnoty z~domény vstupních dat do výstupního rozsahu vizualizace \cite{d3jsorg}. Měřítek je několik v~závislosti na vstupní doméně a~výstupním oboru hodnot. Pro tuto vizualizaci jsou podstatné následující dva typy:
 %do výstupních rozměrů vizualizace?
 %do výstupního obrazu?
 \begin{itemize}
   \item spojitá měřítka, která mapují hodnoty ze spojité číselné domény do spojitého oboru hodnot,
   \item ordinální měřítka pro mapování diskrétních hodnot na diskrétní.
 \end{itemize}
-Osa x vizualizace představuje čas a bylo pro ni použito spojité měřítko, konkrétně lineární \verb|d3.scaleLinear|, aby byl čas mapován rovnoměrně.\par
-Na ose y se nachází jednotlivé týmy. Týmy tvoří diskrétní množinu, stejně jako jednotlivé řádky vizualizace. Proto bylo použito měřítko ordinální, konkrétně se jedná o \verb|d3.scaleBand|, které každý tým mapuje podle jména na správný řádek vizualizace.
+Osa~x vizualizace představuje čas a~bylo pro ni použito spojité měřítko, konkrétně lineární \verb|d3.scaleLinear|, aby byl čas mapován rovnoměrně.\par
+Na ose~y se nachází jednotlivé týmy. Týmy tvoří diskrétní množinu, stejně jako jednotlivé řádky vizualizace. Proto bylo použito měřítko ordinální, konkrétně se jedná o~\verb|d3.scaleBand|, které každý tým mapuje podle jména na správný řádek vizualizace.
 %Na ose y se nachází jednotlivé týmy a proto bylo nutné použít měřítko ordinální.
 
 %\subsection{Barvy} BARVY
 
 \section{Datová struktura}
 %Dalším důležitým krokem byl návrh datové struktury, se kterou má vizualizace pracovat. Ta musí obsahovat všechny potřebné informace tak, aby mohly být vykresleny všechny požadované prvky ze zadnání, např. aktuální čas od začátku hry, data jednotlivých hráčů nebo časový plán. Některá data pak musí být v určitém formátu, jako např. strávený čas v jednotlivých úrovních, který musí mít formát popsaný v předchozí podkapitole, aby mohl být vypočítán a vykreslen skládaný graf. Dle toho byla navržena následující datová struktura, se kterou vizualizace pracuje:
-Záznamy událostí ze hry, ať už ve formátu CSV nebo JSON, musí být nejdříve zpracovány do vhodné datové struktury, se kterou bude vizualizace pracovat. Některá data musí být v určitém formátu, aby mohla být zprácována za pomoci \verb|d3.stack| do výsledného grafu, např. odhadovaná a skutečná délka úrovní. Některé údaje musí být ze záznamů vypočítány.\par
-Zpracovaná datová struktura, se kterou vizualizace pracuje, je objekt s těmito atributy:
+Záznamy událostí ze hry, ať už ve formátu CSV nebo JSON, musí být nejdříve zpracovány do vhodné datové struktury, se kterou bude vizualizace pracovat. Některá data musí být v~určitém formátu, aby mohla být zprácována za pomoci \verb|d3.stack| do výsledného grafu, např.~odhadovaná a~skutečná délka úrovní. Některé údaje musí být ze záznamů vypočítány.\par
+Výsledná datová struktura, se kterou vizualizace pracuje, je objekt s~těmito atributy:
 \begin{itemize}
-  \item \verb|time| – časové razítko udávající čas od začátku hry v sekundách,
+  \item \verb|time| – čas od začátku hry v~sekundách,
   \item \verb|levels| – pole klíčů jednotlivých úrovní hry,
-  \item \verb|levelsTimePlan| – pole čísel udávájící časový odhad pro každou úroveň v sekundách,
-  \item \verb|gameDataset| – pole objektů představující týmy, které má popsanou strukturu potřebnou pro použití s \verb|d3.stack|, uchovává však některé informace navíc – např. využité nápovědy, celkově strávený čas apod.,
-  	%\begin{itemize}
-		%\item \verb|team| – název týmu,
-		%\item \verb|startTime| – čas v sekundách, kdy tým začal hru
-		%\item \verb|totalTime| – celkový čas, který již tým strávil ve hře
-		%\item \verb|currentState| – aktuální úroveň, na které tým právě pracuje
-		%\item \verb|events| – pole událostí, jako využité nápovědy, zobrazená řešení nebo přeskočení úrovně
-		%\item \verb|level1|, \verb|level2|, \verb|level3|… čas strávený v jednotlivých úrovních, pro zpracování pomocí d3.stack do skládaného grafu,
-	%\end{itemize}
+  \item \verb|levelsTimePlan| – pole čísel udávájící časový odhad pro každou úroveň v~sekundách,
+  \item \verb|gameDataset| – pole objektů představující týmy, které má popsanou strukturu potřebnou pro použití s~\verb|d3.stack|, uchovává však některé informace navíc:
+  	\begin{itemize}
+		\item \verb|team| – název týmu,
+		\item \verb|startTime| – čas v~sekundách, kdy tým začal hru,
+		\item \verb|totalTime| – celkový čas, který již tým strávil ve hře,
+		\item \verb|currentState| – aktuální úroveň, na které tým právě pracuje,
+		\item \verb|events| – pole událostí, jako využité nápovědy, zobrazená řešení nebo přeskočení úrovně,
+		\item \verb|level1|, \verb|level2|, \verb|level3|… čas strávený v~jednotlivých úrovních, pro zpracování pomocí d3.stack,
+	\end{itemize}
   \item \verb|planDataset| – podobné pole objektů jako \verb|gameDataset|, avšak bez některých prvků, používá se pro vykreslení časového plánu hry.
 \end{itemize}
-%, jako využité nápovědy, celkově strávený čas apod.,
+% – např. využité nápovědy, celkově strávený čas apod.,
 
 \section{Pohledy vizualizace}
-Během implementace bylo zjištěno, že týmy nezačínají hru ve stejný okamžik, což znamená změnu oproti grafickému návrhu. Ten vychází z předpokladu, že týmy začínají hru stejně, a řádky jsou proto z levé strany zarovnány, což neodpovídá skutečnosti. Tento pohled z grafického návrhu je však užitečný, protože lze porovnávat dobu řešení úrovně s časovým limitem, který je naznačen svislou čarou. Také lze tímto způsobem jednodušeji porovnávat týmy mezi sebou.\par
-Jednotlivé řádky je možné zarovnat podle jejich počátku, jako je tomu v grafickém návrhu. Dojde tak ale k jejich posunutí a řádky přestanou být zarovnány s časovou osou ukazující aktuální moment, čímž tato osa ztratí smysl. Proto byly implementovány dva různé pohledy.
+Během implementace bylo zjištěno, že týmy nezačínají hru ve stejný okamžik, což znamená změnu oproti grafickému návrhu. Ten vychází z~předpokladu, že týmy začínají hru stejně, a~řádky jsou proto z~levé strany zarovnány, což neodpovídá skutečnosti. Tento pohled grafického návrhu je však užitečný, protože lze porovnávat dobu řešení úrovně s~časovým limitem, který je naznačen svislou čarou. Také lze tímto způsobem jednodušeji porovnávat týmy mezi sebou.\par
+Jednotlivé řádky je možné zarovnat podle jejich počátku, jako je tomu v~grafickém návrhu. Dojde tak ale k~jejich posunutí a~řádky přestanou být zarovnány s~časovou osou ukazující aktuální moment, čímž tato osa ztratí smysl. Proto byly implementovány dva různé pohledy.
 
 \subsection{Průběžný pohled}
+Tento pohled, zobrazený na obrázku~\ref{fig:visualizationChartProgress}, má význam v~jejím průběhu. Zobrazuje postup a~události hry v~čase odpovídajícím skutečnosti. Týmy tedy nejsou z~levé strany zarovnány a~z~grafu je patrné, kdy tým hru začal. Také je zobrazena časová osa vyznačující aktuální okamžik a~čas v~pravém horním rohu. Naopak se nezobrazují svislé čáry pro odhad času úrovní. Týmy je možné řadit podle jejich názvu nebo celkového času hry.\par
 \begin{figure}[H]
   \begin{center}
     \includegraphics[width=12.7cm]{images/vizualizace-progress.png}
   \end{center}
-  \caption{Průběžný pohled implementované vizualizace, zobrazena jsou reálná data z CSV souboru.}
+  \caption{Průběžný pohled implementované vizualizace, zobrazena jsou reálná data z~CSV souboru.}
   \label{fig:visualizationChartProgress}
 \end{figure}
-Tento pohled, zobrazený na obrázku \ref{fig:visualizationChartProgress}, má význam v jejím průběhu. Zobrazuje postup a události hry v čase odpovídajícím skutečnosti. Týmy tedy nejsou z levé strany zarovnány a z grafu je patrné, kdy tým hru začal. Také je zobrazena časová osa vyznačující aktuální okamžik a čas v pravém horním rohu. Naopak se nezobrazují svislé čáry pro odhad času úrovní. Týmy je možné řadit podle jejich názvu nebo celkového času hry.\par
-Posunutí začátku hry je implementováno přidáním další vrstvy do skládaného grafu. Tato vrstva má transparentní barvu a její hodnoty jsou vždy rovny začátku hry daného týmu.\par
-V tomto pohledu jsou data pravidelně aktualizována a lze tak hru sledovat v reálném čase.
+Posunutí začátku hry je implementováno přidáním další vrstvy do skládaného grafu. Tato vrstva má transparentní barvu a~její hodnoty jsou vždy rovny začátku hry daného týmu.\par
+V~tomto pohledu jsou data pravidelně aktualizována a~lze tak hru sledovat v~reálném čase.
 
 \subsection{Závěrečný přehled}
+Po skončení hry, nebo i~v~jejím průběhu je možné se přepnout do druhého pohledu jako na obr.~\ref{fig:visualizationChartFinal}. Tento pohled poskytuje celkové srovnání jednotlivých týmů. Řádky jsou zarovnány podle začátku hry. Lze je ale také srovnat a~řadit podle začátku libovolné úrovně. Je tak možné porovnávat celkovou délku hry nebo čas jednotlivých úrovní mezi všemi týmy.\par
+Časová osa je vynechána, ale jsou zobrazeny limity pro jednotlivé úrovně, se kterými lze srovnávat skutečné hodnoty.
 \begin{figure}[H]
   \begin{center}
     \includegraphics[width=12.7cm]{images/vizualizace-final.png}
@@ -653,26 +653,27 @@ V tomto pohledu jsou data pravidelně aktualizována a lze tak hru sledovat v re
   \caption{Závěrečný pohled vizualizace.}
   \label{fig:visualizationChartFinal}
 \end{figure}
-Po skončení hry, nebo i v jejím průběhu je možné se přepnout do druhého pohledu \ref{fig:visualizationChartFinal}. Tento pohled poskytuje celkové srovnání jednotlivých týmů. Řádky jsou zarovnány podle začátku hry. Lze je ale také srovnat podle začátku libovolné úrovně, nebo je podle délky úrovně řadit. Je tak možné porovnávat celkovou délku hry nebo čas jednotlivých úrovní mezi všemi týmy.\par
-Časová osa je vynechána, ale jsou zobrazeny limity pro jednotlivé úrovně, se kterými lze srovnávat skutečné hodnoty.
 
 \section{Struktura vizualizace} \label{chartStructure}
-%K celkovému rozložení na stránce byl použit grid z frameworku Bootstrap, který vizualizaci centruje a zarovnává některé její prvky.
-K celkovému rozložení na stránce byl použit grid z frameworku Bootstrap, který vizualizaci centruje a zarovnává některé její prvky. Vizualizace se pak skládá z několika částí. 
+%K celkovému rozložení na stránce byl použit grid z frameworku Bootstrap, který vizualizaci centruje a zarovnává některé její prvky. Vizualizace se pak skládá z několika částí. 
 %dát to víc do gridu, např. selecty, aby se dalo napsat, že je díky gridu responzivní
-
 %OBRÁZEK DÁT Z PROGRESS VIEW!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! aby tam byl čas!!!!!!!!!!!!!!!!
-
 % Tento element zahrnuje vizualizaci časového plánu hry, vizualizaci skutečné délky úrovní, události v podobě ikon, osu x a časovou osu vyznačující aktuální okamžik v grafu.
-Hlavní část vizualizace je v rámci jednoho SVG elementu. Tento element zahrnuje:
+K~celkovému rozložení na stránce byl použit grid z~frameworku Bootstrap, který vizualizaci centruje a~zarovnává její prvky. Vizualizace se skládá z~několika částí:
+\begin{enumerate}
+  \item hlavní část vizualizace s~grafem,
+  \item sloupce na levé a~pravé straně, podle kterých je možné řadit,
+  \item hlavička s~popisky jednotlivých sloupců a~úrovní, které fungují zároveň jako ovládací prvky pro řazení.
+\end{enumerate}
+Hlavní část vizualizace je v~rámci jednoho SVG elementu. Tento element zahrnuje:
 \begin{enumerate}
   \item vizualizaci časového plánu hry,
   \item vizualizaci skutečné délky úrovní,
-  \item události v podobě ikon,
-  \item osu x,
-  \item časovou osu vyznačující aktuální okamžik v grafu.
+  \item události v~podobě ikon,
+  \item osu~x,
+  \item časovou osu vyznačující aktuální okamžik v~grafu.
 \end{enumerate}
-
+SVG kód je odpovídajícím způsobem strukturován a~jednotlivé části jsou odděleny pomocí \verb|<g>| elementů.
 \begin{markdown*}{
   fencedCode
 }
@@ -680,26 +681,26 @@ Hlavní část vizualizace je v rámci jednoho SVG elementu. Tento element zahrn
 <svg class="ctf-progress-chart">
    <g class="ctf-game-wrapper">
       <g class="ctf-game">
-         <g class="axis-x">...</g>		  //4
-         <g class="game">...</g>		  //2
-         <g class="plan">...</g>		  //1
-         <g class="events">...</g>		  //3
-         <g class="bounds">...</g>		  //1
-         <line class="timeline"></line>	  //5
+         <g class="axis-x">...</g>		    #4
+         <g class="game">...</g>		    #2
+         <g class="plan">...</g>		    #1
+         <g class="events">...</g>		    #3
+         <g class="bounds">...</g>		    #1
+         <line class="timeline"></line>	    #5
       </g>
    </g>
 </svg>
 ```
 \end{markdown*}
 
-Ostatní elementy, jako názvy a celkový čas týmů nebo text ukazující aktuální čas, jsou umístěny zvlášť v samostatných sloupcích okolo vizualizace.
+%Ostatní elementy, jako názvy a celkový čas týmů nebo text ukazující aktuální čas, jsou umístěny zvlášť v samostatných sloupcích okolo vizualizace.
 
 %ukazka struktury svg ve sbalenem kodu --> struktura vygenerovaneho svg kodu vizualizaci
 \subsection{Základ vizualizace}
 Nejdříve je vygenerován nutný základ vizualizace, především hlavní \verb|<svg>| element, ale také obalující \verb|<g>| elementy.\par
-Šířka \verb|<svg>| je vypočítána na základě šířky rodičovského HTML elementu a odvíjí se od toho, jakou šířku má viewport\footnote{Viewport je zde oblast, do které prohlížeč vykresluje stránku, tedy viditelná část webové stránky.}. Výpočet výšky závisí na více proměnných. Při výpočtu je brána v úvahu výška viewportu, počet týmů a minimální přednastavená výška jednoho řádku vizualizace. Závisí ale také na vypočítané šířce, a to z důvodu částečného zachování proporcí.\par
-Dále jsou vytvořena a nastavena měřítka pro obě osy x a y. Doménou x-ového měřítka je celková odhadovaná délka hry, pro y je to množina týmů.\par
-V této části je také vykreslena osa x, hustota bodů na této ose respektuje šířku vizualizace. Osa y se nevykresluje, její úlohu plní sloupec s názvy týmů na levé straně, který zároveň umožňuje řazení týmů.
+Šířka \verb|<svg>| je vypočítána na základě šířky rodičovského HTML elementu a~odvíjí se od toho, jakou šířku má viewport\footnote{Viewport je zde oblast, do které prohlížeč vykresluje stránku, tedy viditelná část webové stránky.}. Výpočet výšky závisí na více proměnných. Při výpočtu je brána v~úvahu výška viewportu, počet týmů a~minimální přednastavená výška jednoho řádku vizualizace. Závisí ale také na vypočítané šířce, a~to z~důvodu částečného zachování proporcí.\par
+Dále jsou vytvořena a~nastavena měřítka pro obě osy~x a~y. Doménou x-ového měřítka je celková odhadovaná délka hry, pro~y je to množina týmů.\par
+V~této části je také vykreslena osa~x, hustota bodů na této ose respektuje šířku vizualizace. Osa~y se nevykresluje, její úlohu plní sloupec s~názvy týmů na levé straně, který zároveň umožňuje řazení týmů.
 %zjemňuje se při zoomování?! dodělat
 %vyznačit nějak x a y?
 
@@ -708,10 +709,10 @@ V této části je také vykreslena osa x, hustota bodů na této ose respektuje
   \begin{center}
     \includegraphics[width=12.7cm]{images/ctf-plan.pdf}
   \end{center}
-  \caption{Časový odhad jednotlivých úrovní. Svislé čáry znázorňují nezávislý odhadovaný limit. Šrafované oblasti se týkají vždy daného týmu a jejich začátek se posunuje v závislosti na postupu týmu.}
+  \caption{Časový odhad jednotlivých úrovní. Svislé čáry znázorňují nezávislý časový limit. Šrafované oblasti se týkají vždy daného týmu a~jejich začátek se posunuje v~závislosti na postupu týmu.}
   \label{fig:visualizationChart}
 \end{figure}
-Odhadovaný časový limit pro jednotlivé úrovně je vykreslován způsobem popsaným v podkapitole \ref{chartBase}. Použitá datová struktura je stejná, obsahuje ale místo skutečného postupu týmů pouze odhad:
+Odhadovaný časový limit pro jednotlivé úrovně je vykreslován způsobem popsaným v~podkapitole \ref{chartBase}. Použitá datová struktura je stejná, obsahuje ale místo skutečného postupu týmů pouze odhad:
 \begin{markdown*}{
   fencedCode
 }
@@ -719,63 +720,63 @@ Odhadovaný časový limit pro jednotlivé úrovně je vykreslován způsobem po
 [{"team": 1, "level1": 1000, "level2": 2000}]
 ```
 \end{markdown*}
-Vykreslování probíhá dvakrát, nejdříve jsou pomocí d3.stack vygenerovány šrafované obdélníky a poté hranice v podobě svislých čar.
+Vykreslování probíhá dvakrát, nejdříve jsou pomocí d3.stack vygenerovány šrafované obdélníky a~poté hranice v~podobě svislých čar.
 
 \subsection{Vizualizace herních úrovní}
-Princip vykreslování skutečné délky úrovní je opět stejný, vytváří se skládaný graf. Během vykreslování je však třeba brát v úvahu, zda již tým úroveň dokončil, nebo na ní právě pracuje, z důvodu přidělení světlé nebo syté barvy. Tato informace je již předpočítána v datové struktuře.\par
-Protože týmy již mohly překročit celkový odhad a graf by přesáhl stanovenou šířku vizualizace, je nutné před vykreslením aktualizovat měřítka.\par
-Po vykreslení reálných dat je třeba aktualizovat plán. Mohlo dojít ke změně měřítka a také je nutné posunout šrafované oblasti, které jsou závislé na aktuálním postupu týmu. Všechny šrafované oblasti s výjimkou té, která se týká aktuální úrovně, jsou skryty. Šrafování týkající se aktuální úrovně je posunuto na její začátek.
+Princip vykreslování skutečné délky úrovní je opět stejný, vytváří se skládaný graf. Během vykreslování je však třeba brát v~úvahu, zda již tým úroveň dokončil, nebo na ní právě pracuje, z~důvodu přidělení světlé nebo syté barvy. Tato informace je již předpočítána v~datové struktuře.\par
+Protože týmy již mohly překročit celkový odhad a~graf by přesáhl stanovenou šířku vizualizace, je nutné před vykreslením aktualizovat měřítka.\par
+Po vykreslení reálných dat je třeba aktualizovat plán. Mohlo dojít ke změně měřítka a~také je nutné posunout šrafované oblasti, které jsou závislé na aktuálním postupu týmu. Všechny šrafované oblasti s~výjimkou té, která se týká aktuální úrovně, jsou skryty. Šrafování týkající se aktuální úrovně je posunuto na její začátek.
 %% byly přidány další levely a je jich teď 6 -> ukázka s 6 levely
 \subsection{Události}
-Po zobrazení plánu a postupu týmů se vykreslují jednotlivé události v podobě ikon. Každý objekt události nese informace o svém čase, týmu i úrovni, podle kterých je vykreslen do grafu. Uchovává také typ události, podle kterého je zvolen tvar ikony.
+Po zobrazení plánu a~postupu týmů se vykreslují jednotlivé události v~podobě ikon. Každý objekt události nese informace o~svém čase, týmu i~úrovni, podle kterých je vykreslen do grafu. Uchovává také typ události, podle kterého je zvolen tvar ikony.
 %POSUNOVÁNÍ PŘI ZMĚNĚ POHLEDU!
 \subsection{Sloupce}
-Informace vztahující se k jednotlivým řádkům jsou zaznamenány v okolních sloupcích. Prvním z nich je sloupec s názvy týmů na levé straně, ten zároveň zastupuje osu y. Druhý sloupec na pravé straně udává celkový čas, který již tým ve hře strávil.\par
-Nad těmito sloupci je umožněno řazení a jsou zarovnány se souvisejícími ovládacími prvky. Z tohoto důvodu jsou umístěny mimo hlavní \verb|<svg>| element vizualizace.\par
-Přidání dalších sloupů na pravou stranu je možné. Mohly by být přidány například informace o bodovém hodnocení, pokud budou k dispozici odpovídající data.
+Informace vztahující se k~jednotlivým řádkům jsou zaznamenány v~okolních sloupcích. Prvním z~nich je sloupec s~názvy týmů na levé straně, ten zároveň zastupuje osu~y. Druhý sloupec na pravé straně udává celkový čas, který již tým ve hře strávil.\par
+Nad těmito sloupci je umožněno řazení a~jsou zarovnány se souvisejícími ovládacími prvky. Z~tohoto důvodu jsou umístěny mimo hlavní \verb|<svg>| element vizualizace.\par
+Přidání dalších sloupů na pravou stranu je možné. Mohly by být přidány například informace o~bodovém hodnocení, pokud budou k~dispozici odpovídající data.
 %možné přidat další sloupce
 \subsection{Další prvky}
 Mezi další součásti vizualizace patří tyto prvky:
 \begin{itemize}
-  \item časová osa, která je vykreslena jako čára v místě aktuálního okamžiku,
-  \item čas od začátku hry v pravém horním rohu, převádí se z časového razítka v datové struktuře,
-  \item popisky zobrazující se po najetí na ikonu události.
+  \item časová osa, která je vykreslena jako čára v~místě aktuálního okamžiku,
+  \item čas od začátku hry v~pravém horním rohu,
+  \item popisky událostí, které se zobrazují po najetí na ikonu události.
 \end{itemize}
-Popisky událostí jsou řešeny jako jediný element, který je při najetí na událost přesunut na její pozici a odkryt. Zároveň je změněn jeho text podle popisu dané události.
+Popisky událostí jsou řešeny jako jediný element, který je při najetí na událost přesunut na její pozici a~odkryt. Zároveň je změněn jeho text podle popisu dané události.
 
 \section{Angular aplikace}
 %Vytvořená vizualizace byla začleněna do připravené kostry portletu s integrovanou Angular aplikací.
-Vytvořená vizualizace byla integrována do Angular aplikace a později byla začleněna do kostry portletu \verb|kypo2-portlet-empty-angular|. Aplikace obsahuje jeden hlavní modul a její architektura je znázorněna na obrázku \ref{fig:architecture}.
+Vytvořená vizualizace byla integrována do Angular aplikace a~později byla začleněna do kostry portletu \verb|kypo2-portlet-empty-angular|. Aplikace obsahuje jeden hlavní modul a~její architektura je znázorněna na obrázku~\ref{fig:architecture}.
 \begin{figure}[H]
   \begin{center}
     \includegraphics[width=12.7cm]{images/architektura-4.pdf}
   \end{center}
-  \caption{Grafické znázornění architektury aplikace, kde je zobrazena hierarchie uživatelského rozhraní a implementované služby.}
+  \caption{Grafické znázornění architektury aplikace, kde je zobrazena hierarchie uživatelského rozhraní a~implementované služby.}
   \label{fig:architecture}
 \end{figure}
 %Kořenová komponenta obsahuje dvě komponenty \verb|GameAnalysisComponent| a \verb|ColumnHeaderComponent|, které tvoří uživatelské rozhraní.\par
-Uživatelské rozhraní je tvořeno dvěma komponentami \verb|GameAna|\-\verb|lysisComponent| a \verb|ColumnHeaderComponent|, které jsou součástí kořenové komponenty. Zahrnuje také dvě direktivy určené pro manipulaci s vizualizací. Komponenta vizualizace pak využívá dvou služeb pro načítání dat.
+Uživatelské rozhraní je tvořeno dvěma komponentami \verb|GameAna|\-\verb|lysisComponent| a~\verb|ColumnHeaderComponent|, které jsou součástí kořenové komponenty. Zahrnuje také dvě direktivy určené pro manipulaci s~vizualizací. Komponenta vizualizace pak využívá dvou služeb pro načítání dat.
 \subsection{Komponenty}
-Hlavní komponentou je \verb|GameAnalysisComponent|, která vykresluje téměř všechny části vizualizace. V závislosti na požadovaném zdroji dat využívá jednu ze služeb pro načítání pomocí REST API nebo z CSV souboru. Poté na získaných datech provede řazení a filtrování popsané v podkapitole \ref{interaction} a postupně vykreslí všechny uvedené části vizualizace \ref{chartStructure}.\par
-Druhá komponenta \verb|ColumnHeaderComponent| představuje ovládací prvky umožňující řazení týmů ve vizualizaci. Každý z těchto ovládacích prvků je tvořen jednou instancí komponenty. Obsahuje popisek sloupce (team, time), nad kterým se má řadit, případně popisek úrovně, podle jejíž délky se mají týmy seřadit. Řazení je provedeno po kliknutí na tento popisek, přičemž se střídá vzestupné a sestupné pořadí.
+Hlavní komponentou je \verb|GameAnalysisComponent|, která vykresluje téměř všechny části vizualizace. V~závislosti na požadovaném zdroji dat využívá jednu ze služeb pro načítání pomocí REST API nebo z~CSV souboru. Poté na získaných datech provede řazení a~filtrování popsané v~podkapitole~\ref{interaction} a~postupně vykreslí všechny uvedené části vizualizace~\ref{chartStructure}.\par
+Druhá komponenta \verb|ColumnHeaderComponent| představuje ovládací prvky umožňující řazení týmů ve vizualizaci. Každý z~těchto ovládacích prvků je tvořen jednou instancí komponenty. Obsahuje popisek sloupce (team, time), nad kterým se má řadit, případně popisek úrovně, podle jejíž délky se mají týmy seřadit. Řazení je provedeno po kliknutí na tento popisek, přičemž se střídá vzestupné a~sestupné pořadí.
 
 \subsection{Direktivy} \label{directives}
-Další součástí aplikace jsou dvě direktivy, které slouží k ovládání vizualizace. Obě direktivy jsou atributové a jsou umístěny na hlavním grafu vizualizace.\par
+Další součástí aplikace jsou dvě direktivy, které slouží k~ovládání vizualizace. Obě direktivy jsou atributové a~jsou umístěny na hlavním grafu vizualizace.\par
 \begin{lstlisting}[showstringspaces=false,language=html]
 <div id="chart" mouseWheel mouseMove></div>
 \end{lstlisting}
-První z nich \verb|MouseWheelDirective| umožňuje zoomování vizualizace. Direktiva poslouchá události vzniklé otáčením kolečka myši, počítá posunutí a rozhoduje o směru otáčení. Na základě zjištěného směru emituje nové události \verb|mouseWheelDown| nebo \verb|mouseWheelUp|. Na tyto události již reagují obslužné metody komponenty, které zvětšují nebo zmenšují měřítko vizualizace. Během zoomování je také třeba v události uchovávat pozici kurzoru. Je pak možné přibližovat graf v bodě, na který kurzor ukazuje, čehož je dosaženo vhodným posunutím grafu.\par
-Další direktiva \verb|MouseMoveDirective| slouží pro posunování viditelného výřezu vizualizace po jejím přiblížení. Tato direktiva poslouchá události stisknutí tlačítka, pohybu myši a uvolnění tlačítka. Během pohybu myší se stisknutým tlačítkem emituje události „tažení“. Tuto událost opět obsluhuje metoda vizualizace, která mění posunutí výřezu v závislosti na hodnotách obsažených v události.
+První z~nich \verb|MouseWheelDirective| umožňuje zoomování vizualizace. Direktiva poslouchá události vzniklé otáčením kolečka myši, počítá posunutí a~rozhoduje o~směru otáčení. Na základě zjištěného směru emituje nové události \verb|mouseWheelDown| nebo \verb|mouseWheelUp|. Na tyto události již reagují obslužné metody komponenty, které zvětšují nebo zmenšují měřítko vizualizace. Během zoomování je také třeba v~události uchovávat pozici kurzoru. Je pak možné přibližovat graf v~bodě, na který kurzor ukazuje, čehož je dosaženo vhodným posunutím grafu.\par
+Další direktiva \verb|MouseMoveDirective| slouží pro posunování viditelného výřezu vizualizace po jejím přiblížení. Tato direktiva poslouchá události stisknutí tlačítka, pohybu myši a~uvolnění tlačítka. Během pohybu myší se stisknutým tlačítkem emituje události „tažení“. Tuto událost opět obsluhuje metoda vizualizace, která mění posunutí výřezu v~závislosti na hodnotách obsažených v~události.
 %PŘIDAT PŘÍPADNĚ CTRL NA ZOOM!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 \section{Načítání dat}
-Aplikace dokáže načítat data z CSV souborů a také pomocí API, které poskytuje podobné záznamy ve formátu JSON. CSV soubor se záznamy ze hry lze nahrát pomocí tlačítka. Pro oba zdroje existuje v aplikaci služba, která načítání dat zajištuje.
+Aplikace dokáže načítat data z~CSV souborů a také pomocí API, které poskytuje podobné záznamy ve formátu JSON. CSV soubor se záznamy ze hry lze nahrát pomocí tlačítka. Pro oba zdroje existuje v~aplikaci služba, která načítání dat zajištuje.
 \subsection{Načítání dat skrze REST API}
 %a komponenta vizualizace tak již s nimi může přímo pracovat.
-Pro načítání dat pomocí rozhraní byla implementována služba \verb|Load|\-\verb|DataService|. Ta vrací načtená data v potřebném formátu, a tak s nimi může komponenta vizualizace přímo pracovat. Služba využívá k získávání dat modul \verb|HttpClient|, který je součástí frameworku Angular.
+Pro načítání dat pomocí rozhraní byla implementována služba \verb|Load|\-\verb|DataService|. Ta vrací načtená data v~potřebném formátu, a~tak s~nimi může komponenta vizualizace přímo pracovat. Služba využívá k~získávání dat modul \verb|HttpClient|, který je součástí frameworku Angular.
 
 \subsection{Popis REST API}
-Aplikace využívá dva zdroje rozhraní, vrácené odpovědi jsou ve formátu JSON.
+Aplikace využívá dva zdroje REST API, vrácené odpovědi jsou ve formátu JSON.
 %\begin{itemize}
 %  \item \verb|GET /games/{gameId}| – tento zdroj podle zadaného ID hry poskytuje údaje o dané hře.\par
 %  \item \verb|GET /games/{gameId}/events| –  podle specifikovaného ID hry vrací záznamy jejích událostí.\par  		
@@ -788,9 +789,9 @@ Aplikace využívá dva zdroje rozhraní, vrácené odpovědi jsou ve formátu J
   %\item \verb|GET /games/{gameId}| – tento zdroj podle zadaného ID hry poskytuje údaje o dané hře.\par
   %\item \verb|GET /games/{gameId}/events| –  podle specifikovaného ID hry vrací záznamy jejích událostí.\par  		
   \item \verb|GET /games/{gameId}|\par
-  Tento zdroj podle zadaného ID hry poskytuje informace o dané hře, jako např. její popis nebo seznam úrovní.
+  Tento zdroj podle zadaného ID hry poskytuje informace o~dané hře, jako např.~její popis nebo seznam úrovní.
   \item \verb|GET /games/{gameId}/events|\par
-  Druhý zdroj vrací podle specifikovaného ID hry pole jejích událostí. Každá událost nese několik informací, mezi které patří ID hráče, časové razítko události a její relativní čas od začátku úrovně, číslo úrovně a typ události.
+  Druhý zdroj vrací podle specifikovaného ID hry pole jejích událostí. Každá událost nese několik informací, mezi které patří ID hráče, časové razítko události a~její relativní čas od začátku úrovně, číslo úrovně a~typ události.
 %  	\begin{itemize}
 %  	  \item id hráče,
 %  	  \item časové razítko události,
@@ -799,78 +800,78 @@ Aplikace využívá dva zdroje rozhraní, vrácené odpovědi jsou ve formátu J
 %  	  \item typ události.
 %  	\end{itemize}
 \end{itemize}
-Aplikace využívá první zdroj k získání informace o počtu úrovní, aby bylo možné připravit datovou strukturu plánu hry. Informace o časovém odhadu jednotlivých úrovní nejsou k dispozici z žádného zdroje. Z tohoto důvodu jsou časové limity specifikovány v rámci konfigurace aplikace \ref{config}. Jelikož není dostupný seznam her, ze kterého by bylo možné hru vybrat, bylo rozhodnuto, že ID hry, která má být zobrazena, bude také součástí konfigurace.\par
+Aplikace využívá první zdroj k~získání informace o~počtu úrovní, aby bylo možné připravit datovou strukturu plánu hry. Informace o~časovém odhadu jednotlivých úrovní nejsou k~dispozici z~žádného zdroje. Z~tohoto důvodu jsou časové limity specifikovány v~rámci konfigurace aplikace \ref{config}. Jelikož není dostupný seznam her, ze kterého by bylo možné hru vybrat, bylo rozhodnuto, že ID hry, která má být zobrazena, bude také součástí konfigurace.\par
 
 \subsection{Načítání dat z CSV souboru}
 % NĚCO O NAHRÁNÍ SOUBORU?
 %která vrací načtená data jako již popsanou datovou strukturu, se kterou může komponenta vizualizace přímo pracovat.
-Načítání dat z CSV souborů zajišťuje služba \verb|LoadCsvDataService|. Ta opět vrací data v potřebném formátu. Pro samotné načtení a parsování souborů používá knihovnu Papa Parse, která využívá streamování a parsuje soubory po řádcích. Lze tak už během parsování pracovat s jednotlivými řádky souboru.\par
-Každý záznam události v CSV souboru obsahuje tyto údaje:
+Načítání dat z~CSV souborů zajišťuje služba \verb|LoadCsvDataService|. Ta opět vrací data v~potřebném formátu. Pro samotné načtení a~parsování souborů používá knihovnu Papa Parse, která využívá streamování a~parsuje soubory po řádcích. Lze tak už během parsování pracovat s~jednotlivými řádky souboru.\par
+Každý záznam události v~CSV souboru obsahuje tyto údaje:
 %\verb|tým, datum a čas, relativní čas, úroveň, název události|.
 \begin{itemize}
   \item tým, 
-  \item datum a čas události,
+  \item datum a~čas události,
   \item relativní čas události, který je počítán od začátku dané úrovně, ve formátu HH:MM:SS,
   \item úroveň,
   \item název události.
 \end{itemize}
-Již během parsování souboru jsou oba údaje s časem převedeny na časové razítko (timestamp). Také je zjištěn celkový začátek hry, a to jako nejmenší časový údaj ze všech událostí. Všechna získaná data jsou dále předána ke zpracování.
+Již během parsování souboru je čas události převeden na časové razítko (timestamp) a~relativní čas na počet sekund. Také je zjištěn celkový začátek hry, a~to jako nejmenší časový údaj ze všech událostí. Všechna získaná data jsou dále předána ke zpracování.
 %TODO!!!!! U CSV NEVÍME DOPŘEDU POČET LEVELŮ
 
 \subsection{Zpracování dat}
-Pole načtených událostí je následně v rámci služby zpracováno během jednoho cyklu do výsledné datové struktury. Pro každý tým je vytvořen objekt, do kterého se buď postupně přidávají určité události, jako např. využité nápovědy, nebo se do něho zaznamenávají informace o průběhu hry. Mezi daty získanými z CSV a skrze API jsou rozdíly, princip práce s událostmi je však následující:
+Pole načtených událostí je následně v~rámci služby zpracováno během jednoho cyklu do výsledné datové struktury. Pro každý tým je vytvořen objekt, do kterého se buď postupně přidávají určité události, jako např. využité nápovědy, nebo se do něho zaznamenávají informace o~průběhu hry. Mezi daty získanými z~CSV a~skrze API jsou rozdíly, princip práce s~událostmi je však následující:
 \begin{itemize}
   \item \verb|game started| – uloží čas začátku hry daného týmu,
   \item \verb|correct flag submited, game finished| – jelikož tyto události ukončují úroveň, je jejich čas uložen jako čas dané úrovně,
   \item \verb|hint taken, solution displayed, level skipped| – přidá danou událost do pole událostí.
 \end{itemize}
-Po průchodu všech událostí je dodatečně dopočítán celkový čas a také je zjištěna aktuální úroveň, na které tým pracuje.
+Po průchodu všech událostí je dodatečně dopočítán celkový čas a~také je zjištěna aktuální úroveň, na které tým pracuje.
 
 \section{Ovládací prvky vizualizace} \label{interaction}
-Uživatel může s aplikací interagovat následujícími způsoby:
+Uživatel může s~aplikací interagovat následujícími způsoby:
 \begin{itemize}
-  \item může řadit jednotlivé řádky týmů, a to podle názvu, celkového času nebo času kterékoliv úrovně,
+  \item může řadit jednotlivé řádky týmů, a~to podle názvu, celkového času nebo času kterékoliv úrovně,
   \item filtrovat týmy, konkrétně podle toho, zda již hru dokončili nebo ji stále hrají,
-  \item přibližovat a oddalovat graf vizualizace a posunovat přiblížený výřez.
+  \item přibližovat a~oddalovat graf vizualizace a~posunovat přiblížený výřez.
 \end{itemize}
 
 \subsection{Řazení}
-Seřazení týmů je provedeno po kliknutí na popisek v horní části vizualizace, který je umístěn buď nad souvisejícím sloupcem, nebo nad čarou znázorňující časový limit úrovně.\par
-Komponenta vizualizace si vždy uchovává původní nezměněnou strukturu týmů. Během řazení je vytvořena kopie této struktury, která je následně seřazena a vykreslena.
+Seřazení týmů je provedeno po kliknutí na popisek v~horní části vizualizace, který je umístěn buď nad souvisejícím sloupcem, nebo nad čarou znázorňující časový limit úrovně.\par
+Komponenta vizualizace si vždy uchovává původní nezměněnou strukturu týmů. Během řazení je vytvořena kopie této struktury, která je následně seřazena a~vykreslena.
 \subsection{Filtrování}
-Filtrování týmů je možné provést výběrem jedné z možností v rozbalovací nabídce. Z hlediska implementace je filtrování realizováno podobným způsobem jako řazení. Původní struktura zůstává zachována a nevyhovující prvky jsou odstraněny jen z její kopie. Tak je vždy možné se vrátit do původního stavu.
+Filtrování týmů je možné provést výběrem jedné z~možností v~rozbalovací nabídce. Z~hlediska implementace je filtrování realizováno podobným způsobem jako řazení. Původní struktura zůstává zachována a~nevyhovující prvky jsou odstraněny jen z~její kopie. Tak je vždy možné se vrátit do původního stavu.
 \subsection{Zoom}
-Graf vizualizace je možné v určitých mezích přibližovat a oddalovat pomocí kolečka myši. Výřez pak lze tažením posunovat. Princip zpracování těchto událostí je popsán u příslušných direktiv \ref{directives}.\par
-Komponenta uchovává hodnotu přiblížení v proměnné \verb|zoomValue|. Se zvyšováním hodnoty této proměnné se zvětšuje šířka elementu s grafem, přesahující část je však skryta pomocí CSS vlastností rodičovského elementu. Dále se uchovává hodnota \verb|panValue| značící posunutí grafu, která se mění tažením myši uvnitř grafu. 
+Graf vizualizace je možné v~určitých mezích přibližovat a~oddalovat pomocí kolečka myši. Výřez pak lze tažením posunovat. Princip zpracování těchto událostí je popsán u~příslušných direktiv~\ref{directives}.\par
+Komponenta uchovává hodnotu přiblížení v~proměnné \verb|zoomValue|. Se zvyšováním hodnoty této proměnné se zvětšuje šířka elementu s~grafem, přesahující část je však skryta pomocí CSS vlastností rodičovského elementu. Dále se uchovává hodnota \verb|panValue| značící posunutí grafu, která se mění tažením myši uvnitř grafu. 
 
 \section{Konfigurace} \label{config}
-Aplikace dovoluje konfigurovat některé její parametry. V Angular aplikacích lze konfiguraci řešit vytvořením třídy k tomu určené, v tomto případě \verb|AppConfig|, a konstanty, která je instancí této třídy. Tato konstanta uchovává dané nastavení a je vkládána do komponenty pomocí dependency injection.\par
-Konfigurace aplikace se nachází v souboru \verb|app.config.ts| a obsahuje následující parametry:
+Aplikace dovoluje konfigurovat některé její parametry. V~Angular aplikacích lze konfiguraci řešit vytvořením třídy k~tomu určené, v~tomto případě \verb|AppConfig|, a~konstanty, která je instancí této třídy. Tato konstanta uchovává dané nastavení a~je vkládána do komponenty pomocí dependency injection.\par
+Konfigurace aplikace se nachází v~souboru \verb|app.config.ts| a~obsahuje následující parametry:
 \begin{itemize}
   \item \verb|apiUrl| – specifikuje URL REST API, ze kterého aplikace získává data,
   \item \verb|gameId| – specifikuje ID hry, která má být načtena,
-  \item \verb|levelsTimePlan| – udává odhadovanou dobu řešení pro každou úroveň, zadává se v sekundách jako pole čísel např.\par
+  \item \verb|levelsTimePlan| – udává odhadovanou dobu řešení pro každou úroveň, zadává se v~sekundách jako pole čísel např.\par
   			\verb|[1200, 1500, 1900, 2100]|,
   \item \verb|gameColors| – určuje jednotlivé barvy úrovní ve vizualizaci, barvy se zadávají jako pole hexadecimálních kódů,
   \item \verb|lightenedColors| – světlé barvy již odehraných úrovní,
   \item \verb|planColors| – barvy svislých čar značících časové limity,
-  \item \verb|darkColor| – tmavá barva pro ikony událostí v aktuální úrovni,
-  \item \verb|minBarHeight| – číslo, které určuje minimální výšku každého řádku vizualizace v pixelech.
+  \item \verb|darkColor| – tmavá barva pro ikony událostí v~aktuální úrovni,
+  \item \verb|minBarHeight| – číslo, které určuje minimální výšku každého řádku vizualizace v~pixelech.
   %\item\item \verb|gameColors|, \verb|planColors|, \verb|lightenedColors| – určuje jednotlivé barvy úrovní ve vizualizaci, gameColors značí aktuální úrovně, lightenedColors již odehrané úrovně a planColor barvy svislých čar pro časové limity, zadávají se jako pole barev v hexadecimálním kódu,
 
 \end{itemize}
 
 \section{Testy}
-Angular umožňuje použití více nástrojů určených pro testování. Při instalaci projektu a při vytváření komponent skrze Angular CLI je však již nainstalován testovací framework Jasmine a jsou připraveny základy testů komponent. Pro spouštění a vyhodnocování testů je používán nástroj Karma. Ten umožňuje spouštět testy z příkazového řádku, testovat kód oproti různým prohlížečům a zobrazovat výsledky testů.\par
-Protože komponenty zahrnují nejen třídu, ale i šablonu, je u nich třeba také testovat, zda třída a šablona komponenty spolu správně spolupracují. Při testech nejsou používány skutečné služby a konfigurace, ale pouze jejich náhrada (mock-up). Během vývoje byly vytvořeny tyto testy pro hlavní komponentu vizualizace:
+Angular umožňuje použití více nástrojů určených pro testování. Při instalaci projektu a~při vytváření komponent skrze Angular CLI je však již nainstalován testovací framework Jasmine a~jsou připraveny základy testů komponent. Pro spouštění a~vyhodnocování testů je používán nástroj Karma. Ten umožňuje spouštět testy z~příkazového řádku, testovat kód oproti různým prohlížečům a~zobrazovat výsledky testů.\par
+Protože komponenty zahrnují nejen třídu, ale i~šablonu, je u~nich třeba také testovat, zda třída a~šablona komponenty spolu správně spolupracují. Při testech nejsou používány skutečné služby a~konfigurace, ale pouze jejich náhrada (mock-up). Během vývoje byly vytvořeny tyto testy pro hlavní komponentu vizualizace:
 \begin{itemize}
   \item test, zda byla komponenta vytvořena,
   \item testy metody pro počítání barvy,
   \item testy metody pro převod času,
   \item ověření správného počtu úrovní,
   \item ověření správného počtu týmů,
-  \item ověření správného řazení týmů podle jména, úrovně a celkového času,
-  \item zjištění, zda jsou události ve správném počtu a zda mají správnou barvu.
+  \item ověření správného řazení týmů podle jména, úrovně a~celkového času,
+  \item zjištění, zda jsou události ve správném počtu a~zda mají správnou barvu.
 \end{itemize}
 
 
