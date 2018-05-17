@@ -250,11 +250,9 @@ Z~hlediska interaktivity by vizualizace měla splňovat tyto požadavky:
   \item možnost filtrování týmů,
   \item zobrazení popisku události po najetí myší.
 \end{itemize}
-%%přidat věci, na které se přišlo později - dva pohledy, labely nahoře na sortování?
 
 \subsection{Grafický návrh}
 Grafický návrh, jehož autorem je Bc.~Kristína Zákopčanová, zahrnuje zmíněné požadavky a~na jeho základě byla vizualizace vypracována.\par
-%%Pro tuto vizualizaci byl vypracován grafický návrh zahrnující zmíněné požadavky, jeho autorem je Bc. Kristína Zákopčanová a 
 \begin{figure}[h]
   \begin{center}
     \includegraphics[width=12.7cm]{images/navrh-vizualizace-1-4.png}
@@ -618,31 +616,51 @@ Zpracovaná datová struktura, se kterou vizualizace pracuje, je objekt s těmit
   \item \verb|time| – časové razítko udávající čas od začátku hry v sekundách,
   \item \verb|levels| – pole klíčů jednotlivých úrovní hry,
   \item \verb|levelsTimePlan| – pole čísel udávájící časový odhad pro každou úroveň v sekundách,
-  \item \verb|gameDataset| – pole objektů představující týmy, má popsanou strukturu potřebnou pro použití s \verb|d3.stack|, uchovává však některé informace navíc:
-  	\begin{itemize}
-		\item \verb|team| – název týmu,
-		\item \verb|startTime| – čas v sekundách, kdy tým začal hru
-		\item \verb|totalTime| – celkový čas, který již tým strávil ve hře
-		\item \verb|currentState| – aktuální úroveň, na které tým právě pracuje
-		\item \verb|events| – pole událostí, jako využité nápovědy, zobrazená řešení nebo přeskočení úrovně
-		\item \verb|level1|, \verb|level2|, \verb|level3|… čas strávený v jednotlivých úrovních, pro zpracování pomocí d3.stack do skládaného grafu,
-	\end{itemize}
+  \item \verb|gameDataset| – pole objektů představující týmy, které má popsanou strukturu potřebnou pro použití s \verb|d3.stack|, uchovává však některé informace navíc – např. využité nápovědy, celkově strávený čas apod.,
+  	%\begin{itemize}
+		%\item \verb|team| – název týmu,
+		%\item \verb|startTime| – čas v sekundách, kdy tým začal hru
+		%\item \verb|totalTime| – celkový čas, který již tým strávil ve hře
+		%\item \verb|currentState| – aktuální úroveň, na které tým právě pracuje
+		%\item \verb|events| – pole událostí, jako využité nápovědy, zobrazená řešení nebo přeskočení úrovně
+		%\item \verb|level1|, \verb|level2|, \verb|level3|… čas strávený v jednotlivých úrovních, pro zpracování pomocí d3.stack do skládaného grafu,
+	%\end{itemize}
   \item \verb|planDataset| – podobné pole objektů jako \verb|gameDataset|, avšak bez některých prvků, používá se pro vykreslení časového plánu hry.
 \end{itemize}
 %, jako využité nápovědy, celkově strávený čas apod.,
+
+\section{Pohledy vizualizace}
+Během implementace bylo zjištěno, že týmy nezačínají hru ve stejný okamžik, což znamená změnu oproti grafickému návrhu. Ten vychází z předpokladu, že týmy začínají hru stejně, a řádky jsou proto z levé strany zarovnány, což neodpovídá skutečnosti. Tento pohled z grafického návrhu je však užitečný, protože lze porovnávat dobu řešení úrovně s časovým limitem, který je naznačen svislou čarou. Také lze tímto způsobem jednodušeji porovnávat týmy mezi sebou.\par
+Jednotlivé řádky je možné zarovnat podle jejich počátku, jako je tomu v grafickém návrhu. Dojde tak ale k jejich posunutí a řádky přestanou být zarovnány s časovou osou ukazující aktuální moment, čímž tato osa ztratí smysl. Proto byly implementovány dva různé pohledy.
+
+\subsection{Průběžný pohled}
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=12.7cm]{images/vizualizace-progress.png}
+  \end{center}
+  \caption{Průběžný pohled implementované vizualizace, zobrazena jsou reálná data z CSV souboru.}
+  \label{fig:visualizationChartProgress}
+\end{figure}
+Tento pohled, zobrazený na obrázku \ref{fig:visualizationChartProgress}, má význam v jejím průběhu. Zobrazuje postup a události hry v čase odpovídajícím skutečnosti. Týmy tedy nejsou z levé strany zarovnány a z grafu je patrné, kdy tým hru začal. Také je zobrazena časová osa vyznačující aktuální okamžik a čas v pravém horním rohu. Naopak se nezobrazují svislé čáry pro odhad času úrovní. Týmy je možné řadit podle jejich názvu nebo celkového času hry.\par
+Posunutí začátku hry je implementováno přidáním další vrstvy do skládaného grafu. Tato vrstva má transparentní barvu a její hodnoty jsou vždy rovny začátku hry daného týmu.\par
+V tomto pohledu jsou data pravidelně aktualizována a lze tak hru sledovat v reálném čase.
+
+\subsection{Závěrečný přehled}
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=12.7cm]{images/vizualizace-final.png}
+  \end{center}
+  \caption{Závěrečný pohled vizualizace.}
+  \label{fig:visualizationChartFinal}
+\end{figure}
+Po skončení hry, nebo i v jejím průběhu je možné se přepnout do druhého pohledu \ref{fig:visualizationChartFinal}. Tento pohled poskytuje celkové srovnání jednotlivých týmů. Řádky jsou zarovnány podle začátku hry. Lze je ale také srovnat podle začátku libovolné úrovně, nebo je podle délky úrovně řadit. Je tak možné porovnávat celkovou délku hry nebo čas jednotlivých úrovní mezi všemi týmy.\par
+Časová osa je vynechána, ale jsou zobrazeny limity pro jednotlivé úrovně, se kterými lze srovnávat skutečné hodnoty.
 
 \section{Struktura vizualizace} \label{chartStructure}
 %K celkovému rozložení na stránce byl použit grid z frameworku Bootstrap, který vizualizaci centruje a zarovnává některé její prvky.
 K celkovému rozložení na stránce byl použit grid z frameworku Bootstrap, který vizualizaci centruje a zarovnává některé její prvky. Vizualizace se pak skládá z několika částí. 
 %dát to víc do gridu, např. selecty, aby se dalo napsat, že je díky gridu responzivní
 
-\begin{figure}[H]
-  \begin{center}
-    \includegraphics[width=12.7cm]{images/ctf-all.pdf}
-  \end{center}
-  \caption{Implementovaná vizualizace s reálnými daty z CSV souboru.}
-  \label{fig:visualizationChart}
-\end{figure}
 %OBRÁZEK DÁT Z PROGRESS VIEW!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! aby tam byl čas!!!!!!!!!!!!!!!!
 
 % Tento element zahrnuje vizualizaci časového plánu hry, vizualizaci skutečné délky úrovní, události v podobě ikon, osu x a časovou osu vyznačující aktuální okamžik v grafu.
@@ -724,18 +742,6 @@ Mezi další součásti vizualizace patří tyto prvky:
   \item popisky zobrazující se po najetí na ikonu události.
 \end{itemize}
 Popisky událostí jsou řešeny jako jediný element, který je při najetí na událost přesunut na její pozici a odkryt. Zároveň je změněn jeho text podle popisu dané události.
-
-\section{Pohledy vizualizace}
-Během implementace bylo zjištěno, že týmy nezačínají hru ve stejný okamžik, což znamená změnu oproti grafickému návrhu. Ten vychází z předpokladu, že týmy začínají hru stejně, a řádky jsou proto z levé strany zarovnány, což neodpovídá skutečnosti. Tento pohled je však užitečný, protože lze porovnávat dobu řešení úrovně s časovým limitem, který je naznačen svislou čarou. Také lze tímto způsobem jednodušeji porovnávat týmy mezi sebou.\par
-Jednotlivé řádky je možné zarovnat podle jejich počátku, jako je tomu v grafickém návrhu. Dojde tak ale k jejich posunutí a řádky přestanou být zarovnány s časovou osou ukazující aktuální moment, čímž tato osa ztratí smysl. Proto byly implementovány dva různé pohledy.
-
-\subsection{Průběžný pohled}
-Tento pohled na hru má význam v jejím průběhu. Zobrazuje postup a události hry v čase odpovídajícím skutečnosti. Týmy tedy nejsou z levé strany zarovnány a z grafu je patrné, kdy tým hru začal. Také je zobrazena časová osa vyznačující aktuální okamžik a čas v pravém horním rohu. Naopak se nezobrazují svislé čáry pro odhad času úrovní. Týmy je možné řadit podle jejich názvu nebo celkového času hry.\par
-Posunutí začátku hry je implementováno přidáním další vrstvy do skládaného grafu. Tato vrstva má transparentní barvu a její hodnoty jsou vždy rovny začátku hry daného týmu.\par
-V tomto pohledu jsou data pravidelně aktualizována a lze tak hru sledovat v reálném čase.
-\subsection{Závěrečný přehled}
-Po skončení hry, nebo i v jejím průběhu je možné se přepnout do druhého pohledu. Tento pohled poskytuje celkové srovnání jednotlivých týmů. Řádky jsou zarovnány podle začátku hry. Lze je ale také srovnat podle začátku libovolné úrovně, nebo je podle délky úrovně řadit. Je tak možné porovnávat celkovou délku hry nebo čas jednotlivých úrovní mezi všemi týmy.\par
-Časová osa je vynechána, ale jsou zobrazeny limity pro jednotlivé úrovně, se kterými lze srovnávat skutečné hodnoty.
 
 \section{Angular aplikace}
 %Vytvořená vizualizace byla začleněna do připravené kostry portletu s integrovanou Angular aplikací.
@@ -855,7 +861,7 @@ Konfigurace aplikace se nachází v souboru \verb|app.config.ts| a obsahuje nás
 \end{itemize}
 
 \section{Testy}
-Angular umožňuje použití více možných nástrojů určených pro testování. Při instalaci projektu a při vytváření komponent skrze Angular CLI je však již nainstalován testovací framework Jasmine a jsou připraveny základy testů komponent. Pro spouštění a vyhodnocování testů je používán nástroj Karma. Ten umožňuje spouštět testy z příkazového řádku, testovat kód oproti různým prohlížečům a zobrazovat výsledky testů.\par
+Angular umožňuje použití více nástrojů určených pro testování. Při instalaci projektu a při vytváření komponent skrze Angular CLI je však již nainstalován testovací framework Jasmine a jsou připraveny základy testů komponent. Pro spouštění a vyhodnocování testů je používán nástroj Karma. Ten umožňuje spouštět testy z příkazového řádku, testovat kód oproti různým prohlížečům a zobrazovat výsledky testů.\par
 Protože komponenty zahrnují nejen třídu, ale i šablonu, je u nich třeba také testovat, zda třída a šablona komponenty spolu správně spolupracují. Při testech nejsou používány skutečné služby a konfigurace, ale pouze jejich náhrada (mock-up). Během vývoje byly vytvořeny tyto testy pro hlavní komponentu vizualizace:
 \begin{itemize}
   \item test, zda byla komponenta vytvořena,
