@@ -604,7 +604,7 @@ Osa x vizualizace představuje čas a bylo pro ni použito spojité měřítko, 
 Na ose y se nachází jednotlivé týmy. Týmy tvoří diskrétní množinu, stejně jako jednotlivé řádky vizualizace. Proto bylo použito měřítko ordinální, konkrétně se jedná o \verb|d3.scaleBand|, které každý tým mapuje podle jména na správný řádek vizualizace.
 %Na ose y se nachází jednotlivé týmy a proto bylo nutné použít měřítko ordinální.
 
-\subsection{Barvy}
+%\subsection{Barvy} BARVY
 
 \section{Datová struktura}
 %Dalším důležitým krokem byl návrh datové struktury, se kterou má vizualizace pracovat. Ta musí obsahovat všechny potřebné informace tak, aby mohly být vykresleny všechny požadované prvky ze zadnání, např. aktuální čas od začátku hry, data jednotlivých hráčů nebo časový plán. Některá data pak musí být v určitém formátu, jako např. strávený čas v jednotlivých úrovních, který musí mít formát popsaný v předchozí podkapitole, aby mohl být vypočítán a vykreslen skládaný graf. Dle toho byla navržena následující datová struktura, se kterou vizualizace pracuje:
@@ -680,7 +680,7 @@ V této části je také je vykreslena osa x, hustota bodů na této ose respekt
 %zjemňuje se při zoomování?! dodělat
 %vyznačit nějak x a y?
 
-\subsection{Vizualizace časového plánu}
+\subsection{Vizualizace časového plánu} \label{chartStructure}
 \begin{figure}[H]
   \begin{center}
     \includegraphics[width=12.7cm]{images/ctf-plan.pdf}
@@ -688,7 +688,7 @@ V této části je také je vykreslena osa x, hustota bodů na této ose respekt
   \caption{Časový odhad jednotlivých úrovní. Svislé čáry znázorňují nezávislý odhadovaný limit. Šrafované oblasti se týkají vždy daného týmu a jejich začátek se posunuje v závislosti na postupu týmu.}
   \label{fig:visualizationChart}
 \end{figure}
-Odhadovaný časový limit pro jednotlivé úrovně je vykreslován způsobem popsaným v podkapitole \ref{chartBase}. Použitá datová struktura je stejná, ale místo skutečného postupu týmů je v ní v ní uložen pouze odhad:
+Odhadovaný časový limit pro jednotlivé úrovně je vykreslován způsobem popsaným v podkapitole \ref{chartBase}. Použitá datová struktura je stejná, obsahuje ale místo skutečného postupu týmů pouze odhad:
 \begin{markdown*}{
   fencedCode
 }
@@ -699,8 +699,8 @@ Odhadovaný časový limit pro jednotlivé úrovně je vykreslován způsobem po
 Vykreslování probíhá dvakrát, nejdříve jsou pomocí d3.stack vygenerovány šrafované obdélníky a poté hranice v podobě svislých čar.
 
 \subsection{Vizualizace herních úrovní}
-Princip vykreslování skutečné délky úrovní je opět stejný jako již popsaný způsob v podkapitole \ref{chartBase}. Během vykreslování je však navíc třeba brát v úvahu, zda již tým úroveň dokončil, nebo na ní právě pracuje, kvůli přidělení světlé nebo syté barvy. Tato informace je již předpočítána v datové struktuře.\par
-Jelikož týmy již mohly překročit celkový odhad a graf by přesáhl stanovenou šířku vizualizace, je nutné před vykreslením aktualizovat měřítka.\par
+Princip vykreslování skutečné délky úrovní je opět stejný, vytváří se skládaný graf. Během vykreslování je však třeba brát v úvahu, zda již tým úroveň dokončil, nebo na ní právě pracuje, z důvodu přidělení světlé nebo syté barvy. Tato informace je již předpočítána v datové struktuře.\par
+Protože týmy již mohly překročit celkový odhad a graf by přesáhl stanovenou šířku vizualizace, je nutné před vykreslením aktualizovat měřítka.\par
 Po vykreslení reálných dat je třeba aktualizovat plán. Mohlo dojít ke změně měřítka a také je nutné posunout šrafované oblasti, které jsou závislé na aktuálním postupu týmu. Všechny šrafované oblasti s výjimkou té, která se týká aktuální úrovně, jsou skryty. Šrafování týkající se aktuální úrovně je posunuto na její začátek.
 %% byly přidány další levely a je jich teď 6 -> ukázka s 6 levely
 \subsection{Události}
@@ -732,15 +732,21 @@ Po skončení hry, nebo i v jejím průběhu je možné se přepnout do druhého
 Časová osa je vynechána, ale jsou zobrazeny limity pro jednotlivé úrovně, se kterými lze srovnávat skutečné hodnoty.
 
 \section{Angular aplikace}
+%Vytvořená vizualizace byla začleněna do připravené kostry portletu s integrovanou Angular aplikací.
+Vytvořená vizualizace byla integrována do Angular aplikace a později byla začleněna do připravené kostry portletu \verb|kypo2-portlet-empty-angular|. Aplikace obsahuje jeden hlavní modul a její architektura je znázorněna na obrázku \ref{fig:architecture}.
 \begin{figure}[H]
   \begin{center}
     \includegraphics[width=12.7cm]{images/architektura-4.pdf}
   \end{center}
-  \caption{Grafické znázornění architektury aplikace.}
+  \caption{Grafické znázornění architektury aplikace, kde je zobrazena hierarchie uživatelského rozhraní a implementované služby.}
   \label{fig:architecture}
 \end{figure}
-%% možná obrázek
+%Kořenová komponenta obsahuje dvě komponenty \verb|GameAnalysisComponent| a \verb|ColumnHeaderComponent|, které tvoří uživatelské rozhraní.\par
+Uživatelské rozhraní je tvořeno dvěma komponentami \verb|GameAna|\-\verb|lysisComponent| a \verb|ColumnHeaderComponent|, které jsou součástí kořenové komponenty. Zahrnuje také dvě direktivy, určené pro manipulaci s vizualizací. Komponenta vizualizace pak využívá služeb pro načítání dat.
 \subsection{Komponenty}
+Hlavní komponentou je \verb|GameAnalysisComponent|, která vykresluje téměř všechny části vizualizace. V závislosti na požadovaném zdroji dat využívá jednu ze služeb pro načítání pomocí REST API nebo z CSV souboru. Poté na získaných datech provede řazení a filtrování popsané v podkapitole \ref{interactions} a postupně vykreslí všechny uvedené části vizualizace \ref{chartStructure}.\par
+Druhá komponenta \verb|ColumnHeaderComponent|, která je součástí hlavní, představuje ovládací prvky umožňující řazení týmů ve vizualizaci. Každý z těchto ovládacích prvků je tvořen jednou instancí komponenty. Obsahuje popisek sloupce (team, time), nad kterým se má řadit, případně popisek úrovně, podle jejíž délky se mají týmy seřadit. Řazení je provedeno po kliknutí na tento popisek, přičemž se střídá vzestupné a sestupné pořadí.
+
 \subsection{Služby}
 \subsection{Direktivy}
 %% je to česky direktiva?
@@ -779,6 +785,7 @@ Aplikace využívá dva zdroje rozhraní, vrácené odpovědi jsou ve formátu J
 Aplikace využívá první zdroj k získání informace o počtu úrovní, aby bylo možné připravit datovou strukturu plánu hry. Informace o časovém odhadu jednotlivých úrovní nejsou k dispozici z žádného zdroje. Z tohoto důvodu jsou časové limity specifikovány v rámci konfigurace aplikace \ref{config}. Jelikož není dostupný seznam her, ze kterého by bylo možné hru vybrat, bylo rozhodnuto, že ID hry, která má být zobrazena, bude také součástí konfigurace.\par
 
 \subsection{Načítání dat z CSV souboru}
+% NĚCO O NAHRÁNÍ SOUBORU?
 %která vrací načtená data jako již popsanou datovou strukturu, se kterou může komponenta vizualizace přímo pracovat.
 Načítání dat z CSV souborů zajišťuje služba \verb|LoadCsvDataService|. Ta opět vrací data v potřebném formátu. Pro samotné načtení a parsování souborů používá knihovnu Papa Parse, která využívá streamování a parsuje soubory po řádcích. Lze tak už během parsování pracovat s jednotlivými řádky souboru.\par
 Každý záznam události v CSV souboru obsahuje tyto údaje:
@@ -796,9 +803,9 @@ Již během parsování souboru jsou oba údaje s časem převedeny na časové 
 \subsection{Zpracování dat}
 Pole načtených událostí je následně v rámci služby zpracováno během jednoho cyklu do výsledné datové struktury. Pro každý tým je vytvořen objekt, do kterého se postupně ukládají určité události, jako např. využité nápovědy, nebo se do něho zaznamenávají informace o průběhu hry. Mezi daty získanými z CSV a skrze API jsou rozdíly, princip práce s událostmi je však následující:
 \begin{itemize}
-  \item game started – uloží čas začátku hry daného týmu,
-  \item correct flag submited, případně game finished, game exited – jelikož tyto události ukončují úroveň, jejich čas je uložen k dané úrovni jako její celkový čas,
-  \item hint taken, solution displayed a level skipped – přidá danou událost do pole událostí.
+  \item \verb|game started| – uloží čas začátku hry daného týmu,
+  \item \verb|correct flag submited, game finished| – jelikož tyto události ukončují úroveň, jejich čas je uložen k dané úrovni jako její celkový čas,
+  \item \verb|hint taken, solution displayed, level skipped| – přidá danou událost do pole událostí.
 \end{itemize}
 Po průchodu všech událostí je dodatečně dopočítán celkový čas a také je zjištěna aktuální úroveň, na které tým pracuje.
 
