@@ -469,10 +469,14 @@ Komponenty mají životní cyklus a jsou vytvářeny a odebírány v závislosti
 
 \subsection{Direktivy}
 %Šablony kombinují HTML kód se značkami Angularu, tzv. direktivami, které mohou upravit DOM stránky ještě před tím, než je zobrazený uživateli.
-Angular rozšiřuje HTML šablony o tzv. direktivy. Ty aplikují na šablony logiku a mohou upravit DOM stránky ještě před tím, než je zobrazen uživateli. Jedná se o třídy označené dekorátorem \verb|@Directive|.\par
+Angular rozšiřuje HTML šablony o tzv. direktivy. Direktivy aplikují na šablony logiku a mohou upravit DOM stránky ještě před tím, než je zobrazen uživateli. Jedná se o třídy označené dekorátorem \verb|@Directive|.\par
 Komponenty jsou zvláštním případem direktiv, dekorátor komponenty je rozšířeným dekorátorem direktivy. Celkem jsou tři typy direktiv. \cite{angulario}
 \begin{itemize}
-  \item Komponenty, tedy direktivy se šablonami. Mají vlastní dekorátor, který je rozšířený o vlastnosti týkající se šablon.
+  \item Komponenty, což jsou direktivy se šablonami. Mají vlastní dekorátor, který je rozšířený o vlastnosti týkající se právě šablon. Komponenta je v šabloně reprezentována vlastní značkou jako na následujícím příkladu.
+  %Následující příklad ukazuje, jakým způsobem je komponenta s názvem UsersListComponent reprezentována v šabloně.
+\begin{lstlisting}[showstringspaces=false,language=html]
+<app-users-list>
+\end{lstlisting}
   \item Strukturální, které mění DOM přidáváním nebo odebíráním elementů. Patří mezi ně například \verb|ngIf| pro podmíněné zobrazení kódu nebo \verb|ngFor| pro generování prvků v cyklu. Následující příklad vygeneruje odstavec pro každého uživatele.
 \begin{lstlisting}[showstringspaces=false,language=html]
 <p *ngFor="let user of users"></p>
@@ -516,8 +520,8 @@ Papa Parse je knihovna pro JavaScript, která je určená pro parsování textu 
 Mezi výhody této knihovny patří: \cite{papa}
 \begin{itemize}
   \item lze specifikovat oddělovač jednotlivých záznamů,
-  \item soubory lze načítat lokálně i vzdáleně skrze HTTP zadáním URL souboru,
-  \item umožňuje streamování a lze tak zpracovávat i velké soubory,
+  \item soubory lze načítat i vzdáleně skrze HTTP zadáním URL souboru,
+  \item umožňuje streamování a lze tak zpracovávat velké soubory,
   \item zabraňuje blokování stránky použitím dalšího vlákna během parsování, tuto funkci lze nastavit pomocí worker: true,
   \item umožňuje dynamické typování zpracovaných dat (na number, boolean)
   \item ošetřuje chyby vzniklé při parsování.
@@ -733,7 +737,7 @@ Po skončení hry, nebo i v jejím průběhu je možné se přepnout do druhého
 
 \section{Angular aplikace}
 %Vytvořená vizualizace byla začleněna do připravené kostry portletu s integrovanou Angular aplikací.
-Vytvořená vizualizace byla integrována do Angular aplikace a později byla začleněna do připravené kostry portletu \verb|kypo2-portlet-empty-angular|. Aplikace obsahuje jeden hlavní modul a její architektura je znázorněna na obrázku \ref{fig:architecture}.
+Vytvořená vizualizace byla integrována do Angular aplikace a později byla začleněna do kostry portletu \verb|kypo2-portlet-empty-angular|. Aplikace obsahuje jeden hlavní modul a její architektura je znázorněna na obrázku \ref{fig:architecture}.
 \begin{figure}[H]
   \begin{center}
     \includegraphics[width=12.7cm]{images/architektura-4.pdf}
@@ -747,9 +751,14 @@ Uživatelské rozhraní je tvořeno dvěma komponentami \verb|GameAna|\-\verb|ly
 Hlavní komponentou je \verb|GameAnalysisComponent|, která vykresluje téměř všechny části vizualizace. V závislosti na požadovaném zdroji dat využívá jednu ze služeb pro načítání pomocí REST API nebo z CSV souboru. Poté na získaných datech provede řazení a filtrování popsané v podkapitole \ref{interactions} a postupně vykreslí všechny uvedené části vizualizace \ref{chartStructure}.\par
 Druhá komponenta \verb|ColumnHeaderComponent|, která je součástí hlavní, představuje ovládací prvky umožňující řazení týmů ve vizualizaci. Každý z těchto ovládacích prvků je tvořen jednou instancí komponenty. Obsahuje popisek sloupce (team, time), nad kterým se má řadit, případně popisek úrovně, podle jejíž délky se mají týmy seřadit. Řazení je provedeno po kliknutí na tento popisek, přičemž se střídá vzestupné a sestupné pořadí.
 
-\subsection{Služby}
 \subsection{Direktivy}
-%% je to česky direktiva?
+Další součástí aplikace jsou dvě direktivy, které slouží k ovládání vizualizace. Obě direktivy jsou atributové a jsou umístěny na hlavním grafu vizualizace.\par
+\begin{lstlisting}[showstringspaces=false,language=html]
+<div id="chart" mouseWheel mouseMove></div>
+\end{lstlisting}
+První z nich \verb|MouseWheelDirective| umožňuje zoomování vizualizace. Direktiva poslouchá události vzniklé otáčením kolečka myši, počítá posunutí a rozhoduje o směru otáčení. Na základě zjištěného směru emituje nové události \verb|mouseWheelDown| nebo \verb|mouseWheelUp|. Na tyto události již reagují obslužné metody komponenty, které zvětšují nebo zmenšují měřítko vizualizace. Během zoomování je také třeba v události uchovávat pozici kurzoru. Je pak možné přibližovat graf v bodě, na který kurzor ukazuje, čehož je dosaženo vhodným posunutím grafu.\par
+Další direktiva \verb|MouseMoveDirective| slouží pro posunování viditelného výřezu vizualizace po jejím přiblížení. Tato direktiva poslouchá události stisknutí tlačítka, pohybu myši a uvolnění tlačítka. Během pohybu myší se stisknutým tlačítkem emituje události „tažení“. Tuto událost opět obsluhuje metoda vizualizace, která mění posunutí výřezu v závislosti na hodnotách obsažených v události.
+%PŘIDAT PŘÍPADNĚ CTRL NA ZOOM!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 \section{Načítání dat}
 Aplikace dokáže načítat data z CSV souborů se záznamy ze hry a také pomocí rozhraní, které poskytuje podobné záznamy v jiném formátu. Pro oba zdroje existuje v aplikaci služba, která načítání dat zajištuje.
@@ -809,7 +818,7 @@ Pole načtených událostí je následně v rámci služby zpracováno během je
 \end{itemize}
 Po průchodu všech událostí je dodatečně dopočítán celkový čas a také je zjištěna aktuální úroveň, na které tým pracuje.
 
-\section{Ovládací prvky}
+\section{Ovládání vizualizace}
 popisky nahoře - samostatná komponenta
 %\subsection{Řazení}
 datová struktura zkopírována, kopie je seřazena a podle ní graf překreslen
