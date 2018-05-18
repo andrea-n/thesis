@@ -832,6 +832,7 @@ Uživatel může s~aplikací interagovat následujícími způsoby:
 \begin{itemize}
   \item může řadit jednotlivé řádky týmů, a~to podle názvu, celkového času nebo času kterékoliv úrovně,
   \item filtrovat týmy, konkrétně podle toho, zda již hru dokončili nebo ji stále hrají,
+  \item přepínat mezi oběma pohledy vizualizace,
   \item přibližovat a~oddalovat graf vizualizace a~posunovat přiblížený výřez.
 \end{itemize}
 
@@ -840,6 +841,8 @@ Seřazení týmů je provedeno po kliknutí na popisek v~horní části vizualiz
 Komponenta vizualizace si vždy uchovává původní nezměněnou strukturu týmů. Během řazení je vytvořena kopie této struktury, která je následně seřazena a~vykreslena.
 \subsection{Filtrování}
 Filtrování týmů je možné provést výběrem jedné z~možností v~rozbalovací nabídce. Z~hlediska implementace je filtrování realizováno podobným způsobem jako řazení. Původní struktura zůstává zachována a~nevyhovující prvky jsou odstraněny jen z~její kopie. Tak je vždy možné se vrátit do původního stavu.
+\subsection{Změna pohledu}
+Pohled vizualizace lze přepínat opět výběrem z rozbalovací nabídky. Mezi oběma pohledy vizualizace je rozdíl zejména v tom, zda se vykresluje první transparentní vrstva grafu. Ta leží ještě před první úrovní a odpovídá času před začátkem hry každého týmu, čímž posouvá začátek první úrovně podle toho, kdy tým hru skutečně začal.
 \subsection{Zoom}
 Graf vizualizace je možné v~určitých mezích přibližovat a~oddalovat pomocí kolečka myši. Výřez pak lze tažením posunovat. Princip zpracování těchto událostí je popsán u~příslušných direktiv~\ref{directives}.\par
 Komponenta uchovává hodnotu přiblížení v~proměnné \verb|zoomValue|. Se zvyšováním hodnoty této proměnné se zvětšuje šířka elementu s~grafem, přesahující část je však skryta pomocí CSS vlastností rodičovského elementu. Dále se uchovává hodnota \verb|panValue| značící posunutí grafu, která se mění tažením myši uvnitř grafu. 
