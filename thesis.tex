@@ -698,9 +698,9 @@ SVG kód je odpovídajícím způsobem strukturován a~jednotlivé části jsou 
 %ukazka struktury svg ve sbalenem kodu --> struktura vygenerovaneho svg kodu vizualizaci
 \subsection{Základ vizualizace}
 Nejdříve je vygenerován nutný základ vizualizace, především hlavní \verb|<svg>| element, ale také obalující \verb|<g>| elementy.\par
-Šířka \verb|<svg>| je vypočítána na základě šířky rodičovského HTML elementu a~odvíjí se od toho, jakou šířku má viewport\footnote{Viewport je zde oblast, do které prohlížeč vykresluje stránku, tedy viditelná část webové stránky.}. Výpočet výšky závisí na více proměnných. Při výpočtu je brána v~úvahu výška viewportu, počet týmů a~minimální přednastavená výška jednoho řádku vizualizace. Závisí ale také na vypočítané šířce, a~to z~důvodu částečného zachování proporcí.\par
+Šířka \verb|<svg>| je vypočítána na základě šířky rodičovského HTML elementu a~odvíjí se od toho, jakou šířku má viewport\footnote{Viewport je zde oblast, do které prohlížeč vykresluje stránku, tedy viditelná část webové stránky.}. Výpočet výšky závisí na více proměnných. Při výpočtu je brána v~úvahu výška viewportu, počet týmů a~přednastavená minimální a~maximální výška jednoho řádku vizualizace. Závisí ale také na vypočítané šířce, a~to z~důvodu částečného zachování proporcí.\par
 Dále jsou vytvořena a~nastavena měřítka pro obě osy~x a~y. Doménou x-ového měřítka je celková odhadovaná délka hry, pro~y je to množina týmů.\par
-V~této části je také vykreslena osa~x, hustota bodů na této ose respektuje šířku vizualizace. Osa~y se nevykresluje, její úlohu plní sloupec s~názvy týmů na levé straně, který zároveň umožňuje řazení týmů.
+V~této části je také vykreslena osa~x, hustota bodů na této ose respektuje šířku vizualizace a~zjemňuje se během zoomování. Osa~y se nevykresluje, její úlohu plní sloupec s~názvy týmů na levé straně, který zároveň umožňuje řazení týmů.
 %zjemňuje se při zoomování?! dodělat
 %vyznačit nějak x a y?
 
@@ -728,7 +728,7 @@ Protože týmy již mohly překročit celkový odhad a~graf by přesáhl stanove
 Po vykreslení reálných dat je třeba aktualizovat plán. Mohlo dojít ke změně měřítka a~také je nutné posunout šrafované oblasti, které jsou závislé na aktuálním postupu týmu. Všechny šrafované oblasti s~výjimkou té, která se týká aktuální úrovně, jsou skryty. Šrafování týkající se aktuální úrovně je posunuto na její začátek.
 %% byly přidány další levely a je jich teď 6 -> ukázka s 6 levely
 \subsection{Události}
-Po zobrazení plánu a~postupu týmů se vykreslují jednotlivé události v~podobě ikon. Každý objekt události nese informace o~svém čase, týmu i~úrovni, podle kterých je vykreslen do grafu. Uchovává také typ události, podle kterého je zvolen tvar ikony.
+Po zobrazení plánu a~postupu týmů se vykreslují události v~podobě ikon. Každý objekt události nese informace o~svém čase, týmu, úrovni a také typu události, podle kterého je zvolen tvar ikony.\par Testovaná data ukázala, že se mohou objevovat velké shluky událostí v blízkém, nebo dokonce stejném čase, které se následně překrývají. Události jsou proto děleny do skupin a velmi blízké události, které by se překrývaly, jsou seskupeny. Nepřekrývající se události se vykreslí jako jednotlivé ikony, skupiny překrývajících se událostí jsou pak vykresleny jako větší ikona s~číslem udávajícím počet seskupených událostí.
 %POSUNOVÁNÍ PŘI ZMĚNĚ POHLEDU!
 \subsection{Sloupce}
 Informace vztahující se k~jednotlivým řádkům jsou zaznamenány v~okolních sloupcích. Prvním z~nich je sloupec s~názvy týmů na levé straně, ten zároveň zastupuje osu~y. Druhý sloupec na pravé straně udává celkový čas, který již tým ve hře strávil.\par
@@ -765,7 +765,7 @@ Další součástí aplikace jsou dvě direktivy, které slouží k~ovládání 
 \begin{lstlisting}[showstringspaces=false,language=html]
 <div id="chart" mouseWheel mouseMove></div>
 \end{lstlisting}
-První z~nich \verb|MouseWheelDirective| umožňuje zoomování vizualizace. Direktiva poslouchá události vzniklé otáčením kolečka myši a pokud je zároveň stisknuta klávesa Ctrl, počítá posunutí a~rozhoduje o~směru otáčení. Na základě zjištěného směru emituje nové události \verb|mouseWheelDown| nebo \verb|mouseWheelUp|. Na tyto události již reagují obslužné metody komponenty, které zvětšují nebo zmenšují měřítko vizualizace. Během zoomování je také třeba v~události uchovávat pozici kurzoru. Je pak možné přibližovat graf v~bodě, na který kurzor ukazuje, čehož je dosaženo vhodným posunutím grafu.\par
+První z~nich \verb|MouseWheelDirective| umožňuje zoomování vizualizace. Direktiva poslouchá události vzniklé otáčením kolečka myši a~pokud je zároveň stisknuta klávesa Ctrl, počítá posunutí a~rozhoduje o~směru otáčení. Na základě zjištěného směru emituje nové události \verb|mouseWheelDown| nebo \verb|mouseWheelUp|. Na tyto události již reagují obslužné metody komponenty, které zvětšují nebo zmenšují měřítko vizualizace. Během zoomování je také třeba v~události uchovávat pozici kurzoru. Je pak možné přibližovat graf v~bodě, na který kurzor ukazuje, čehož je dosaženo vhodným posunutím grafu.\par
 Další direktiva \verb|MouseMoveDirective| slouží pro posunování viditelného výřezu vizualizace po jejím přiblížení. Tato direktiva poslouchá události stisknutí tlačítka, pohybu myši a~uvolnění tlačítka. Během pohybu myší se stisknutým tlačítkem emituje události „tažení“. Tuto událost opět obsluhuje metoda vizualizace, která mění posunutí výřezu v~závislosti na hodnotách obsažených v~události.
 %PŘIDAT PŘÍPADNĚ CTRL NA ZOOM!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -859,7 +859,7 @@ Konfigurace aplikace se nachází v~souboru \verb|app.config.ts| a~obsahuje nás
   \item \verb|lightenedColors| – světlé barvy již odehraných úrovní,
   \item \verb|planColors| – barvy svislých čar značících časové limity,
   \item \verb|darkColor| – tmavá barva pro ikony událostí v~aktuální úrovni,
-  \item \verb|minBarHeight| – číslo, které určuje minimální výšku každého řádku vizualizace v~pixelech.
+  \item \verb|minBarHeight| a \verb|maxBarHeight| – čísla, která určují minimální a maximální výšku každého řádku vizualizace v~pixelech.
   %\item\item \verb|gameColors|, \verb|planColors|, \verb|lightenedColors| – určuje jednotlivé barvy úrovní ve vizualizaci, gameColors značí aktuální úrovně, lightenedColors již odehrané úrovně a planColor barvy svislých čar pro časové limity, zadávají se jako pole barev v hexadecimálním kódu,
 
 \end{itemize}
