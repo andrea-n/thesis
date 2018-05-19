@@ -765,7 +765,7 @@ Další součástí aplikace jsou dvě direktivy, které slouží k~ovládání 
 \begin{lstlisting}[showstringspaces=false,language=html]
 <div id="chart" mouseWheel mouseMove></div>
 \end{lstlisting}
-První z~nich \verb|MouseWheelDirective| umožňuje zoomování vizualizace. Direktiva poslouchá události vzniklé otáčením kolečka myši, počítá posunutí a~rozhoduje o~směru otáčení. Na základě zjištěného směru emituje nové události \verb|mouseWheelDown| nebo \verb|mouseWheelUp|. Na tyto události již reagují obslužné metody komponenty, které zvětšují nebo zmenšují měřítko vizualizace. Během zoomování je také třeba v~události uchovávat pozici kurzoru. Je pak možné přibližovat graf v~bodě, na který kurzor ukazuje, čehož je dosaženo vhodným posunutím grafu.\par
+První z~nich \verb|MouseWheelDirective| umožňuje zoomování vizualizace. Direktiva poslouchá události vzniklé otáčením kolečka myši a pokud je zároveň stisknuta klávesa Ctrl, počítá posunutí a~rozhoduje o~směru otáčení. Na základě zjištěného směru emituje nové události \verb|mouseWheelDown| nebo \verb|mouseWheelUp|. Na tyto události již reagují obslužné metody komponenty, které zvětšují nebo zmenšují měřítko vizualizace. Během zoomování je také třeba v~události uchovávat pozici kurzoru. Je pak možné přibližovat graf v~bodě, na který kurzor ukazuje, čehož je dosaženo vhodným posunutím grafu.\par
 Další direktiva \verb|MouseMoveDirective| slouží pro posunování viditelného výřezu vizualizace po jejím přiblížení. Tato direktiva poslouchá události stisknutí tlačítka, pohybu myši a~uvolnění tlačítka. Během pohybu myší se stisknutým tlačítkem emituje události „tažení“. Tuto událost opět obsluhuje metoda vizualizace, která mění posunutí výřezu v~závislosti na hodnotách obsažených v~události.
 %PŘIDAT PŘÍPADNĚ CTRL NA ZOOM!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -844,7 +844,7 @@ Filtrování týmů je možné provést výběrem jedné z~možností v~rozbalov
 \subsection{Změna pohledu}
 Pohled vizualizace lze přepínat opět výběrem z~rozbalovací nabídky. Mezi oběma pohledy vizualizace je rozdíl zejména v~tom, zda se vykresluje první transparentní vrstva grafu. Ta leží ještě před první úrovní a~odpovídá času před začátkem hry každého týmu, čímž posouvá začátek první úrovně podle toho, kdy tým hru skutečně začal.
 \subsection{Zoom}
-Graf vizualizace je možné v~určitých mezích přibližovat a~oddalovat pomocí kolečka myši. Výřez pak lze tažením posunovat. Princip zpracování těchto událostí je popsán u~příslušných direktiv~\ref{directives}.\par
+Graf vizualizace je možné v~určitých mezích přibližovat a~oddalovat pomocí kolečka myši se stisknutou klávesou Ctrl. Výřez pak lze tažením posunovat. Princip zpracování těchto událostí je popsán u~příslušných direktiv~\ref{directives}.\par
 Komponenta uchovává hodnotu přiblížení v~proměnné \verb|zoomValue|. Se zvyšováním hodnoty této proměnné se zvětšuje šířka elementu s~grafem, přesahující část je však skryta pomocí CSS vlastností rodičovského elementu. Dále se uchovává hodnota \verb|panValue| značící posunutí grafu, která se mění tažením myši uvnitř grafu. 
 
 \section{Konfigurace} \label{config}
@@ -879,7 +879,19 @@ Protože komponenty zahrnují nejen třídu, ale i~šablonu, je u~nich třeba ta
 
 
 \chapter{Závěr}
-možné přidat bodové hodnocení, získávat odněkud časový plán
+Výsledkem této práce je portlet s~integrovanou aplikací vizualizace, která je postavena na frameworku Angular a~knihovně D3.js. Portlet je určen pro nasazení do webového portálu Kybernetického polygonu za účelem vizualizace průběhu bezpečnostních her, které se v~prostředí KYPO odehrávají. Vizualizace poskytuje přehled o~postupu hráčů znázorněním doby strávené v~každé úrovni a~porovnáním s~časovým plánem. Zobrazuje akce poukazující na problémy a~poskytuje srovnání jednotlivých týmů pomocí řazení. Mezi další funkce patří filtrování týmů, přibližování grafu vizualizace a~také dvě zobrazení poskytující lehce odlišný pohled.\par
+Vizualizace byla implementována za použití reálných dat z~CSV souborů, na jejichž základě byly oproti původnímu návrhu přidány nebo upraveny některé vlastnosti. Později byla přidána možnost načítání dat skrze REST API, což v~budoucnosti umožní vizualizovat data hry již v~jejím průběhu.\par
+Pro budoucí použití by bylo vhodné, aby aplikace mohla získávat reálné informace o~časových limitech jednotlivých úrovní hry, které je nyní nutné udržovat pouze v~rámci konfigurace.\par
+Výsledný portlet je otestován a~nasazen na testovacím serveru KYPO. Vizualizace je nyní napojena na dočasnou náhradu API s~jedním vzorkem dat a~je připravena na přepnutí na produkční REST API změnou URL v~konfiguraci. Také je možné vizualizovat data z~CSV souboru jeho nahráním skrze tlačítko v~aplikaci.
+
+
+%možné přidat bodové hodnocení, získávat odněkud časový plán
+%dát odkaz taky na ''API'', aby bylo videt, ze to odpovida datum
+%po odstraneni duplicit, seskupeni ikon atd. se povedlo neco vizualizovat
+
+%doplnit ze se osa zjemnuje a gropovani ikon a taky Ctrl na zoom!!!!
+
+%přepsat výpočet výšky - přibyl maxBarHeight a taky do konfigu!
 
 \printbibliography
 
