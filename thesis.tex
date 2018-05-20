@@ -57,11 +57,9 @@
     advisor       = {RNDr. Radek Ošlejšek, Ph.D.},
     title         = {Vizualizace pro dohled a analýzu bezpečnostních her},
     TeXtitle      = {Vizualizace pro dohled a~analýzu bezpečnostních her},
-    keywords      = {KYPO, Capture the flag, CtF, bezpečnostní hry, vizualizace, D3.js, Angular, ...},
-    TeXkeywords   = {KYPO, Capture the flag, CtF, bezpečnostní hry, vizualizace, D3.js, Angular, \ldots},
-    abstract      = {This is the abstract of my thesis, which can
-
-                     span multiple paragraphs.},
+    keywords      = {KYPO, Capture the flag, CtF, bezpečnostní hry, vizualizace, D3.js, Angular},
+    TeXkeywords   = {KYPO, Capture the flag, CtF, bezpečnostní hry, vizualizace, D3.js, Angular},
+    abstract      = {Cílem této práce je vytvoření webové aplikace pro vizualizaci dat získávaných během bezpečnostních her v prostředí KYPO, která bude sloužit pro sledování průběhu těchto her a jejich analýzu. Práce představuje prostředí KYPO a dále se zabývá návrhem, implementací a testováním bezpečnostních her v tomto prostředí. Popisuje také použité technologie a implementaci výsledné vizualizace.},
     thanks        = {These are the acknowledgements for my thesis, which can
 
                      span multiple paragraphs.}
@@ -95,8 +93,9 @@
 \floatsetup[table]{capposition=top}
 \begin{document}
 \chapter{Úvod}
-
-Cílem této práce je poskytnout vyučujícím vizuální reprezentaci dat získávaných v průběhu bezpečnostních her, a umožnit jim tak přehled o situaci a stavu jednotlivých hráčů.
+%které jsou potřebné pro předvídání kybernetických útoků a při budování obrany proti nim.
+Bezpečnostní hry jsou prostředkem k prohlubování a procvičování znalostí v oblasti kybernetické bezpečnosti, kdy díky zapojení do hry jsou znalosti využívány aktivním způsobem. Prostředí Kybernetického polygonu, pro které byla implementována praktická část této práce, je mimo jiné využíváno k výuce prostřednictvím těchto her. Za účelem jejich zdokonalování je třeba sledovat a analyzovat jejich skutečný průběh. Přehled o průběhu her je ale důležitý také pro vyučující, kteří je vedou, protože tak získají přehled o aktuálním postupu hráčů a mohou identifikovat případné problémy.\par
+Data poskytující potřebné informace o průběhu hry jsou k dispozici díky zaznamenávání akcí účastníků v jejím průběhu. Cílem této práce je vytvořit vizuální reprezentaci těchto dat, a poskytnout tak vyučujícím přehled o situaci a postupu jednotlivých hráčů.
 %Cílem této práce je poskytnout vyučujícím vizuální reprezentaci získávaných dat, která by jim umožnila lepší přehled o situaci a stavu jednotlivých hráčů.
 Hlavní obsah textové části je rozdělen do několika kapitol.
 \begin{itemize}
@@ -844,8 +843,8 @@ Filtrování týmů je možné provést výběrem jedné z~možností v~rozbalov
 \subsection{Změna pohledu}
 Pohled vizualizace lze přepínat opět výběrem z~rozbalovací nabídky. Mezi oběma pohledy vizualizace je rozdíl zejména v~tom, zda se vykresluje první transparentní vrstva grafu. Ta leží ještě před první úrovní a~odpovídá času před začátkem hry každého týmu, čímž posouvá začátek první úrovně podle toho, kdy tým hru skutečně začal.
 \subsection{Zoom}
-Graf vizualizace je možné v~určitých mezích přibližovat a~oddalovat pomocí kolečka myši se stisknutou klávesou Ctrl. Výřez pak lze tažením posunovat. Princip zpracování těchto událostí je popsán u~příslušných direktiv~\ref{directives}.\par
-Komponenta uchovává hodnotu přiblížení v~proměnné \verb|zoomValue|. Se zvyšováním hodnoty této proměnné se zvětšuje šířka elementu s~grafem, přesahující část je však skryta pomocí CSS vlastností rodičovského elementu. Dále se uchovává hodnota \verb|panValue| značící posunutí grafu, která se mění tažením myši uvnitř grafu. 
+Graf vizualizace je možné v~určitých mezích přibližovat a~oddalovat pomocí kolečka myši se stisknutou klávesou Ctrl. Výřez je pak možné tažením posunovat. Princip zpracování těchto událostí je popsán u~příslušných direktiv~\ref{directives}.\par
+Komponenta uchovává hodnotu přiblížení v~proměnné \verb|zoomValue|. Se zvyšováním hodnoty této proměnné se zvětšuje šířka elementu s~grafem, přesahující část je však skryta pomocí CSS vlastností rodičovského elementu. Dále se uchovává hodnota \verb|panValue| značící posunutí grafu, která se mění tažením myší v oblasti grafu. 
 
 \section{Konfigurace} \label{config}
 Aplikace dovoluje konfigurovat některé její parametry. V~Angular aplikacích lze konfiguraci řešit vytvořením třídy k~tomu určené, v~tomto případě \verb|AppConfig|, a~konstanty, která je instancí této třídy. Tato konstanta uchovává dané nastavení a~je vkládána do komponenty pomocí dependency injection.\par
@@ -855,28 +854,36 @@ Konfigurace aplikace se nachází v~souboru \verb|app.config.ts| a~obsahuje nás
   \item \verb|gameId| – specifikuje ID hry, která má být načtena,
   \item \verb|levelsTimePlan| – udává odhadovanou dobu řešení pro každou úroveň, zadává se v~sekundách jako pole čísel např.\par
   			\verb|[1200, 1500, 1900, 2100]|,
-  \item \verb|gameColors| – určuje jednotlivé barvy úrovní ve vizualizaci, barvy se zadávají jako pole hexadecimálních kódů,
-  \item \verb|lightenedColors| – světlé barvy již odehraných úrovní,
-  \item \verb|planColors| – barvy svislých čar značících časové limity,
-  \item \verb|darkColor| – tmavá barva pro ikony událostí v~aktuální úrovni,
-  \item \verb|minBarHeight| a \verb|maxBarHeight| – čísla, která určují minimální a maximální výšku každého řádku vizualizace v~pixelech.
-  %\item\item \verb|gameColors|, \verb|planColors|, \verb|lightenedColors| – určuje jednotlivé barvy úrovní ve vizualizaci, gameColors značí aktuální úrovně, lightenedColors již odehrané úrovně a planColor barvy svislých čar pro časové limity, zadávají se jako pole barev v hexadecimálním kódu,
-
+%  \item \verb|gameColors| – určuje jednotlivé barvy úrovní ve vizualizaci, barvy se zadávají jako pole hexadecimálních kódů,
+%  \item \verb|lightenedColors| – světlé barvy již odehraných úrovní,
+%  \item \verb|planColors| – barvy svislých čar značících časové limity,
+%  \item \verb|darkColor| – tmavá barva pro ikony událostí v~aktuální úrovni,
+  \item \verb|gameColors|, \verb|planColors|, \verb|lightenedColors| – určuje jednotlivé barvy úrovní ve vizualizaci, které se zadávají  jako pole barev v hexadecimálním kódu, \verb|gameColors| značí aktuální úrovně, \verb|lightenedColors| již odehrané úrovně a \verb|planColor| barvy čar pro časové limity,
+  \item \verb|minBarHeight| a \verb|maxBarHeight| – čísla, která určují minimální a maximální výšku každého řádku vizualizace v~pixelech,
+  \item \verb|maxZoomValue| a \verb|zoomStep| – hodnota maximálního přiblížení vizualizace,
+  \item \verb|zoomStep| – velikost jednoho kroku během zoomování,
+  \item \verb|defaultView| – výchozí pohled, který je vybrán po načtení aplikace.
 \end{itemize}
 
 \section{Testy}
 Angular umožňuje použití více nástrojů určených pro testování. Při instalaci projektu a~při vytváření komponent skrze Angular CLI je však již nainstalován testovací framework Jasmine a~jsou připraveny základy testů komponent. Pro spouštění a~vyhodnocování testů je používán nástroj Karma. Ten umožňuje spouštět testy z~příkazového řádku, testovat kód oproti různým prohlížečům a~zobrazovat výsledky testů.\par
-Protože komponenty zahrnují nejen třídu, ale i~šablonu, je u~nich třeba také testovat, zda třída a~šablona komponenty spolu správně spolupracují. Při testech nejsou používány skutečné služby a~konfigurace, ale pouze jejich náhrada (mock-up). Během vývoje byly vytvořeny tyto testy pro hlavní komponentu vizualizace:
+Protože komponenty zahrnují nejen třídu, ale i~šablonu, je u~nich třeba také testovat, zda třída a~šablona komponenty spolu správně spolupracují. Při testech nejsou používány skutečné služby a~konfigurace, ale pouze jejich náhrada (mock-up). Během vývoje byly vytvořeny tyto testy hlavní komponenty vizualizace:
 \begin{itemize}
   \item test, zda byla komponenta vytvořena,
-  \item testy metody pro počítání barvy,
-  \item testy metody pro převod času,
+  \item testy metod pro počítání barvy a převod času,
   \item ověření správného počtu úrovní,
   \item ověření správného počtu týmů,
   \item ověření správného řazení týmů podle jména, úrovně a~celkového času,
   \item zjištění, zda jsou události ve správném počtu a~zda mají správnou barvu.
 \end{itemize}
-
+Otestovány jsou také obě služby pro načítání dat. Testovány jsou následující podmínky:
+\begin{itemize}
+  \item zda služba \verb|LoadCsvDataService| hlásí chybu při parsování souboru, který nemá formát CSV nebo není validní,
+  \item vrací správná data pro validní CSV soubory,
+  \item zda služba \verb|LoadDataService| odesílá dva správné požadavky na API,
+  \item zda hlásí chybu při neúspěchu,
+  \item v případě úspěchu vrací správná data.
+\end{itemize}
 
 \chapter{Závěr}
 Výsledkem této práce je portlet s~integrovanou aplikací vizualizace, která je postavena na frameworku Angular a~knihovně D3.js. Portlet je určen pro nasazení do webového portálu Kybernetického polygonu za účelem vizualizace průběhu bezpečnostních her, které se v~prostředí KYPO odehrávají. Vizualizace poskytuje přehled o~postupu hráčů znázorněním doby strávené v~každé úrovni a~porovnáním s~časovým plánem. Zobrazuje akce poukazující na problémy a~poskytuje srovnání jednotlivých týmů pomocí řazení. Mezi další funkce patří filtrování týmů, přibližování grafu vizualizace a~také dvě zobrazení poskytující lehce odlišný pohled.\par
