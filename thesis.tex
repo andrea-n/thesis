@@ -138,7 +138,7 @@ Z hlediska zaměření se na útok nebo obranu mohou mít tyto hry různé modif
   \item obrana nebo útok – kdy jeden tým pouze brání a~druhý útočí.
 \end{itemize}
 Útočná varianta je snadno škálovatelná a~může se jí zúčastnit libovolný počet týmů. Účastníci následují daný scénář a~hra bývá rozdělena do několika částí. Ty mohou být v~závislosti na zvoleném formátu procházeny postupně, nebo volně podle výběru.\par
-Oproti tomu varinta s~obranou i~útokem je vhodná pro menší počet týmů. Každý tým dostane svou vlastní síť a~čas na návrh obrany a~útoků. Body pak týmy získávají za nalezené vlajky i~obranu své sítě. \cite{Masarik2017thesis}
+Oproti tomu varianta s~obranou i~útokem je vhodná pro menší počet týmů. Každý tým dostane svou vlastní síť a~čas na návrh obrany a~útoků. Body pak týmy získávají za nalezené vlajky i~obranu své sítě. \cite{Masarik2017thesis}
 
 \section{Capture the Flag hry v KYPO} \label{ctfGamesKYPO}
 Pro výukové účely byl do KYPO implementován modul pro vytváření a~běh CtF her. Pomocí portletů v~Liferay portálu mohou vyučující hry spravovat a~studenti získají přístup k~rozhraní, které zajistí jejich průchod skrze hru. Také byl vytvořen prototyp hry zaměřený na výuku penetračního testování.\par
@@ -149,7 +149,7 @@ Capture the Flag jsou v~Kybernetickém polygonu navrženy jako útočné (attack
 Hry jsou rozděleny do několika po sobě jdoucích úrovní s~relativně zvyšující se obtížností, zpravidla je jich menší počet (3–5). Každá z~těchto úrovní má definovaný cíl, např. krádež dat ze vzdáleného serveru. Pro dokončení úrovně musí hráč nalézt správný flag, který je ve formě krátkého textového řetězce, typicky je to kontrolní součet nalezených dat. Za nalezení tohoto řešení hráči obdrží odpovídající počet bodů.\par
 %% lze hru koncipovat jako soutěž - je to správně?
 Na začátku hry se týmy seznámí s~pravidly a poté vstoupí do první úrovně. Se vstupem do úrovně se zpřístupní její aktuální zadání společně s~polem pro nalezené řešení. Na vyřešení úrovně má tým časový limit, který může s~bodovou penalizací překročit. Tento po sekundách odpočítávaný limit má přiblížit simulaci reálným situacím, kde čas může hrát roli. Zároveň poskytuje hráčům určitý časový odhad a~srovnání náročnosti s~ostatními úrovněmi.\par
-Pro případ, že již tým nemá dostatek času nebo má potíže s~vyřešením úkolu, je v~každé úrovni k~dispozici určitý počet nápověd za cenu bodové penalizace. Nápovědy jsou volitelné a~lze je vybírat na základě zobrazené informace o~jejich povaze, např. jaký nástroj nebo příkaz zvolit či jak nástroj použít. Bodová penalizace se může pro různé nápovědy lišit. V~případě, že ani s~využitím nápověd tým nedokáže úroveň dokončit, má ještě možnost zobrazit si její řešení. To je užitečné zejména v~případech, kdy hra probíhá vzdáleně a~účastníci nejsou v~jedné místosti s~vyučujícím. Dále je týmu umožněno přeskočit úroveň a~přejít do další, nebo hru ukončit. Co se týká externích zdrojů nebo poznámek, jejich použití je v~reálných situacích běžné, a~proto může být jejich využití během hry povoleno. \cite{ctfDesign}\par
+Pro případ, že již tým nemá dostatek času nebo má potíže s~vyřešením úkolu, je v~každé úrovni k~dispozici určitý počet nápověd za cenu bodové penalizace. Nápovědy jsou volitelné a~lze je vybírat na základě zobrazené informace o~jejich povaze, např. jaký nástroj nebo příkaz zvolit či jak nástroj použít. Bodová penalizace se může pro různé nápovědy lišit. V~případě, že ani s~využitím nápověd tým nedokáže úroveň dokončit, má ještě možnost zobrazit si její řešení. To je užitečné zejména v~případech, kdy hra probíhá vzdáleně a~účastníci nejsou v~jedné místnosti s~vyučujícím. Dále je týmu umožněno přeskočit úroveň a~přejít do další, nebo hru ukončit. Co se týká externích zdrojů nebo poznámek, jejich použití je v~reálných situacích běžné, a~proto může být jejich využití během hry povoleno. \cite{ctfDesign}\par
 
 \subsection{Implementace}
 %% Doplnit obrázek z portletu/ů!!!!!!
@@ -160,7 +160,7 @@ CtF hry jsou ve webovém portálu KYPO implementovány jako nový modul, jehož 
 \end{itemize}
 Vyučující používá pro správu administrátorský portlet. Ten umožňuje přidávání, modifikaci a~odstraňování jak her, tak i~úrovní v~rámci dané hry. Také lze upravovat úvod nebo pravidla hry a~u~jednotlivých úrovní je možné měnit jejich zadání, časový limit, bodové hodnocení a~nápovědy s~jejich penalizací. Mimo něj však musí vyučující poskytnout topologii sítě a~připravit všechna zařízení ve hře včetně operačního systému, aplikací a~služeb. \cite{ctfDesign, Dankovcikova2015thesis}\par
 %% vytváří typologii opravdu mimo portlet? ano
-Student používá pro přístup do hry odlišný portlet reprezentující herní rozhraní, který poskytuje již popsanou funcionalitu.\par
+Student používá pro přístup do hry odlišný portlet reprezentující herní rozhraní, který poskytuje již popsanou funkcionalitu.\par
 Přístupy k~zařízením v~průběhu hry zajišťuje VNC portlet, který je jedním ze základních modulů portálu. VNC portlet dovoluje sdílení obrazovky virtuálních zařízení skrze VNC\footnote{Virtual Network Computing (VNC) je systém umožňující vzdálené připojení ke grafickému uživatelskému rozhraní.} spojení. Pomocí něj může vyučující přistupovat k~sandboxům ve hře, což je užitečné zvláště v~případech, kdy vyučující a~studenti nejsou společně v~jedné místnosti. \cite{ctfDesign}
 %% je info o VNC portletu správně?
 
@@ -190,7 +190,7 @@ Díky těmto událostem bylo získáno několik poznatků, které vedly k~násle
 \end{itemize}
 Náročnost jednotlivých úrovní není stejná a~na některých úrovních strávilo mnoho účastníků více času, než se očekávalo. Také často měli místo problému s~nalezením řešení potíže spíše s~jeho realizací, jako např. nezkušenost s~příkazovým řádkem nebo opomenutí restartu služby po změně konfigurace.\par
 %% Také často nemívali problém s nalezením řešení, ale měli potíže s jeho realizací, jako např. nezkušenost s příkazovým řádkem nebo opomenutí restartu služby po změně konfigurace.
-Informace poskytované mimo herní platformu bývají rušivé a~nevyhovují ani hráčům, ani vyučujícím. To bylo vypozorováno při několika příležitostech, kdy vyučující hráčům představovali doporučené řešení pro každou úroveň. Nejedná se však jen o~skutečnost, že doplňující informace ze strany vyučujících mohou studentům hru přerušit a~změnit střed jejich pozornosti, ale také o~fakt, že hráči nepostupují stejně rychle a~potřebují tyto informace v~rozdílnou dobu. Zejména, pokud se hra koná na dálku a~účastníci, kteří v~tomto případě dostávají instrukce prostřednictvím e-mailu, by mohli správné řešení obržet příliš brzy, nebo by o~něj museli žádat. Je tedy výhodné, když tuto možnost poskytne přímo herní platforma a~hráči si mohou sami zobrazit řešení v~rozhraní hry. Možnost zobrazení správného řešení bylo jedním z~přidaných vylepšení oproti původní verzi.\par
+Informace poskytované mimo herní platformu bývají rušivé a~nevyhovují ani hráčům, ani vyučujícím. To bylo vypozorováno při několika příležitostech, kdy vyučující hráčům představovali doporučené řešení pro každou úroveň. Nejedná se však jen o~skutečnost, že doplňující informace ze strany vyučujících mohou studentům hru přerušit a~změnit střed jejich pozornosti, ale také o~fakt, že hráči nepostupují stejně rychle a~potřebují tyto informace v~rozdílnou dobu. Zejména, pokud se hra koná na dálku a~účastníci, kteří v~tomto případě dostávají instrukce prostřednictvím e-mailu, by mohli správné řešení obdržet příliš brzy, nebo by o~něj museli žádat. Je tedy výhodné, když tuto možnost poskytne přímo herní platforma a~hráči si mohou sami zobrazit řešení v~rozhraní hry. Možnost zobrazení správného řešení bylo jedním z~přidaných vylepšení oproti původní verzi.\par
 Nápovědy byly v~rámci původního řešení herního modulu hráčům nabízeny postupně v~lineárním pořadí, od základních po ty, co poskytují informací více. Navíc nebyl k~dispozici žádný popis, čeho se daná nápověda týká. V~takovém případě si hráči nejsou jistí, zda jim nápověda pomůže. Nastávaly situace, kdy si vzali nápovědu s~informací, kterou již znali, nebo si nápovědu raději nevzali, protože již v~úrovni pokročili dále a~museli by ztratit body i~za nápovědy, které nepotřebovali. Pro vylepšení systému nápověd bylo implementováno další rozšíření.\par
 Vyučující nemají v~administrátorském portletu přehled o~postupu jednotlivých týmů a~nemohou tak například pomoci těm, kteří jejich pomoc potřebují. Znalosti jednotlivých hráčů či týmů se často liší a~někteří z nich jsou začátečníci s~nedostatečnými předchozími znalostmi. Aby mohli takové hráče včas rozpoznat, bylo nutné se účastníků zeptat nebo sledovat jejich konzole přímo na místě nebo přes KYPO portál. Další vylepšení v podobě zaznamenávání interakcí s~herním modulem umožnilo alespoň omezené sledování jednotlivých kroků hráčů. \cite{ctfDesign}
 
@@ -304,7 +304,7 @@ Na základě požadavků popsaných v~předchozí kapitole \ref{technologyRequir
 \section{D3.js}
 %%vizuální reprezentace dat
 D3.js (Data-Driven Document) je knihovna pro vizualizaci dat v~jazyce JavaScript. Poskytuje funkcionalitu potřebnou pro tvorbu webových vizualizací, které jsou zobrazitelné v~kterémkoliv moderním prohlížeči. Data-Driven značí, že jednotlivé prvky dokumentu jsou svázány s~daty a~jsou podle těchto dat vizuálně transformovány. \par
-Knihovna je navržena jako kolekce spolupracujících modulů, které lze využívat i~samostaně \cite{d3APIReference}. Jednotlivé moduly jsou určeny například pro tvorbu základních tvarů, hierarchických struktur, pro práci s~barvami a měřítky, ale také pro animování a~různé interakce.
+Knihovna je navržena jako kolekce spolupracujících modulů, které lze využívat i~samostatně \cite{d3APIReference}. Jednotlivé moduly jsou určeny například pro tvorbu základních tvarů, hierarchických struktur, pro práci s~barvami a měřítky, ale také pro animování a~různé interakce.
 %Citace na github??????? d3APIReference
 
 \subsection{Základ vizualizací}
@@ -329,9 +329,9 @@ Podstatou je mapování dat na jednotlivé vlastnosti elementů vizualizace. Tí
 Princip vykreslování jednotlivých prvků vizualizace je následující:
 \begin{itemize}
   \item výběr množiny uzlů,
-  \item mapování dat na vybranou množinu,
+  \item vázání dat na vybranou množinu,
   \item případné vytvoření chybějících (nebo vymazání přebytečných) uzlů,
-  \item transformace elementů podle namapovaných dat.
+  \item transformace elementů podle navázaných dat.
 \end{itemize}
 Nejdříve je nutné vybrat prvky dokumentu, které se sváží s~daty. Pokud dosud neexistují, budou vytvořeny (třetí krok). Konkrétní výběr se určí pomocí CSS selektoru.
 %popsat css selektor
@@ -412,7 +412,7 @@ Knihovna poskytuje pouze potřebnou funkcionalitu pro vizualizaci dat, připrave
   \hfill
   \begin{minipage}[b]{0.5\textwidth}
     \includegraphics[width=\textwidth]{images/stack.pdf}
-    \caption{Skládáný sloupcový graf (stacked bar) vytvořený s~využitím \texttt{d3.stack}.}
+    \caption{Skládaný sloupcový graf (stacked bar) vytvořený s~využitím \texttt{d3.stack}.}
     \label{fig:stackBarChart}
   \end{minipage}
 \end{figure}
@@ -607,12 +607,12 @@ Na ose~y se nachází jednotlivé týmy. Týmy tvoří diskrétní množinu, ste
 
 \section{Datová struktura}
 %Dalším důležitým krokem byl návrh datové struktury, se kterou má vizualizace pracovat. Ta musí obsahovat všechny potřebné informace tak, aby mohly být vykresleny všechny požadované prvky ze zadnání, např. aktuální čas od začátku hry, data jednotlivých hráčů nebo časový plán. Některá data pak musí být v určitém formátu, jako např. strávený čas v jednotlivých úrovních, který musí mít formát popsaný v předchozí podkapitole, aby mohl být vypočítán a vykreslen skládaný graf. Dle toho byla navržena následující datová struktura, se kterou vizualizace pracuje:
-Záznamy událostí ze hry, ať už ve formátu CSV nebo JSON, musí být nejdříve zpracovány do vhodné datové struktury, se kterou bude vizualizace pracovat. Některá data musí být v~určitém formátu, aby mohla být zprácována za pomoci \verb|d3.stack| do výsledného grafu, např.~odhadovaná a~skutečná délka úrovní. Některé údaje musí být ze záznamů vypočítány.\par
+Záznamy událostí ze hry, ať už ve formátu CSV nebo JSON, musí být nejdříve zpracovány do vhodné datové struktury, se kterou bude vizualizace pracovat. Některá data musí být v~určitém formátu, aby mohla být zpracována za pomoci \verb|d3.stack| do výsledného grafu, např.~odhadovaná a~skutečná délka úrovní. Některé údaje musí být ze záznamů vypočítány.\par
 Výsledná datová struktura, se kterou vizualizace pracuje, je objekt s~těmito atributy:
 \begin{itemize}
   \item \verb|time| – čas od začátku hry v~sekundách,
   \item \verb|levels| – pole klíčů jednotlivých úrovní hry,
-  \item \verb|levelsTimePlan| – pole čísel udávájící časový odhad pro každou úroveň v~sekundách,
+  \item \verb|levelsTimePlan| – pole čísel udávající časový odhad pro každou úroveň v~sekundách,
   \item \verb|gameDataset| – pole objektů představující týmy, které má popsanou strukturu potřebnou pro použití s~\verb|d3.stack|, uchovává však některé informace navíc:
   	\begin{itemize}
 		\item \verb|team| – název týmu,
@@ -722,7 +722,7 @@ Odhadovaný časový limit pro jednotlivé úrovně je vykreslován způsobem po
 Vykreslování probíhá dvakrát, nejdříve jsou pomocí d3.stack vygenerovány šrafované obdélníky a~poté hranice v~podobě svislých čar.
 
 \subsection{Vizualizace herních úrovní}
-Princip vykreslování skutečné délky úrovní je opět stejný, vytváří se skládaný graf. Během vykreslování je však třeba brát v~úvahu, zda již tým úroveň dokončil, nebo na ní právě pracuje, z~důvodu přidělení světlé nebo syté barvy. Tato informace je již předpočítána v~datové struktuře.\par
+Princip vykreslování skutečné délky úrovní je opět stejný, vytváří se skládaný graf. Během vykreslování je však třeba brát v~úvahu, zda již tým úroveň dokončil, nebo na ní právě pracuje, z~důvodu přidělení světlé nebo syté barvy. Tato informace je již předpočítaná v~datové struktuře.\par
 Protože týmy již mohly překročit celkový odhad a~graf by přesáhl stanovenou šířku vizualizace, je nutné před vykreslením aktualizovat měřítka.\par
 Po vykreslení reálných dat je třeba aktualizovat plán. Mohlo dojít ke změně měřítka a~také je nutné posunout šrafované oblasti, které jsou závislé na aktuálním postupu týmu. Všechny šrafované oblasti s~výjimkou té, která se týká aktuální úrovně, jsou skryty. Šrafování týkající se aktuální úrovně je posunuto na její začátek.
 %% byly přidány další levely a je jich teď 6 -> ukázka s 6 levely
@@ -769,7 +769,7 @@ Další direktiva \verb|MouseMoveDirective| slouží pro posunování viditelné
 %PŘIDAT PŘÍPADNĚ CTRL NA ZOOM!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 \section{Načítání dat}
-Aplikace dokáže načítat data z~CSV souborů a také pomocí API, které poskytuje podobné záznamy ve formátu JSON. CSV soubor se záznamy ze hry lze nahrát pomocí tlačítka. Pro oba zdroje existuje v~aplikaci služba, která načítání dat zajištuje.
+Aplikace dokáže načítat data z~CSV souborů a také pomocí API, které poskytuje podobné záznamy ve formátu JSON. CSV soubor se záznamy ze hry lze nahrát pomocí tlačítka. Pro oba zdroje existuje v~aplikaci služba, která načítání dat zajišťuje.
 \subsection{Načítání dat skrze REST API}
 %a komponenta vizualizace tak již s nimi může přímo pracovat.
 Pro načítání dat pomocí rozhraní byla implementována služba \verb|Load|\-\verb|DataService|. Ta vrací načtená data v~potřebném formátu, a~tak s~nimi může komponenta vizualizace přímo pracovat. Služba využívá k~získávání dat modul \verb|HttpClient|, který je součástí frameworku Angular.
@@ -857,7 +857,7 @@ Konfigurace aplikace se nachází v~souboru \verb|app.config.ts| a~obsahuje nás
 %  \item \verb|gameColors| – určuje jednotlivé barvy úrovní ve vizualizaci, barvy se zadávají jako pole hexadecimálních kódů,
 %  \item \verb|lightenedColors| – světlé barvy již odehraných úrovní,
 %  \item \verb|planColors| – barvy svislých čar značících časové limity,
-  \item \verb|gameColors|, \verb|lightenedColors|, \verb|planColors| – určuje barvy úrovní ve vizualizaci, které se zadávají  jako pole barev v~hexadecimálním kódu, konktrétně jde o~barvy aktuálních úrovní, odehraných úrovní a~čar pro časové limity,
+  \item \verb|gameColors|, \verb|lightenedColors|, \verb|planColors| – určuje barvy úrovní ve vizualizaci, které se zadávají  jako pole barev v~hexadecimálním kódu, konkrétně jde o~barvy aktuálních úrovní, odehraných úrovní a~čar pro časové limity,
   \item \verb|darkColor| – tmavá barva pro ikony událostí v~aktuální úrovni,
 %  \item \verb|gameColors|, \verb|planColors|, \verb|lightenedColors| – určuje jednotlivé barvy úrovní ve vizualizaci, které se zadávají  jako pole barev v hexadecimálním kódu, \verb|gameColors| značí aktuální úrovně, \verb|lightenedColors| již odehrané úrovně a \verb|planColor| barvy čar pro časové limity,
   \item \verb|minBarHeight| a~\verb|maxBarHeight| – čísla, která určují minimální a~maximální výšku každého řádku vizualizace v~pixelech,
