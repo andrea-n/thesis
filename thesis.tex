@@ -59,7 +59,7 @@
     TeXtitle      = {Vizualizace pro dohled a~analýzu bezpečnostních her},
     keywords      = {KYPO, Capture the flag, CtF, bezpečnostní hry, vizualizace, D3.js, Angular},
     TeXkeywords   = {KYPO, Capture the flag, CtF, bezpečnostní hry, vizualizace, D3.js, Angular},
-    abstract      = {Cílem této práce je vytvoření webové aplikace pro vizualizaci dat získávaných během bezpečnostních her v prostředí KYPO, která bude sloužit pro sledování průběhu těchto her a jejich analýzu. Práce představuje prostředí KYPO a dále se zabývá návrhem, implementací a testováním bezpečnostních her v tomto prostředí. Popisuje také použité technologie a implementaci výsledné vizualizace.},
+    abstract      = {Cílem této práce je vytvoření webové aplikace pro vizualizaci dat získávaných během bezpečnostních her v prostředí KYPO, která bude sloužit pro sledování průběhu těchto her a pro jejich analýzu. Práce představuje prostředí KYPO a dále se zabývá návrhem, implementací a testováním bezpečnostních her v tomto prostředí. Popisuje také použité technologie a implementaci výsledné vizualizace.},
     thanks        = {These are the acknowledgements for my thesis, which can
 
                      span multiple paragraphs.}
@@ -94,15 +94,15 @@
 \begin{document}
 \chapter{Úvod}
 %které jsou potřebné pro předvídání kybernetických útoků a při budování obrany proti nim.
-Bezpečnostní hry jsou prostředkem k prohlubování a procvičování znalostí v oblasti kybernetické bezpečnosti, kdy díky zapojení do hry jsou znalosti využívány aktivním způsobem. Prostředí Kybernetického polygonu, pro které byla implementována praktická část této práce, je mimo jiné využíváno k výuce prostřednictvím těchto her. Za účelem jejich zdokonalování je třeba sledovat a analyzovat jejich skutečný průběh. Přehled o průběhu her je ale důležitý také pro vyučující, kteří je vedou, protože tak získají přehled o aktuálním postupu hráčů a mohou identifikovat případné problémy.\par
+Bezpečnostní hry jsou prostředkem k prohlubování a procvičování znalostí v oblasti kybernetické bezpečnosti, kdy díky zapojení účastníků do hry jsou jejich znalosti využívány aktivním způsobem. Prostředí Kybernetického polygonu, pro které byla implementována praktická část této práce, je mimo jiné využíváno k výuce prostřednictvím těchto her. Za účelem jejich zdokonalování je třeba sledovat a analyzovat jejich skutečný průběh. Přehled o průběhu her je ale důležitý také pro vyučující, kteří je vedou, protože tak získají přehled o aktuálním postupu hráčů a mohou identifikovat případné problémy.\par
 Data poskytující potřebné informace o průběhu hry jsou k dispozici díky zaznamenávání akcí účastníků v jejím průběhu. Cílem této práce je vytvořit vizuální reprezentaci těchto dat, a poskytnout tak vyučujícím přehled o situaci a postupu jednotlivých hráčů.
 %Cílem této práce je poskytnout vyučujícím vizuální reprezentaci získávaných dat, která by jim umožnila lepší přehled o situaci a stavu jednotlivých hráčů.
 Hlavní obsah textové části je rozdělen do několika kapitol.
 \begin{itemize}
-  \item Druhá kapitola stručně představuje prostředí Kybernetického polygonu, pro které byla vizualizace implementována. Dále se věnuje bezpečnostním hrám s názvem Capture the Flag, které se v prostředí Kybernetického polygonu odehrávají. Je popsán jejich návrh, implementace a testování, včetně výsledků a následných vylepšení, které se týkají také této vizualizace.
+  \item Druhá kapitola stručně představuje prostředí Kybernetického polygonu a dále se věnuje bezpečnostním hrám s názvem Capture the Flag, které se v prostředí Kybernetického polygonu odehrávají. Je popsán jejich návrh, implementace a testování, včetně výsledků a následných vylepšení, které se týkají také této vizualizace.
   \item Ve třetí kapitole jsou popsány cíle vizualizace a požadavky na ni, včetně popisu grafického návrhu od Bc. Kristíny Zákopčanové.
-  \item Čtvrtá kapitola uvádí technologie použité při implementaci. Nejdůležitější z nich knihovna D3.js a dále framework Angular.. Stručně představuje také framework Bootstrap, knihovnu Papa Parse a portál Liferay.
-  \item Pátá kapitola popisuje implementaci vizualizace. Vysvětluje principy vykreslování vizualizace, dále její strukturu, možnosti ovládání. Popisuje také výslednou aplikaci, způsob načítání dat a testy této aplikace.
+  \item Čtvrtá kapitola uvádí technologie použité při implementaci. Nejdůležitější z nich knihovna D3.js a dále framework Angular. Stručně představuje také framework Bootstrap, knihovnu Papa Parse a portál Liferay.
+  \item Pátá kapitola popisuje implementaci vizualizace, kdy vysvětluje principy vykreslování vizualizace a dále její strukturu. Dále popisuje výslednou aplikaci, způsob načítání dat, možnosti ovládání a testy této aplikace.
 \end{itemize}
 
 \chapter{Kybernetický polygon}
@@ -519,7 +519,7 @@ Mezi výhody této knihovny patří: \cite{papa}
   \item lze specifikovat oddělovač jednotlivých záznamů,
   \item soubory lze načítat i~vzdáleně skrze HTTP zadáním URL souboru,
   \item umožňuje streamování a~lze tak zpracovávat velké soubory,
-  \item zabraňuje blokování stránky použitím dalšího vlákna během parsování, tuto funkci lze nastavit pomocí worker: true,
+  \item je možné zabránit blokování stránky použitím dalšího vlákna během parsování, tuto funkci lze nastavit pomocí worker: true,
   \item umožňuje dynamické typování zpracovaných dat (na number, boolean)
   \item ošetřuje chyby vzniklé při parsování.
   %\item umožňuje také převádět data opačným směrem do CSV.
@@ -799,7 +799,8 @@ Aplikace využívá dva zdroje REST API, vrácené odpovědi jsou ve formátu JS
 %  	  \item typ události.
 %  	\end{itemize}
 \end{itemize}
-Aplikace využívá první zdroj k~získání informace o~počtu úrovní, aby bylo možné připravit datovou strukturu plánu hry. Informace o~časovém odhadu jednotlivých úrovní nejsou k~dispozici z~žádného zdroje. Z~tohoto důvodu jsou časové limity specifikovány v~rámci konfigurace aplikace \ref{config}. Jelikož není dostupný seznam her, ze kterého by bylo možné hru vybrat, bylo rozhodnuto, že ID hry, která má být zobrazena, bude také součástí konfigurace.\par
+Aplikace využívá první zdroj k~získání informace o~počtu úrovní, aby bylo možné připravit datovou strukturu plánu hry. Z~druhého zdroje se získávají potřebné události. Většina těchto událostí se v~datech získaných skrze API objevovala vícekrát a~proto jsou duplicitní události v~aplikaci odstraňovány.\par
+Informace o~časovém odhadu jednotlivých úrovní nejsou k~dispozici z~žádného zdroje. Z~tohoto důvodu jsou časové limity specifikovány v~rámci konfigurace aplikace \ref{config}. Nedostupný je také seznam her, ze kterého by bylo možné hru vybrat, a~proto bylo rozhodnuto, že ID hry, která má být zobrazena, bude také součástí konfigurace.\par
 
 \subsection{Načítání dat z CSV souboru}
 % NĚCO O NAHRÁNÍ SOUBORU?
@@ -815,7 +816,6 @@ Každý záznam události v~CSV souboru obsahuje tyto údaje:
   \item název události.
 \end{itemize}
 Již během parsování souboru je čas události převeden na časové razítko (timestamp) a~relativní čas na počet sekund. Také je zjištěn celkový začátek hry, a~to jako nejmenší časový údaj ze všech událostí. Všechna získaná data jsou dále předána ke zpracování.
-%TODO!!!!! U CSV NEVÍME DOPŘEDU POČET LEVELŮ
 
 \subsection{Zpracování dat}
 Pole načtených událostí je následně v~rámci služby zpracováno během jednoho cyklu do výsledné datové struktury. Pro každý tým je vytvořen objekt, do kterého se buď postupně přidávají určité události, jako např. využité nápovědy, nebo se do něho zaznamenávají informace o~průběhu hry. Mezi daty získanými z~CSV a~skrze API jsou rozdíly, princip práce s~událostmi je však následující:
@@ -857,10 +857,11 @@ Konfigurace aplikace se nachází v~souboru \verb|app.config.ts| a~obsahuje nás
 %  \item \verb|gameColors| – určuje jednotlivé barvy úrovní ve vizualizaci, barvy se zadávají jako pole hexadecimálních kódů,
 %  \item \verb|lightenedColors| – světlé barvy již odehraných úrovní,
 %  \item \verb|planColors| – barvy svislých čar značících časové limity,
-%  \item \verb|darkColor| – tmavá barva pro ikony událostí v~aktuální úrovni,
-  \item \verb|gameColors|, \verb|planColors|, \verb|lightenedColors| – určuje jednotlivé barvy úrovní ve vizualizaci, které se zadávají  jako pole barev v hexadecimálním kódu, \verb|gameColors| značí aktuální úrovně, \verb|lightenedColors| již odehrané úrovně a \verb|planColor| barvy čar pro časové limity,
-  \item \verb|minBarHeight| a \verb|maxBarHeight| – čísla, která určují minimální a maximální výšku každého řádku vizualizace v~pixelech,
-  \item \verb|maxZoomValue| a \verb|zoomStep| – hodnota maximálního přiblížení vizualizace,
+  \item \verb|gameColors|, \verb|lightenedColors|, \verb|planColors| – určuje barvy úrovní ve vizualizaci, které se zadávají  jako pole barev v~hexadecimálním kódu, konktrétně jde o~barvy aktuálních úrovní, odehraných úrovní a~čar pro časové limity,
+  \item \verb|darkColor| – tmavá barva pro ikony událostí v~aktuální úrovni,
+%  \item \verb|gameColors|, \verb|planColors|, \verb|lightenedColors| – určuje jednotlivé barvy úrovní ve vizualizaci, které se zadávají  jako pole barev v hexadecimálním kódu, \verb|gameColors| značí aktuální úrovně, \verb|lightenedColors| již odehrané úrovně a \verb|planColor| barvy čar pro časové limity,
+  \item \verb|minBarHeight| a~\verb|maxBarHeight| – čísla, která určují minimální a~maximální výšku každého řádku vizualizace v~pixelech,
+  \item \verb|maxZoomValue| a~\verb|zoomStep| – hodnota maximálního přiblížení vizualizace,
   \item \verb|zoomStep| – velikost jednoho kroku během zoomování,
   \item \verb|defaultView| – výchozí pohled, který je vybrán po načtení aplikace.
 \end{itemize}
@@ -878,11 +879,11 @@ Protože komponenty zahrnují nejen třídu, ale i~šablonu, je u~nich třeba ta
 \end{itemize}
 Otestovány jsou také obě služby pro načítání dat. Testovány jsou následující podmínky:
 \begin{itemize}
-  \item zda služba \verb|LoadCsvDataService| hlásí chybu při parsování souboru, který nemá formát CSV nebo není validní,
+  \item zda služba \verb|LoadCsvDataService| hlásí chybu při parsování souboru, který není ve formátu CSV nebo není validní,
   \item vrací správná data pro validní CSV soubory,
   \item zda služba \verb|LoadDataService| odesílá dva správné požadavky na API,
   \item zda hlásí chybu při neúspěchu,
-  \item v případě úspěchu vrací správná data.
+  \item v~případě úspěchu vrací správná data.
 \end{itemize}
 
 \chapter{Závěr}
