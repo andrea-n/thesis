@@ -88,7 +88,7 @@
   stringstyle     = \color{teal},%
   commentstyle    = \itshape\color{magenta}}
 \usepackage{floatrow} %% Putting captions above tables
-\usepackage[backend=bibtex]{biblatex}
+\usepackage[backend=bibtex,style=iso-numeric,sortlocale=cs_CZ]{biblatex}
 \bibliography{bibliography} 
 \floatsetup[table]{capposition=top}
 \begin{document}
@@ -854,10 +854,10 @@ Konfigurace aplikace se nachází v~souboru \verb|app.config.ts| a~obsahuje nás
   \item \verb|gameId| – specifikuje ID hry, která má být načtena,
   \item \verb|levelsTimePlan| – udává odhadovanou dobu řešení pro každou úroveň, zadává se v~sekundách jako pole čísel např.\par
   			\verb|[1200, 1500, 1900, 2100]|,
-%  \item \verb|gameColors| – určuje jednotlivé barvy úrovní ve vizualizaci, barvy se zadávají jako pole hexadecimálních kódů,
-%  \item \verb|lightenedColors| – světlé barvy již odehraných úrovní,
-%  \item \verb|planColors| – barvy svislých čar značících časové limity,
-  \item \verb|gameColors|, \verb|lightenedColors|, \verb|planColors| – určuje barvy úrovní ve vizualizaci, které se zadávají  jako pole barev v~hexadecimálním kódu, konkrétně jde o~barvy aktuálních úrovní, odehraných úrovní a~čar pro časové limity,
+  \item \verb|gameColors| – určuje barvy úrovní ve vizualizaci, barvy jsou zadávány jako pole hexadecimálních kódů,
+  \item \verb|lightenedColors| – světlé barvy již odehraných úrovní,
+  \item \verb|planColors| – barvy svislých čar značících časové limity,
+%  \item \verb|gameColors|, \verb|lightenedColors|, \verb|planColors| – určují barvy úrovní ve vizualizaci, které se zadávají  jako pole barev v~hexadecimálním kódu, konkrétně jde o~barvy aktuálních úrovní, odehraných úrovní a~čar pro časové limity,
   \item \verb|darkColor| – tmavá barva pro ikony událostí v~aktuální úrovni,
 %  \item \verb|gameColors|, \verb|planColors|, \verb|lightenedColors| – určuje jednotlivé barvy úrovní ve vizualizaci, které se zadávají  jako pole barev v hexadecimálním kódu, \verb|gameColors| značí aktuální úrovně, \verb|lightenedColors| již odehrané úrovně a \verb|planColor| barvy čar pro časové limity,
   \item \verb|minBarHeight| a~\verb|maxBarHeight| – čísla, která určují minimální a~maximální výšku každého řádku vizualizace v~pixelech,
