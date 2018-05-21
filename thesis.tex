@@ -25,6 +25,7 @@
            %% `nolot` to hide the List of Tables.
   %% More options are listed in the user guide at
   %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/guide/mu/fi.pdf>.
+  nocover
 ]{fithesis3}
 %% The following section sets up the locales used in the thesis.
 \usepackage[resetfonts]{cmap} %% We need to load the T2A font encoding
@@ -79,6 +80,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{listings}
+\usepackage{hyperref}
 \lstset{
   basicstyle      = \ttfamily,%
   identifierstyle = \color{black},%
@@ -289,7 +291,7 @@ Z~hlediska použitých technologií a~integrace do projektu KYPO byly specifikov
 \begin{itemize}
   \item bude se jednat o~webovou aplikaci,
   \item vizualizace bude ve formě Liferay portletu,
-  \item základ aplikace bude v~podobě samostatného Angular~2 modulu,
+  \item základ aplikace bude v~podobě samostatného Angular modulu,
   \item k~vizualizaci dat bude využita knihovna D3.js,
   \item aplikace bude schopná načítat data z~CSV souboru,
   \item dále bude schopná získávat data skrze REST API a~také tato data zobrazovat v~reálném čase.
@@ -902,5 +904,30 @@ Výsledný portlet je otestován a~nasazen na testovacím serveru KYPO. Vizualiz
 %přepsat výpočet výšky - přibyl maxBarHeight a taky do konfigu!
 
 \printbibliography
+
+\appendix %% Start the appendices.
+\chapter{Aplikace vizualizace}
+Aplikace s~vizualizací je mimo vytvořený portlet dostupná také na \hyperref[http://ctfprogress.surge.sh/]{http://ctfprogress.surge.sh/}.\par
+Uživatelské rozhraní zahrnuje:
+\begin{itemize}
+  \item rozbalovací nabídky pro přepínání pohledu a~výběr filtru,
+  \item tlačítko pro nahrání CSV souboru,
+  \item legendu ve spodní části vizualizace.
+\end{itemize}
+Aplikace zobrazuje data získávaná skrze dočasnou náhradu API. Nahráním CSV souboru jsou zobrazena data z~tohoto souboru a~po přepnutí do průběžného pohledu proběhne simulace průběhu hry.
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=12.7cm]{images/aplikace.png}
+  \end{center}
+  \caption{Výsledná aplikace včetně uživatelského rozhraní.}
+\end{figure}
+
+\chapter{Seznam elektronických příloh}
+Archiv závěrečné práce obsahuje následující elektronické přílohy:
+\begin{itemize}
+  \item \verb|portlet_ctf_progress.war| – výsledný war archiv portletu,
+  \item \verb|source-portlet-ctf-progress.zip| – zdrojové soubory portletu s aplikací,
+  \item \verb|user_events_log.csv| – CSV soubor obsahující data jedné CtF hry.
+\end{itemize}
 
 \end{document}
