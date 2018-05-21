@@ -60,10 +60,8 @@
     TeXtitle      = {Vizualizace pro dohled a~analýzu bezpečnostních her},
     keywords      = {KYPO, Capture the flag, CtF, bezpečnostní hry, vizualizace, D3.js, Angular},
     TeXkeywords   = {KYPO, Capture the flag, CtF, bezpečnostní hry, vizualizace, D3.js, Angular},
-    abstract      = {Cílem této práce je vytvoření webové aplikace pro vizualizaci dat získávaných během bezpečnostních her v prostředí KYPO, která bude sloužit pro sledování průběhu těchto her a pro jejich analýzu. Práce představuje prostředí KYPO a dále se zabývá návrhem, implementací a testováním bezpečnostních her v tomto prostředí. Popisuje také použité technologie a implementaci výsledné vizualizace.},
-    thanks        = {These are the acknowledgements for my thesis, which can
-
-                     span multiple paragraphs.}
+    abstract      = {Cílem této práce je vytvoření webové aplikace pro vizualizaci dat získávaných během bezpečnostních her v~prostředí KYPO, která bude sloužit pro sledování průběhu těchto her a~pro jejich analýzu. Práce představuje prostředí KYPO a~dále se zabývá návrhem, implementací a~testováním bezpečnostních her v~tomto prostředí. Popisuje také použité technologie a~implementaci výsledné vizualizace.},
+    thanks        = {Ráda bych poděkovala RNDr. Radkovi Ošlejškovi, Ph.D. za vedení této práce, mé konzultantce Bc. Kristíně Zákopčanové za její cenné rady a~v~neposlední řadě mé rodině za trpělivost a~mému příteli za velkou podporu během tvorby této práce.}
 }
 \usepackage{makeidx}      %% The `makeidx` package contains
 \makeindex                %% helper commands for index typesetting.
@@ -96,15 +94,15 @@
 \begin{document}
 \chapter{Úvod}
 %které jsou potřebné pro předvídání kybernetických útoků a při budování obrany proti nim.
-Bezpečnostní hry jsou prostředkem k prohlubování a procvičování znalostí v oblasti kybernetické bezpečnosti, kdy díky zapojení účastníků do hry jsou jejich znalosti využívány aktivním způsobem. Prostředí Kybernetického polygonu, pro které byla implementována praktická část této práce, je mimo jiné využíváno k výuce prostřednictvím těchto her. Za účelem jejich zdokonalování je třeba sledovat a analyzovat jejich skutečný průběh. Přehled o průběhu her je ale důležitý také pro vyučující, kteří je vedou, protože tak získají přehled o aktuálním postupu hráčů a mohou identifikovat případné problémy.\par
-Data poskytující potřebné informace o průběhu hry jsou k dispozici díky zaznamenávání akcí účastníků v jejím průběhu. Cílem této práce je vytvořit vizuální reprezentaci těchto dat, a poskytnout tak vyučujícím přehled o situaci a postupu jednotlivých hráčů.
+Bezpečnostní hry jsou prostředkem k~prohlubování a~procvičování znalostí v~oblasti kybernetické bezpečnosti, kdy díky zapojení účastníků do hry jsou jejich znalosti využívány aktivním způsobem. Prostředí Kybernetického polygonu, pro které byla implementována praktická část této práce, je mimo jiné využíváno k~výuce prostřednictvím těchto her. Za účelem jejich zdokonalování je třeba sledovat a~analyzovat jejich skutečný průběh. Přehled o~průběhu her je ale důležitý také pro vyučující, kteří je vedou, protože tak získají přehled o~aktuálním postupu hráčů a~mohou identifikovat případné problémy.\par
+Data poskytující potřebné informace o~průběhu hry jsou k~dispozici díky zaznamenávání akcí účastníků v~jejím průběhu. Cílem této práce je vytvořit vizuální reprezentaci těchto dat, a~poskytnout tak vyučujícím přehled o~situaci a~postupu jednotlivých hráčů.
 %Cílem této práce je poskytnout vyučujícím vizuální reprezentaci získávaných dat, která by jim umožnila lepší přehled o situaci a stavu jednotlivých hráčů.
 Hlavní obsah textové části je rozdělen do několika kapitol.
 \begin{itemize}
-  \item Druhá kapitola stručně představuje prostředí Kybernetického polygonu a dále se věnuje bezpečnostním hrám s názvem Capture the Flag, které se v prostředí Kybernetického polygonu odehrávají. Je popsán jejich návrh, implementace a testování, včetně výsledků a následných vylepšení, které se týkají také této vizualizace.
-  \item Ve třetí kapitole jsou popsány cíle vizualizace a požadavky na ni, včetně popisu grafického návrhu od Bc. Kristíny Zákopčanové.
-  \item Čtvrtá kapitola uvádí technologie použité při implementaci. Nejdůležitější z nich knihovna D3.js a dále framework Angular. Stručně představuje také framework Bootstrap, knihovnu Papa Parse a portál Liferay.
-  \item Pátá kapitola popisuje implementaci vizualizace, kdy vysvětluje principy vykreslování vizualizace a dále její strukturu. Dále popisuje výslednou aplikaci, způsob načítání dat, možnosti ovládání a testy této aplikace.
+  \item Druhá kapitola stručně představuje prostředí Kybernetického polygonu a~dále se věnuje bezpečnostním hrám s~názvem Capture the Flag, které se v~prostředí Kybernetického polygonu odehrávají. Je popsán jejich návrh, implementace a~testování, včetně výsledků a~následných vylepšení, které se týkají také této vizualizace.
+  \item Ve třetí kapitole jsou popsány cíle vizualizace a~požadavky na ni, včetně popisu grafického návrhu od Bc.~Kristíny Zákopčanové.
+  \item Čtvrtá kapitola uvádí technologie použité při implementaci. Nejdůležitější z~nich je knihovna D3.js a~dále framework Angular. Stručně představuje také framework Bootstrap, knihovnu Papa Parse a portál Liferay.
+  \item Pátá kapitola popisuje implementaci vizualizace, kde vysvětluje principy vykreslování vizualizace a~také její strukturu. Dále popisuje výslednou aplikaci, způsob načítání dat, možnosti ovládání a~testy této aplikace.
 \end{itemize}
 
 \chapter{Kybernetický polygon}
