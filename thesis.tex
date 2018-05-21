@@ -7,7 +7,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[
-  digital, %% This option enables the default options for the
+  printed, %% This option enables the default options for the
            %% digital version of a document. Replace with `printed`
            %% to enable the default options for the printed version
            %% of a document.
@@ -94,7 +94,7 @@
 \begin{document}
 \chapter{Úvod}
 %které jsou potřebné pro předvídání kybernetických útoků a při budování obrany proti nim.
-Bezpečnostní hry jsou prostředkem k~prohlubování a~procvičování znalostí v~oblasti kybernetické bezpečnosti, kdy díky zapojení účastníků do hry jsou jejich znalosti využívány aktivním způsobem. Prostředí Kybernetického polygonu, pro které byla implementována praktická část této práce, je mimo jiné využíváno k~výuce v~oblasti bezpečnosti prostřednictvím těchto her. Za účelem jejich zdokonalování je třeba sledovat a~analyzovat jejich skutečný průběh. Přehled o~průběhu her je ale také důležitý pro vyučující, kteří je vedou, protože tak získají přehled o~aktuálním postupu hráčů a~mohou identifikovat případné problémy.\par
+Bezpečnostní hry jsou prostředkem k~prohlubování a~procvičování znalostí v~oblasti kybernetické bezpečnosti, kdy díky zapojení účastníků do hry jsou jejich znalosti využívány aktivním způsobem. Prostředí Kybernetického polygonu, pro které byla implementována praktická část této práce, je mimo jiné využíváno k~výuce v~oblasti bezpečnosti prostřednictvím těchto her. Za účelem jejich zdokonalování je třeba sledovat a~analyzovat jejich skutečný průběh. Přehled o~průběhu her je ale důležitý také pro vyučující, kteří je vedou, protože tak získají přehled o~aktuálním postupu hráčů a~mohou identifikovat případné problémy.\par
 Data poskytující potřebné informace o~průběhu hry jsou k~dispozici díky zaznamenávání akcí účastníků v~jejím průběhu. Cílem této práce je vytvořit vizuální reprezentaci těchto dat, a~poskytnout tak vyučujícím přehled o~situaci a~postupu jednotlivých hráčů.
 %Cílem této práce je poskytnout vyučujícím vizuální reprezentaci získávaných dat, která by jim umožnila lepší přehled o situaci a stavu jednotlivých hráčů.
 Hlavní obsah textové části je rozdělen do několika kapitol.
@@ -129,11 +129,11 @@ Portál KYPO je webové rozhraní postavené na technologii Liferay (popsané v~
 
 
 \section{Capture the Flag}
-Jedním z~uvedených využití platformy KYPO je výuka v~oblasti bezpečnosti a~bezpečnostní školení. Vedle obranných cvičení Cyber Defence eXercises (CDX) do této oblasti patří bezpečnostní hry s~názvem Capture the Flag (CtF). \cite{ctfDesign} Jedná se o~metodu aktivního učení, kdy účastníci přímo využívají své znalosti. CtF hry jsou zaměřeny na získávání a~prohlubování znalostí v~oblasti penetračního testování\footnote{Penetrační testování je proces, při kterém se pomocí současných útočných technik odhalují a~využívají zranitelnosti systému, které by jinak mohli použít skuteční útočníci.}. Účastníci jsou postaveni do role útočníka, což by jim také mělo pomoci při předvídání případných útoků. \cite{lessons2015, ctfDesign}\par
+K~uvedeným využitím platformy KYPO patří výuka v~oblasti bezpečnosti a~bezpečnostní školení. Vedle obranných cvičení Cyber Defence eXercises (CDX) do této oblasti patří bezpečnostní hry s~názvem Capture the Flag (CtF). \cite{ctfDesign} Jedná se o~metodu aktivního učení, kdy účastníci přímo využívají své znalosti. CtF hry jsou zaměřeny na získávání a~prohlubování znalostí v~oblasti penetračního testování\footnote{Penetrační testování je proces, při kterém se pomocí současných útočných technik odhalují a~využívají zranitelnosti systému, které by jinak mohli použít skuteční útočníci.}. Účastníci jsou postaveni do role útočníka, což by jim mělo také pomoci při předvídání případných útoků. \cite{lessons2015, ctfDesign}\par
 Základní myšlenka vychází z~klasické venkovní hry s~tímto názvem, kde spolu soupeří dva týmy, jejichž úkolem je zajmout nepřátelskou vlajku a~zároveň ubránit svou vlastní. V bezpečnostních CtF hrách jde o~využití zranitelností systému a~vlajka (flag) je ve formě unikátního textového řetězce.\par
 Z hlediska zaměření se na útok nebo obranu mohou mít tyto hry různé modifikace: \cite{Dankovcikova2015thesis, ctfDesign}
 \begin{itemize}
-  \item pouze útok – založené na ofenzivních úlohách, kdy je tým v~pozici útočníka na danou infrastrukturu,
+  \item pouze útok – hry založené na ofenzivních úlohách, kdy je tým v~pozici útočníka na danou infrastrukturu,
   \item kombinace útoku a obrany – klasické schéma, týmy útočí na sítě protivníků a~zároveň brání svou vlastní,
   \item obrana nebo útok – kdy jeden tým pouze brání a~druhý útočí.
 \end{itemize}
@@ -245,7 +245,7 @@ Vzhledem ke zmíněným cílům jsou pro vizualizaci podstatné záznamy o~dokon
 \end{itemize}
 Z~hlediska interaktivity by vizualizace měla splňovat tyto požadavky:
 \begin{itemize}
-  \item možnost řazení týmů, např. podle celkového času hry nebo podle času zvolené úrovně
+  \item možnost řazení týmů, např. podle celkového času hry nebo podle času zvolené úrovně,
   \item možnost filtrování týmů,
   \item zobrazení popisku události po najetí myší.
 \end{itemize}
@@ -440,7 +440,7 @@ Aplikace jsou modulární a~každá má alespoň jeden modul. Uživatelské rozh
 Závislosti objektů jsou spravovány vkládáním závislostí (dependency injection) a~výměna dat mezi modelem a~šablonou je založena na oboustranné vazbě dat (two-way data binding). \cite{angulario}
 
 \subsection{Moduly}
-Základní jednotkou Angular aplikací jsou moduly (tzv.~NgModules). Aplikace má vždy jeden kořenový modul, nazvaný podle konvence \verb|AppModule|, který se stará o~spuštění aplikace. Může být rozdělena do dalších funkčních modulů.\par
+Základní jednotkou Angular aplikací jsou moduly (tzv.~NgModules). Aplikace má vždy jeden kořenový modul, nazvaný podle konvence \verb|AppModule|, který se stará o~spuštění aplikace. Ta pak může být rozdělena do dalších funkčních modulů.\par
 Modul je definován jako třída označená dekorátorem \verb|@NgModule|. Dekorátor popisuje daný modul pomocí objektu s~metadaty, který mu je předán jako parametr. K~nejdůležitějším prvkům tohoto objektu patří: \cite{angulario}
 %Tento dekorátor pomocí předaného objektu s metadaty popisuje daný modul.
 %Dekorátoru je předán objekt s metadaty popisujícími daný modul.
@@ -449,15 +449,15 @@ Modul je definován jako třída označená dekorátorem \verb|@NgModule|. Dekor
   \item \verb|declarations| – seznam tříd uživatelského rozhraní, zejména komponent a~direktiv, náležících do modulu,
   \item \verb|exports| – podmnožina tříd, které mají být viditelné z~ostatních modulů,
   \item \verb|imports| – seznam modulů, jejichž exportované třídy jsou potřebné v~tomto modulu,
-  \item \verb|providers| – seznam služeb, které jsou zaregistrovány do globální kolekce služeb a~dostupné z~celé aplikace,
+  \item \verb|providers| – seznam služeb, které jsou zaregistrovány do globální kolekce služeb a~jsou dostupné z~celé aplikace,
   \item \verb|bootstrap| – hlavní kořenová komponenta (ta by měla být nastavena jen v~kořenovém modulu).
 \end{itemize}
 %exports - podmnožina deklarací, které mají být viditelné z ostatních modulů
 
 \subsection{Komponenty}
-Komponenta je zodpovědná za správu části uživatelského rozhraní (view). Její logiku obstarává třída označená dekorátorem \verb|@Component| a~s~pohledem interaguje skrze metody a~vlastnosti (properties). Příkladem může být komponenta, která spravuje hlavičku webové stránky pomocí vlastnosti s~menu a~metodu \verb|onClick|, která obsluhuje kliknutí na jednotlivé prvky menu.\par
+Komponenta je zodpovědná za správu části uživatelského rozhraní (view). Její logiku obstarává třída označená dekorátorem \verb|@Component| a~s~pohledem interaguje skrze metody a~vlastnosti (properties). Příkladem může být komponenta, která spravuje hlavičku webové stránky pomocí vlastnosti s~menu a~metodou \verb|onClick|, která obsluhuje kliknutí na jednotlivé prvky menu.\par
 %JE DOBŘE TEN PŘÍKLAD????
-Komponenty mají životní cyklus a~jsou vytvářeny a~odebírány v~závislosti na tom, jak se uživatel pohybuje v~aplikaci. Na jednotlivé části cyklu je možné navázat vlastní akce pomocí tzv.~hooks, mezi které patří například: \cite{angulario}
+Komponenty mají životní cyklus a~jsou vytvářeny a~odebírány v~závislosti na tom, jak se uživatel pohybuje v~aplikaci. Na jednotlivé části cyklu je možné navázat vlastní akce pomocí tzv.~hooks metod, mezi které patří například: \cite{angulario}
 \begin{itemize}
   \item \verb|ngOnInit|, která se volá při inicializaci komponenty,
   \item \verb|ngOnChanges|, která je volána při změnách vlastností komponenty,
@@ -485,7 +485,7 @@ Komponenty jsou zvláštním případem direktiv, dekorátor komponenty je rozš
 \end{itemize}
 
 \subsection{Vázání dat}
-Vázání dat (data binding) je mechanismus pro předávání dat mezi prvky šablony a~částmi komponenty. Následující čtyři zápisy je možné v~šabloně použít pro vazbu dat, liší se v~obsahu a~směru předávání dat. \cite{angulario}
+Vázání dat (data binding) je mechanismus pro předávání dat mezi prvky šablony a~částmi komponenty. Pro vazbu dat je v~šabloně možné použít následující čtyři zápisy, které se liší v~obsahu a~směru předávání dat. \cite{angulario}
 \begin{itemize}
   \item Interpolace, kterou lze předat hodnotu vlastnosti komponenty do obsahu elementu v~šabloně. Obecně, interpolace vyhodnotí výraz ve složených závorkách a~převede ho do textového řetězce.
 \begin{lstlisting}[showstringspaces=false]
@@ -512,7 +512,7 @@ Služby se definují jako třídy s~dekorátorem \verb|@Injectable|, aby je bylo
 %% Je to Dependency injection správně??? 
 
 \section{Papa Parse}
-Papa Parse je knihovna pro JavaScript, která je určená pro parsování textu a~souborů ve formátu CSV. Tuto knihovnu je možné integrovat do Angular aplikací pomocí nadstavby ngx-papaparse.\par
+Papa Parse je knihovna pro JavaScript, která je určena pro parsování textu a~souborů ve formátu CSV. Tuto knihovnu je možné integrovat do Angular aplikací pomocí nadstavby ngx-papaparse.\par
 %co je ngx-papaparse???????????
 Mezi výhody této knihovny patří: \cite{papa}
 \begin{itemize}
@@ -527,14 +527,14 @@ Mezi výhody této knihovny patří: \cite{papa}
 
 \section{Liferay} \label{liferay}
 Liferay je open-source platforma určená pro tvorbu webových portálů, postavená na jazyce Java. Platforma obsahuje již vestavěné aplikace a~poskytuje framework pro tvorbu dalších aplikací. Portál také nabízí uživatelské rozhraní, které umožňuje pohodlnou správu jeho funkcí.\par
-Mezi hlavní výhody platformy patří její rozšiřitelnost a~možnost nasazovat vlastní aplikace, tzv.~portlety. Liferay umožňuje vytváření celých kolekcí stránek (sites), které obsahují jednotlivé stránky s~jejich portlety.\cite{liferay}
+Mezi hlavní výhody platformy patří její rozšiřitelnost a~možnost nasazovat vlastní aplikace, tzv.~portlety. Liferay umožňuje vytváření celých kolekcí stránek (sites), které obsahují jednotlivé stránky s~jejich portlety. \cite{liferay}
 \subsection{Portlety}
 Portlet je samostatná webová aplikace, běží však jen na části stránky. Vyvíjí se jen samotná aplikace, ostatní prvky na stránce jsou obstarány jinými komponentami. Portlety také mohou využívat funkce portálu, jako např.~správu uživatelů nebo oprávnění.\par
 Portlety se vkládají do jednotlivých stránek, které mohou obsahovat portletů několik. Portlety lze na stránce rozmisťovat a~měnit jejich rozměry. \cite{liferay}
 
 \chapter{Implementace}
 Prvním krokem při implementaci bylo vytvoření základu vizualizace v~D3.js, což zahrnuje především výběr vhodného typu grafu (příklady jsou uvedeny v~kapitole \ref{d3jsGraphs} o~D3.js), návrh datové struktury, vykreslení všech požadovaných prvků vizualizace a~načtení dat z~CSV souboru.\par
-V~dalším kroku byla vizualizace integrována do Angular aplikace jako samostatný modul, byly přidány interaktivní prvky a~také načítání dat skrze API. O~vytvoření Lifereay portletu s~Angular aplikací se již stará skript, který připravil Bc.~David Beran v~rámci projektu \verb|kypo2-portlet-empty-angular|.
+V~dalším kroku byla vizualizace integrována do Angular aplikace, byly přidány interaktivní prvky a~také načítání dat skrze API. O~vytvoření Lifereay portletu s~Angular aplikací se již stará skript, který připravil Bc.~David Beran v~rámci projektu \verb|kypo2-portlet-empty-angular|.
 % zeptat se jestli jen David Beran
 \section{Princip vizualizace}
 Jako základní struktura pro stavbu vizualizace byl vybrán skládaný sloupcový graf, tzv.~stacked bar chart (obr.~\ref{fig:stackBarChart}), který má několik vrstev položených na sebe. V~tomto případě se přesněji jedná o~graf pruhový, jelikož jej bylo nutné pro vizualizaci otočit a~vykreslovat ho jako horizontální pruhy.\par
@@ -631,7 +631,7 @@ Během implementace bylo zjištěno, že týmy nezačínají hru ve stejný okam
 Jednotlivé řádky je možné zarovnat podle jejich počátku, jako je tomu v~grafickém návrhu. Dojde tak ale k~jejich posunutí a~řádky přestanou být zarovnány s~časovou osou ukazující aktuální moment, čímž tato osa ztratí smysl. Proto byly implementovány dva různé pohledy.
 
 \subsection{Průběžný pohled}
-Tento pohled, zobrazený na obrázku~\ref{fig:visualizationChartProgress}, má význam v~jejím průběhu. Zobrazuje postup a~události hry v~čase odpovídajícím skutečnosti. Týmy tedy nejsou z~levé strany zarovnány a~z~grafu je patrné, kdy tým hru začal. Také je zobrazena časová osa vyznačující aktuální okamžik a~čas v~pravém horním rohu. Naopak se nezobrazují svislé čáry pro odhad času úrovní. Týmy je možné řadit podle jejich názvu nebo celkového času hry.\par
+Tento pohled na hru, zobrazený na obrázku~\ref{fig:visualizationChartProgress}, má význam v~jejím průběhu. Zobrazuje postup a~události hry v~čase odpovídajícím skutečnosti. Týmy tedy nejsou z~levé strany zarovnány a~z~grafu je patrné, kdy tým hru začal. Také je zobrazena časová osa vyznačující aktuální okamžik a~čas v~pravém horním rohu. Naopak se nezobrazují svislé čáry pro odhad úrovní. Týmy je možné řadit podle jejich názvu nebo celkového času hry.\par
 \begin{figure}[H]
   \begin{center}
     \includegraphics[width=12.7cm]{images/vizualizace-progress.png}
@@ -643,7 +643,7 @@ Posunutí začátku hry je implementováno přidáním další vrstvy do skláda
 V~tomto pohledu jsou data pravidelně aktualizována a~lze tak hru sledovat v~reálném čase.
 
 \subsection{Závěrečný přehled}
-Po skončení hry, nebo i~v~jejím průběhu je možné se přepnout do druhého pohledu jako na obr.~\ref{fig:visualizationChartFinal}. Tento pohled poskytuje celkové srovnání jednotlivých týmů. Řádky jsou zarovnány podle začátku hry. Lze je ale také srovnat a~řadit podle začátku libovolné úrovně. Je tak možné porovnávat celkovou délku hry nebo čas jednotlivých úrovní mezi všemi týmy.\par
+Po skončení hry, nebo i~v~jejím průběhu, je možné se přepnout do druhého pohledu jako na obr.~\ref{fig:visualizationChartFinal}. Tento pohled poskytuje celkové srovnání jednotlivých týmů. Řádky jsou zarovnány podle začátku hry. Lze je také srovnat a~řadit podle začátku libovolné úrovně. Je tak možné porovnávat celkovou délku hry nebo čas jednotlivých úrovní mezi všemi týmy.\par
 Časová osa je vynechána, ale jsou zobrazeny limity pro jednotlivé úrovně, se kterými lze srovnávat skutečné hodnoty.
 \begin{figure}[H]
   \begin{center}
@@ -732,7 +732,7 @@ Po zobrazení plánu a~postupu týmů se vykreslují události v~podobě ikon. K
 \subsection{Sloupce}
 Informace vztahující se k~jednotlivým řádkům jsou zaznamenány v~okolních sloupcích. Prvním z~nich je sloupec s~názvy týmů na levé straně, ten zároveň zastupuje osu~y. Druhý sloupec na pravé straně udává celkový čas, který již tým ve hře strávil.\par
 Nad těmito sloupci je umožněno řazení a~jsou zarovnány se souvisejícími ovládacími prvky. Z~tohoto důvodu jsou umístěny mimo hlavní \verb|<svg>| element vizualizace.\par
-Přidání dalších sloupů na pravou stranu je možné. Mohly by být přidány například informace o~bodovém hodnocení, pokud budou k~dispozici odpovídající data.
+Přidání dalších sloupců na pravou stranu je možné. Mohly by být přidány například informace o~bodovém hodnocení, pokud budou k~dispozici odpovídající data.
 %možné přidat další sloupce
 \subsection{Další prvky}
 Mezi další součásti vizualizace patří tyto prvky:
@@ -756,7 +756,7 @@ Vytvořená vizualizace byla integrována do Angular aplikace a~později byla za
 %Kořenová komponenta obsahuje dvě komponenty \verb|GameAnalysisComponent| a \verb|ColumnHeaderComponent|, které tvoří uživatelské rozhraní.\par
 Uživatelské rozhraní je tvořeno dvěma komponentami \verb|GameAna|\-\verb|lysisComponent| a~\verb|ColumnHeaderComponent|, které jsou součástí kořenové komponenty. Zahrnuje také dvě direktivy určené pro manipulaci s~vizualizací. Komponenta vizualizace pak využívá dvou služeb pro načítání dat.
 \subsection{Komponenty}
-Hlavní komponentou je \verb|GameAnalysisComponent|, která vykresluje téměř všechny části vizualizace. V~závislosti na požadovaném zdroji dat využívá jednu ze služeb pro načítání pomocí REST API nebo z~CSV souboru. Poté na získaných datech provede řazení a~filtrování popsané v~podkapitole~\ref{interaction} a~postupně vykreslí všechny uvedené části vizualizace~\ref{chartStructure}.\par
+Hlavní komponentou je \verb|GameAnalysisComponent|, která vykresluje téměř všechny části vizualizace. V~závislosti na požadovaném zdroji dat využívá jednu ze služeb pro načítání pomocí REST API nebo z~CSV souboru. Poté na získaných datech provede řazení a~filtrování a~postupně vykreslí všechny uvedené části vizualizace~\ref{chartStructure}.\par
 Druhá komponenta \verb|ColumnHeaderComponent| představuje ovládací prvky umožňující řazení týmů ve vizualizaci. Každý z~těchto ovládacích prvků je tvořen jednou instancí komponenty. Obsahuje popisek sloupce (team, time), nad kterým se má řadit, případně popisek úrovně, podle jejíž délky se mají týmy seřadit. Řazení je provedeno po kliknutí na tento popisek, přičemž se střídá vzestupné a~sestupné pořadí.
 
 \subsection{Direktivy} \label{directives}
@@ -887,7 +887,7 @@ Otestovány jsou také obě služby pro načítání dat. Testovány jsou násle
 \end{itemize}
 
 \chapter{Závěr}
-Výsledkem této práce je portlet s~integrovanou aplikací vizualizace, která je postavena na frameworku Angular a~knihovně D3.js. Portlet je určen pro nasazení do webového portálu Kybernetického polygonu za účelem vizualizace průběhu bezpečnostních her, které se v~prostředí KYPO odehrávají. Vizualizace poskytuje přehled o~postupu hráčů znázorněním doby strávené v~každé úrovni a~porovnáním s~časovým plánem. Zobrazuje akce poukazující na problémy a~poskytuje srovnání jednotlivých týmů pomocí řazení. Mezi další funkce patří filtrování týmů, přibližování grafu vizualizace a~také dvě zobrazení poskytující lehce odlišný pohled.\par
+Výsledkem této práce je portlet s~integrovanou aplikací vizualizace, která je postavena na frameworku Angular a~knihovně D3.js. Portlet je určen pro nasazení do webového portálu Kybernetického polygonu za účelem vizualizace průběhu bezpečnostních her, které se v~prostředí KYPO odehrávají. Vizualizace poskytuje přehled o~postupu hráčů znázorněním doby strávené v~každé úrovni a~porovnání s~časovým plánem. Zobrazuje akce poukazující na problémy a~poskytuje srovnání jednotlivých týmů pomocí řazení. Mezi další funkce patří filtrování týmů, přibližování grafu vizualizace a~také dva typy zobrazení poskytující lehce odlišný pohled.\par
 Vizualizace byla implementována za použití reálných dat z~CSV souborů, na jejichž základě byly oproti původnímu návrhu přidány nebo upraveny některé vlastnosti. Později byla přidána možnost načítání dat skrze REST API, což v~budoucnosti umožní vizualizovat data hry již v~jejím průběhu.\par
 Pro budoucí použití by bylo vhodné, aby aplikace mohla získávat reálné informace o~časových limitech jednotlivých úrovní hry, které je nyní nutné udržovat pouze v~rámci konfigurace.\par
 Výsledný portlet je otestován a~nasazen na testovacím serveru KYPO. Vizualizace je nyní napojena na dočasnou náhradu API s~jedním vzorkem dat a~je připravena na přepnutí na produkční REST API změnou URL v~konfiguraci. Také je možné vizualizovat data z~CSV souboru jeho nahráním skrze tlačítko v~aplikaci.
@@ -925,7 +925,7 @@ Archiv závěrečné práce obsahuje následující elektronické přílohy:
 \begin{itemize}
   \item \verb|portlet_ctf_progress.war| – výsledný war archiv portletu,
   \item \verb|source-portlet-ctf-progress.zip| – zdrojové soubory portletu s aplikací,
-  \item \verb|user_events_log.csv| – CSV soubor obsahující data jedné CtF hry.
+  \item \verb|user_events_log.csv| – CSV soubor obsahující záznamy jedné CtF hry.
 \end{itemize}
 
 \end{document}
